@@ -18,10 +18,15 @@
 - algorithm should produce a result.
 - algorithm should actually complete and not take an infinite amount of time - it should complete in a finite amount of time. 
 
-## 
+## Time Complexity & Space Complexity - 
+- time complexity basically means the time it takes for an algo to finish a task. Best case - 1, worst case - n.
+- space complexity means the space it takes for the algo on RAM (or the space it occupies) to run and complete its task. The best case here would be for an algo to take as less of space as possible to complete its task so that other running programs dont get hampered. 
 
 
+## Linear Search - 
+- takes as much time as there are elements to go over - n-times.
+	- best case runtime - 1
+	- avg case runtime - n/2
+	- worst case runtime - n
 
-
-Linear Search - 
 - 
