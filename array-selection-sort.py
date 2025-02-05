@@ -8,8 +8,27 @@ print('Unsorted array: ', arr)
 # length of array
 len_array=len(arr)
 
+# #looping through array - outer
+# for i in range(len_array-1):
+#     min_index = i
+    
+#     #looping through array - inner
+
+#     for j in range(i+1, len_array):
+#         if arr[j] < arr[min_index]:
+#             min_index = j
+    
+#     min_value = arr.pop(min_index)
+#     arr.insert(i, min_value)
+
+# #printing sorted array
+# print('Sorted array: ', arr)
+
+
+#improved selection sort
+
 #looping through array - outer
-for i in range(len_array-1):
+for i in range(len_array):
     min_index = i
     
     #looping through array - inner
@@ -17,9 +36,8 @@ for i in range(len_array-1):
     for j in range(i+1, len_array):
         if arr[j] < arr[min_index]:
             min_index = j
-    
-    min_value = arr.pop(min_index)
-    arr.insert(i, min_value)
 
+    arr[i], arr[min_index] = arr[min_index], arr[i]
+ 
 #printing sorted array
 print('Sorted array: ', arr)
