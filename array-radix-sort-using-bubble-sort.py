@@ -37,5 +37,7 @@ def radixSortWithBubbleSort(newArray):
 
         exp *= 10
 
+    return newArray
+
 #printing sorted array
 print('Sorted array: ', radixSortWithBubbleSort(arr))
