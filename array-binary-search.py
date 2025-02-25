@@ -28,6 +28,7 @@ def binarySearch(arr, targetVal):
     return -1
 
 
+
 # adding a sorting algo here to sort the unsorted array
 # length of array
 len_array=len(arr)
@@ -48,4 +49,8 @@ for i in range(len_array):
 print('Sorted array: ', arr)
 
 result = binarySearch(arr, targetVal)
-print(result)
+
+if result != -1:
+    print ('Value', targetVal, 'found at ', result)
+else:
+    print('Target value', targetVal, 'not found in array.')
