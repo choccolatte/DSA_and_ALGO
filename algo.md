@@ -2772,4 +2772,17 @@ print("'Adele' has hash code:",hash_set.hash_function('Adele'))
 
 ### Direct Access in Hash Maps
 
-- 
+- Searching for `Charolotte`, or any item in Hash Map, we must use the social security number, 123-4567 (in context of the example), - the hash map key, which generates the hash code 8, as explained before.
+- this means we can go straight to bucket `8` to get her name (the Hash Map value), without searching through other entries in the Hash Map.
+- in cases like this, we say that the Hash Map has constant time O(1) for searching, adding and removing entries, which is really fast compared to using an array or a linked list.
+- But in the worst case scenario, all the people are stored in the same bucket, and if the person we're trying to find is the last person in this bucket, we need to compare with all the other social security numbers in that bucket before we find the person we are looking for.
+- in such a worst case scenario, the Hash Map has time complexity of O(n) which is the same time complexity as arrays and linked lists.
+- to keep the Hash Maps fast, it is therefore important to have a hash function that will distribute the entries evenly between the buckets, and to have around as many buckets as Hash Map entries.
+- Having a lot more buckets than Hash Map entries is a waste of memory, and having a lot less buckets than Hash Map entries is a waste of time - so you have to compromise here, between space and time.
+
+**Note:**
+- A social security number can be really long, like 11 digits, which means it is possible to store 100 billion people with unique social security numbners. this is a lot more than in any country's population, and even a lot more than there are people on Earth.
+- Using an array, where each person's social security number is the index in the array where this person is stored, is therefore a huge waste of space(mostly empty buckets.)
+- using a Hash Map(or a database with similar properties), makes more sense as the number of buckets can be adjusted to the number of people.
+
+### Hash Map Implementation
