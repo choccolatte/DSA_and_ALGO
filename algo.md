@@ -2870,4 +2870,26 @@ print("Name associated with '123-4570': ", hash_map.get("123-4570"))
 
 ## Trees
 
-- The tree
+- The tree data structure is similar to Linked Lists, in that each node contains data and can be linked to other nodes.
+- Data structures like Arrays, Linked Lists, Stacks and Queues, are all linear structures, which means that each element follows directly after another in a sequence. Trees however, are different.
+- In a Tree, a single element can have multiple 'next' elements, allowing the data structure to branch out in various directions.
+- the data structure is called a 'tree' because it looks like a tree, only upside down, like a family tree.
+
+- The tree data structure can be useful in many cases - 
+    - **Hierarchical Data** - file systems, organizational models, etc.
+    - **Databases** - used for quick data retrieval.
+    - **Routing Tables** - USed for routing data in network algorithms.
+    - **Sorting/Searching** - used for sorting data and searching for data.
+    - **Priority Queues** - priority queue data structure are commonly implemented using trees, such as binary heaps.
+
+### Tree Terminology and Rules
+
+- The Whole Tree
+- Root Node
+- Edges
+- Nodes
+- Leaf Nodes
+- Child Nodes
+- Parent Nodes
+- Tree Height (h = 2)
+- Tree Size(n = 10)
