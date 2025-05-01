@@ -2884,12 +2884,23 @@ print("Name associated with '123-4570': ", hash_map.get("123-4570"))
 
 ### Tree Terminology and Rules
 
-- The Whole Tree
-- Root Node
-- Edges
-- Nodes
-- Leaf Nodes
-- Child Nodes
-- Parent Nodes
-- Tree Height (h = 2)
-- Tree Size(n = 10)
+- **The Whole Tree** - represents the entire tree.
+- **Root Node** - represents the main/first root at the top from which all other branches branch out - the root of the tree.
+- **Edges** - are all the branches connecting to and from root to nodes - just the branches/arrows/pointers. A link connecting one node to another node.
+- **Nodes** - are all the nodes containing values - even the root is a node - the root node. A node can have zero, one, two or many child nodes. But a node can have only one parent node.
+- **Leaf Nodes** - nodes without links to other child nodes are leaf nodes or leaves.
+- **Child Nodes** - a parent node has links to its child nodes - child nodes are basically all the nodes that branch out of a parent node.
+- **Parent Nodes** - a parent node has links to its child nodes. In other words, all parent nodes have child nodes, if a node doesnt have children/leaves, they are not parent nodes - a root node is also a parent node.
+- **Tree Height (h = 2)** - a tree height is the maximum number of edges/vertices/pointers from the root node to a leaf node.
+- **Tree Size(n = 10)** - is the number of nodes in the tree - all the nodes - from the root to last child nodes.
+- **Height of a Node** - a node's height is the maximum number of edges between the nodes and a leaf node.
+
+
+### Types of Trees
+
+- trees are a fundamental data structure in computer science, used to represent hierarchical relationships. Here, we'll learn about several key types of trees - 
+
+    - Binary Trees:
+    - Binary Search Trees(BSTs):
+    - AVL Trees
+
