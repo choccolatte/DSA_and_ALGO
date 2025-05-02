@@ -2900,7 +2900,14 @@ print("Name associated with '123-4570': ", hash_map.get("123-4570"))
 
 - trees are a fundamental data structure in computer science, used to represent hierarchical relationships. Here, we'll learn about several key types of trees - 
 
-    - Binary Trees:
-    - Binary Search Trees(BSTs):
-    - AVL Trees
+    - Binary Trees: Each node in this tree has up to two children, the left child node and the right child node. This structure is the foundation for more complex trees types like Binary Search Trees and AVL trees.
+    
+    - Binary Search Trees(BSTs): A type of Binary Tree where for each node, the left child node has a lower value, and the right child node has a higher value.
+    
+    - AVL Trees: A type of Binary Search Tree that self-balances so that for every node, the difference in height between the left and right subtrees is at most one. This balance is maintained through rotations when nodes are inserted or deleted.
+
+
+## Binary Trees
+
+-
 
