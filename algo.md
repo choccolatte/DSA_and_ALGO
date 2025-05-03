@@ -2909,5 +2909,23 @@ print("Name associated with '123-4570': ", hash_map.get("123-4570"))
 
 ## Binary Trees
 
--
+- A binary tree is a type of tree data structure where each node can have a maximum of two child nodes, a left child and a right child node.
+- this restriction, that a node can have a maximum of two child nodes, gives us many benefits - 
+    - Algorithms like traversing, searching, insertion, and deletion becomes easier to understand, to implement and they run faster.
+    - Keeping data sorted in a Binary Search Tree (BST) makes searching very efficient.
+    - Balancing trees is easier to do with a limited number of child nodeds, using an AVL Binary TRee for example.
+    - Binary Trees can be represented as arrays, making the tree more memory efficient.
+
+
+### Binary Tree Terminology and Rules
+
+- The Binary Tree
+- Root Node
+- A's Left Child
+- A's Right Child
+- B's subtree
+- Tree Size(n = n)
+- Tree height(n = n)
+- Child Nodes
+- Parent/Internal Nodes
 
