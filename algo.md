@@ -2919,13 +2919,26 @@ print("Name associated with '123-4570': ", hash_map.get("123-4570"))
 
 ### Binary Tree Terminology and Rules
 
-- The Binary Tree
-- Root Node
-- A's Left Child
-- A's Right Child
-- B's subtree
-- Tree Size(n = n)
-- Tree height(n = n)
-- Child Nodes
-- Parent/Internal Nodes
+- The Binary Tree - the entire binary tree.
+- Root Node -  the main node, parent node of the tree from which all child nodes originate.
+- A's Left Child - A is a child of the parent node, and C is A's left child.
+- A's Right Child - A is a child of the parent node, and D is A's right child.
+- B's subtree -  B is a child of the parent node, from B another sub-tree emerges, which goes till a height of 2.
+- Tree Size(n = n) - represents the number of all children nodes present in the tree, including the parent node.
+- Tree height(n = n) - the tallest/longest height of the tree, the maximum number of edges from the root node to a leaf node.
+- Child Nodes - all nodes that emerge from the parent/root node and its sub nodes.
+- Parent/Internal Nodes - represents the parent/root node, or internal node, in a Binary Tree is a node with one or two child nodes.
 
+
+### Binary Trees vs Arrays and Linked Lists
+
+Benefits of Binary Trees over arrays and linked lists - 
+    - Arrays are fast when you want to access an element directly, like element number 700 in an array of 1000 elements for example. But inserting and deleting elements require other elements to shift in memory to make place for the new element, or to take the deleted elements place, and that is time consuming.
+    - Linked Lists are fast when inserting or deleting nodes, no memory shifting is needed, but to access an element inside the list, the list must be traversed, and that takes time.
+    - Binary Trees, such as Binary Search Trees and AVL Trees, are great compared to Arrays and Linked Lists because they're BOTH fast at accessing a node, AND fast when it comes to deleting or inserting a node, with no shifts in memory needed.
+
+
+### Types of Binary Trees
+
+-
+ 
