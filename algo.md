@@ -2940,5 +2940,48 @@ Benefits of Binary Trees over arrays and linked lists -
 
 ### Types of Binary Trees
 
--
+- there are different variants, or types of Binary Trees worth discussing to get a better understanding of how Binary Trees can be structured.
+- the different kinds of Binary Trees are also worth mentioning now as these words and concepts will be used later in the notes.
+- Here're short explanations of different types of Binary Tree structures -
+    - A **balanced Binary Tree** has at most 1 in the difference between its left and right sub-tree heights, for each node in the tree.
+    - A **complete Binary Tree** has all the levels full of nodes, except the last level, which can also be full, or filled from left to right. The properties of a complete Binary Tree means it is also balanced.
+    - A **full Binary Tree** is a kind of tree where each node has either 0 or 2 child nodes.
+    - A **perfect Binary Tree** has all leaf nodes on the same level, which means that all levels are full of nodes, and all internal nodes have two child nodes. The properties of a perfect Binary Tree means it is also full, balanced, and complete.
+
  
+### Binary Tree Implementation
+
+- Here,  we are creating a Binary Tree structure where each node can be linked to both its left and right child nodes, instead of linking each node to one next node.
+
+`
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+root = TreeNode('R')
+nodeA = TreeNode('A')
+nodeB = TreeNode('B')
+nodeC = TreeNode('C')
+nodeD = TreeNode('D')
+nodeE = TreeNode('E')
+nodeF = TreeNode('F')
+nodeG = TreeNode('G')
+
+root.left = nodeA
+root.right = nodeB
+
+nodeA.left = nodeC
+nodeA.right = nodeD
+
+nodeB.left = nodeE
+nodeB.right = nodeF
+
+nodeF.left = nodeG
+
+#Test
+print("root.right.left.data:", root.right.left.data)
+`
+
+
