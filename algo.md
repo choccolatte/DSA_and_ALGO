@@ -2985,3 +2985,21 @@ print("root.right.left.data:", root.right.left.data)
 `
 
 
+### Binary Tree Traversal
+
+- Going through a tree by visiting every node, one at a time, is called traversal.
+- Since Arrays and Linked Lists are linear data structures, there is only one obvious way to traverse these: start at the first element, or node, and continue to visit the next until you have visited them all.
+- But since a tree can branch out in different directions (non-linear), there are different ways of traversing Trees.
+- There are two main categories of Tree Traversal methods - 
+    - Breadth First Search(BFS) - it is when the nodes on the same level are visited before going to the next level in the tree. This means that the tree is explored in a more sideways direction.
+    - Depth First Search(DFS) - it is when the traversal moves down the tree all the way to the leaf nodes, exploring the tree branch by branch in a downwards direction.
+
+- There are three different types of DFS traversals - 
+    - Pre order
+    - In order
+    - Post order
+
+
+## Pre-order Traversal
+
+- pre-order traversal is a type of DFS, where every node is visited in a certain 
