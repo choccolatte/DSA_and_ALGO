@@ -3002,4 +3002,27 @@ print("root.right.left.data:", root.right.left.data)
 
 ## Pre-order Traversal
 
-- pre-order traversal is a type of DFS, where every node is visited in a certain 
+- pre-order traversal is a type of DFS, where every node is visited in a certain order.
+- pre-order traversal is done by visiting the root node first, then recursively do a pre-order traversal of the left suubtree, followed by a recursive pre-order traversal of the right subtree. Its used for creating a copy of the tree, prefix notation of an expression tree, etc.
+- This traversal is 'pre' because the node is visited 'before' the recursive pre-order traversal of the left and right subtrees.
+
+- this is how the code for pre-order traversal looks like - 
+- example in py
+`
+def preOrderTraversal(node):
+    if node is None:
+        return
+    print(node.data, end = ", ")
+    preOrderTraversal(node.left)
+    preOrderTraversal(node.right)
+`
+
+- here, the first node to be printed is node R, as the Pre-order traversal works by first visiting,  or printing, the current node (line 4 of example), before calling the left and right child nodes recursively (line 5 and 6 of example).
+
+- the `preOrderTraversal()` function keeps traversing the left subtree recursively (line 5 of example), before going on to traversing the right subtree (line 6 of ex). So, the next nodes that are printed are 'A' and then 'C'.
+
+- the first time the argument `node` is `None`, is when the left child of node C is given as an argument (C has no left child).
+
+-  After `None` is returned the first time when calling C's left child, C's right child also returns `None`, and then the recursive calls continue to propogate back so that A's right child D is the next to be printed.
+
+- The code continues to propagate back so that the rest of the nodes in the R's right subtree gets printed.
