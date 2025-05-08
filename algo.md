@@ -3026,3 +3026,35 @@ def preOrderTraversal(node):
 -  After `None` is returned the first time when calling C's left child, C's right child also returns `None`, and then the recursive calls continue to propogate back so that A's right child D is the next to be printed.
 
 - The code continues to propagate back so that the rest of the nodes in the R's right subtree gets printed.
+
+
+## In-Order Traversal of Binary Trees
+
+- In-Order Traversal is a type of DFS, where each node is visited in a certain orer - basically it runs an entire line of nodes in a edge/line. Then, it'll go to the next node of the next line, and so on.
+
+- In-Order Traversal does a recursive In-Order Traversal of the left subtree in a tree, visits the root node, and finally, does a recursive In-Order Traversal of the right subtree. This traversal is mainly used for Binary Search Trees, where it returns values in ascending order.
+
+- What makes this traversal 'in' order, is that the node is visited in between the recursive function calls. The node is visited after the In-Order Traversal of the left subtree, and before the In-Order Traversal of the right subtree.
+
+- example of In-Order Traversal in python
+`
+def inOrderTraversal(node):
+    if node is None:
+        return
+    inOrderTraversal(node.left)
+    print(node.data, end = ",")
+    inOrderTraversal(node.right)
+`
+
+### Explanation
+
+- here, the `inOrderTraversal()` function kefeps calling itself with the current left child node as an argument (line 4 of ex) until  the argument is `None`, and the function returns (line 2-3 of ex).
+- The first time the argument `node` is `None`, is when the left child of node C is given as an argument (C has no left child).
+- After that, the `data` part of node C is printed (Line 5 of ex), which means that 'C' is the first thing that gets printed.
+- Then, node C's right child is given as an argument (line 6 of ex), which is `None`, so the function call returns without doing anything else.
+- After 'C' is printed, the previous `inOrderTraversal()` function calls continue to run, so that 'A' gets printed, then 'D' gets printed, then 'R', and so on.
+
+
+## Post-Order Traversal in Binary Trees
+
+- 
