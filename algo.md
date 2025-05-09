@@ -3057,4 +3057,17 @@ def inOrderTraversal(node):
 
 ## Post-Order Traversal in Binary Trees
 
-- 
+- Post-Order Traversal is a type of DFS, where each node is visited in a certain order - basically it goes deep, and gets the last node first, then goes to the second deepest/last node, and so on.
+- It works by recursively doing a Post-Order Traversal of the left subtree and the right subtree, followed by a visit to the root node. It is used for deleting a tree, post-fix notation of an expression tree, etc.
+- What makes this traversal 'Post' is that visiting a node is done 'after' the left and right child nodes are called recursively.
+
+- example of Post-Order Traversal in python 
+`
+def postOrderTraversal(node):
+    if node is None:
+        return
+
+    postOrderTraversal(node.left)
+    postOrderTraversal(node.right)
+    print(node.data, end = ", ")
+`
