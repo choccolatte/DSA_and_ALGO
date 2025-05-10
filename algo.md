@@ -3087,4 +3087,38 @@ def postOrderTraversal(node):
 - But in case we read fromm the Binary Tree a lot more than we modify it, an array implementation of a Binary Tree can make sense as it needs less memory, it can be easier to implement, and it can be faster for certain operations due to cache locality.
 
     **Cache Locality**
-    - 
+    - is when the fast cache memory in the computer stores parts of memory that was recently accessed, or when the cache stores parts of memory that is close to the address that is currently accessed. This happens because it is likely that the CPU needs something in the next cycle that is close to what it used in the previous cycle, either close in time or close in space.
+    - Since Array elements are stored contiguously in memory, one element right after the other, computers are sometimes faster when reading from arrays because the next element is already cached, available for fast access in case the CPU needs it in the next cycle.
+
+- Consider a Binary tree with Root node - R
+    - left child node - A
+        - left child of A - C
+        - right child of A - D
+    - right child node - B
+        - left child of B - E
+        - right child of B - F
+            - child of F - G
+
+- this Binary tree can be stored in an array starting with the root node R on index 0. The rest of the tree can be built by taking a ndoe stored on index i, and storing its left child node on index 2.i + 1, and its right child node on index 2.i + 2.
+
+- here is an array implementation of Binary tree in py - 
+`
+binary_tree_array = ['R', 'A', 'B', 'C', 'D', 'E', 'F', None, None, None, None, None, None, 'G']
+
+def left_child_index(index):
+    return 2 * index + 1
+
+def right_child_index(index):
+    return 2 * index + 2
+
+def get_data(index)
+    if 0 <= index < len(binary_tree_array):
+        return binary_tree_array[index]
+    return None
+
+right_child = right_child_index(0)
+left_child_of_right_child = left_child_index(right_child)
+data = get_data(left_child_of_right_child)
+
+print("root.right.left.data: ", data)
+`
