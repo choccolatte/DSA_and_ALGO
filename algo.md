@@ -3083,3 +3083,8 @@ def postOrderTraversal(node):
 
 ## Array Implementation of Binary Trees
 
+- to avoid the cost of all the shifts in memory that we get from using an Array, it is useful to implement Binary Trees with pointers from one element to the next, just like Binary Trees are implemented before this point, especially when the Binary Tree is modified often.
+- But in case we read fromm the Binary Tree a lot more than we modify it, an array implementation of a Binary Tree can make sense as it needs less memory, it can be easier to implement, and it can be faster for certain operations due to cache locality.
+
+    **Cache Locality**
+    - 
