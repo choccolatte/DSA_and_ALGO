@@ -3122,3 +3122,11 @@ data = get_data(left_child_of_right_child)
 
 print("root.right.left.data: ", data)
 `
+
+- in the array implementation, since the Binary Tree nodes are placed in an array, much of the code is about accessing nodes using indexes, and about how to find the correct indexes.
+
+- lets say, we want to find the left and right child nodes of node B. Because B is on index 2, B's left child is on index 2.2 + 1 = 5, which is node E, right? And B's right child is on index 2.2 + 2 = 6, which is node F, adn that also fits with the code above right?
+
+- as we can see on line 1, this implementation requires empty array elemenets where nodes have no child nodes. So, to avoid wasting space on an empty array elements, Binary Trees stored using Array implementation should be a 'perfect' Binary Tree, or a nearly perfect one.
+
+- 
