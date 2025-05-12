@@ -3129,4 +3129,4 @@ print("root.right.left.data: ", data)
 
 - as we can see on line 1, this implementation requires empty array elemenets where nodes have no child nodes. So, to avoid wasting space on an empty array elements, Binary Trees stored using Array implementation should be a 'perfect' Binary Tree, or a nearly perfect one.
 
-- 
+- a perfect Binary Tree is when every internal node have exactly two child nodes, and all leaf nodes are on the same level.
