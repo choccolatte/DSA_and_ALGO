@@ -3130,3 +3130,54 @@ print("root.right.left.data: ", data)
 - as we can see on line 1, this implementation requires empty array elemenets where nodes have no child nodes. So, to avoid wasting space on an empty array elements, Binary Trees stored using Array implementation should be a 'perfect' Binary Tree, or a nearly perfect one.
 
 - a perfect Binary Tree is when every internal node have exactly two child nodes, and all leaf nodes are on the same level.
+
+- if we remove the G node in the Binary Tree we're talking about, we would get a perfectly equal branched node.
+
+- and the first line in the code above can be written without space on empty array elements - 
+
+`
+binary_tree_array = ['R', 'A', 'B', 'C', 'D', 'E', 'F']
+`
+
+- this is how the three different DFS traversals can be done on an Array Implementation on a Binary Tree -
+
+`
+binary_tree_array = ['R', 'A', 'B', 'C', 'D', 'E', 'F', None, None, None, None, None, None, 'G']
+
+def left_child_index(index):
+    return 2 * index + 1
+
+def right_child_index(index):
+    return 2 * index + 2
+
+def pre_order(index):
+    if index >= len(binary_tree_array) or binary_tree_array[index] is None:
+        return []
+    return [binary_tree_array[index]] + pre_order(left_child_index(index)) + pre_order(right_child_index(index))
+
+def in_order(index):
+    if index >= len(binary_tree_array) or binary_tree_array[index] is None:
+        return []
+    return in_order(left_child_index(index)) + [binary_tree_array[index]] + in_order(right_child_index(index))
+
+def post_order(index):
+    if index >= len(binary_tree_array) or binary_tree_array[index] is None:
+        return []
+    return post_order(left_child_index(index)) + post_order(right_child_index(index)) + [binary_tree_array[index]]
+
+print("Pre-order Traversal:", pre_order(0))
+print("In-order Traversal:", in_order(0))
+print("Post-order Traversal:", post_order(0))
+`
+
+- here, by comparing how these traversals are done in an array implementation to how the pointer implementation was traversed, you can see that the pre-order, in-order, and post-order traversals works in the same recursive way.
+
+
+
+## Binary Search Trees
+
+- A Binary Search Tree is a Binary Tree where every node's left child has a lower value, and every node's right child has a higher value.
+
+- a clear advantage with Binary Search Trees is that operations like search, delete, and insert are fast and done without having to shift values in memory.
+
+### Binary Search Trees
