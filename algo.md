@@ -3181,3 +3181,68 @@ print("Post-order Traversal:", post_order(0))
 - a clear advantage with Binary Search Trees is that operations like search, delete, and insert are fast and done without having to shift values in memory.
 
 ### Binary Search Trees
+
+- a Binary Search Tree(BST) is a type of Binary Tree data structure, where the following properties must be true for any node "X" in the tree:
+    - the X node's left child and all of its descendants (children, children's children, and so on) have lower values than X's value.
+    - The right child, and all of its descendants have higher values than X's value.
+    - Left and right subtrees must also be Binary Search Trees.
+
+- these properties makes it faster to search, add, and delete values than a regular binary tree.
+
+- to make this as easy to understand and implement as possible, lets assume that all values in a Binary Search Tree are unique.
+
+### Binary Search Tree Concepts and Relevant Terminology
+
+- Binary Search Tree(BST)
+- Tree Size(n = n)
+- Root Node
+- 7's Left Child
+- 7's Right Child
+- Tree Height(h = n)
+- 15's Height(h = n)
+- 13's Right Subtree
+- 13's in-order Successor
+- Child Nodes
+- Parent/Internal Nodes
+- Leaf Nodes
+
+
+### Traversal of Binary Search Tree
+
+`
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+def inOrderTraversal(node):
+    if node is None:
+        return
+    inOrderTraversal(node.left)
+    print(node.data, end = ", ")
+    inOrderTraversal(node.right)
+
+root = TreeNode(13)
+node7 = TreeNode(7)
+node15 = TreeNode(15)
+node3 = TreeNode(3)
+node8 = TreeNode(8)
+node14 = TreeNode(14)
+node19 = TreeNode(19)
+node18 = TreeNode(18)
+
+root.left = node7
+root.right = node15
+
+node7.left = node3
+node7.right = node8
+
+node15.left = node14
+node15.right = node19
+
+node19.left = node18
+
+#Traverse
+inOrderTraversal(root)
+`
