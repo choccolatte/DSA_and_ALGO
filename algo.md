@@ -3193,19 +3193,23 @@ print("Post-order Traversal:", post_order(0))
 
 ### Binary Search Tree Concepts and Relevant Terminology
 
-- Binary Search Tree(BST)
-- Tree Size(n = n)
-- Root Node
-- 7's Left Child
-- 7's Right Child
-- Tree Height(h = n)
-- 15's Height(h = n)
-- 13's Right Subtree
-- 13's in-order Successor
-- Child Nodes
-- Parent/Internal Nodes
-- Leaf Nodes
+- **Binary Search Tree(BST)** - the entire BST tree.
+- **Tree Size(n = n)** - the size of the BST tree. Represents the number of nodes in it (n).
+- **Root Node** - represents the main/root node of the BST.
+- **7's Left Child** - 7 is one of the branches of root node (13), and its left child is 3.
+- **7's Right Child** - 7 is one of the branches of root node (13), and its right child is 8.
+- **Tree Height(h = n)** - represents the single longest indices/path from root node to the last node possible in any left or right sides of the tree.
+- **15's Height(h = n)** - represents the single longest indices/path from node 15 to the last node possible in any left or right sides of the sub-tree. A node's height is the maximum number of edges between that node and a leaf node.
+- **13's Right Subtree** - represents the entire subtree available on the right side of the tree.
+- **13's in-order Successor** - here will be 14. Why? Because in-order successor is the node that comes after it if we were to do in-order traversal.  In-order traversal of the BST here would result in node 13 coming before node 14, and so, the successor of node 13 is node 14.
+- **Child Nodes** - represents all the child nodes present in the tree leaving the root node.
+- **Parent/Internal Nodes** - represents the nodes (including the root node) which has other child nodes coming out of it.
+- **Leaf Nodes** - represents the last nodes in a BST - either left or right side of the tree.
 
+
+- **tree's descendants** - descendants of a node are all the child nodes of that node, and all their child nodes, and so on. Just start with a node, and the descendants will be all the nodes that are connected below that node. 
+
+- **Subtree** - starts with one of the nodes in the tree as a local root, and consists of that node and all of its descendants.
 
 ### Traversal of Binary Search Tree
 
