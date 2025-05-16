@@ -3213,6 +3213,12 @@ print("Post-order Traversal:", post_order(0))
 
 ### Traversal of Binary Search Tree
 
+- just to confirm that we actually have a Binary Tree data structure in front of us, we can just check if the properties at the top of the notes are true. So, for every node in the code, check if all of the values to the left of the node are lower, and that all the values to the right are higher.
+
+- another way to check if a Binary Tree is BST, is to do an in-order traversal(like we did before - Implementation section), and check if the resulting list of the values are in an increasing order.
+
+- here's the code for an implementation of the Binary Search Tree with traversal - 
+
 `
 class TreeNode:
     def __init__(self, data):
@@ -3249,4 +3255,36 @@ node19.left = node18
 
 #Traverse
 inOrderTraversal(root)
+`
+
+- as we can see by running the code example above, the in-order traversal produces a list of numbers in an increasing (ascending) order, which means that this Binary Tree is a Binary Search Tree.
+
+### Search for a Value in a BST
+
+- Searching for a value in a BST is very similar to how we found a value using Binary Tree on an array.
+
+- For Binary Tree to work, the array must be sorted already, and searching for a value in an array can then be done really fast.
+
+- Similarly, searching for a value in a BST can also be done really fast becasue of how the nodes are placed.
+
+
+- **How it works?**
+
+1. Start at the root node.
+2. If this is the value we are looking for, return.
+3. If the value we are looking for is higher, continue searching in the right subtree.
+4. If the value we are looking for is lower, continue searching in the left subtree.
+5. If the subtree we want to search does not exist, depending on the programming language, return `None` or `NULL`, or something similar, to indicate that the value is not inside the BST.
+
+- implementation in python - 
+`
+def search(node, target):
+    if node is None:
+        return None
+    elif node.data == target:
+        return Node
+    elif target < node.data:
+        return search(node.left, target)
+    else:
+        return search(node.right, target)
 `
