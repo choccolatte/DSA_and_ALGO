@@ -3288,3 +3288,43 @@ def search(node, target):
     else:
         return search(node.right, target)
 `
+
+- the time complexity for searching a BST for a value is Big O(h), where h is the height of the tree.
+- for a BST with most nodes on the right side of example, the height of the tree becomes larger than it needs to be, and the worst case search will take longer. Such trees are called unbalanced.
+
+- in case of looking at differences btw Balanced BST and UnBalanced BST, if both the trees have the same number of nodes, and in-order traversal of both trees gives us the same result but the height is very different. It takes longer time to search the unbalanced tree above because it is higher.
+
+- Compared to the BST, a different type of Binary Tree called the AVL Tree - which are self balancing, which means that the height of the tree is kept to a minimum so that operations like search, insertion and deletion takes less time.
+
+
+### Insert a Node in BST
+
+- Inserting a node in BST is similar to searching for a value.
+
+**How it works?**
+1. Start at the root node.
+2. Compare each node:
+    - Is the value lower? Go left
+    - Is the value higher? Go right.
+3. Continue to compare nodes with the new value until there is no right or left to compare with. That is where the new node is inserted.
+
+- Inserting nodes as described above means that an inserted node will always become a new leaf node.
+
+- All nodes in the BST are unique, so in case we find the same value as the one we want to insert, we do nothing.
+
+- implementation of inserting a node in BST - 
+`
+def insert(node, data):
+    if node is None:
+        return TreeNode(data)
+    else:
+        if data < node.data:
+            node.left = insert(node.left, data)
+        elif data > node.data:
+            node.right = insert(node.right, data)
+    return node
+`
+
+### Find the Lowest Value in a BST Subtree
+
+- 
