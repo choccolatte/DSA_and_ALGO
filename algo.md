@@ -3327,4 +3327,78 @@ def insert(node, data):
 
 ### Find the Lowest Value in a BST Subtree
 
-- 
+- before we can delete a node in BST, we first need a function that finds the lowest value in a node's subtree - 
+
+**How it works?**
+1. Start at the root node of the subtree.
+2. Go left as far as possible.
+3. The node you end up in is the node with the lowest value in that BST subtree.
+
+- suppose we have a BST with 13 as the root node, 7 as left node - 3 (7's left), 8(7's right), 15 as the right node - 14(15's left), 19(15's right), here, if we keep going left, we end up in node 3, which is the lowest value in the BST.
+
+- And, if we start at node 15, and keep going left, we end up in node 14, which is the lowest value in node 15's subtree.
+
+- in py implementation
+`
+def minValueNode(node):
+    current = node
+    while current.left is not None:
+        current = current.left
+    return current
+`
+
+- now, we can use the `minValueNode()` function to find a node's in-order successor, and use that to delete a node.
+
+
+### Delete a Node in a BST
+
+- to delete a node, our function must first search the BST to find it.
+
+- after the node is found there are three different cases where deleting a node must be done differently.
+
+**How it works?**
+1. If the node is a leaf node, remove it by removing the link to it.
+2. If the node only has one child node, connect the parent node of the node you want to remove to that child node.
+3. If the node has both right and left child nodes: Find the node's in-order successor, change the values with that node, then delete it.
+
+- in step 3 above, the successor we find will always be a leaf node, and because its the node that comes right after the ndoe we want to delete, we can swap values with it and delete it.
+
+- suppose, we have a BST with 13 as its root node, 7 as its left node - 7 -> 3(left), 8(right), 15 as its right node - 15 -> 14(left), 19(right) -> 18(left).
+
+
+- deleting node 8.
+    - Node 8 here is a leaf node (case 1), so, after we find it, we can just delete it.
+
+- deleting node 19.
+    - Node 19 has only one child node (case 2). To delete node 19, the parent node 15 is connected directly to node 18, and then node 19 can be removed.
+
+- deleting node 13.
+    - Node 13 has two child nodes (case 3). We find the successor, the node that comes right after during in-order traversal, by finding the lowest node in node 13's right subtree, which is node 14. Value 14 is then put into node 13, and then we can delete node 14.
+
+- this is how a BST can be implemented with functionality for deleting a node - implementing in py - 
+
+`
+def delete(node, data):
+    if not node:
+        return None
+
+    if data < node.data:
+        node.left = delete(node.left, data)
+    elif data > node.data:
+        node.right = delete(node.right, data)
+    else:
+        #Node with only one child or no child
+        if not node.left:
+            temp = node.right
+            node = None
+            return temp
+        elif not node.right:
+            temp = node.left
+            node = None
+            return temp
+
+        #Node with two children, get the in-order successor
+        node.data = minValueNode(node.right).data
+        node.right = delete(node.right, node.data)
+    return node
+`
