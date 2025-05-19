@@ -3402,3 +3402,35 @@ def delete(node, data):
         node.right = delete(node.right, node.data)
     return node
 `
+
+- line 1 of ex - the `node` argument here makes it possible for the function to call itself recursively on smalller and smaller subtrees in the search for the node with the `data` we want to delete.
+
+- line 2-8 of ex - this is searching for the node with the correct `data` that we want to delete.
+
+- line 9-22 of ex - the node we want to delete has been found. There are three such cases - 
+    - Case 1: Node with no child nodes (leaf node). `None` is returned, and that becomes the parent node's new left or right value by recursion (Line 6 or 8).
+    - Case 2: Node with either left or right child node. That left or right child node becomes the parent's new left or right child through recursion(line 7 or 9).
+    - Case 3: Node has both left and right child nodes. The in-order successor is found using the `minValueNode()` function.  We keep the successor's value by setting it as the value of the node we want to delete, and then, we can delete the successor node.
+
+- Line 24 of ex - `node` is returned to maintain the recursive functionality.
+
+
+### BST Compared to Other Data Structures
+
+- Binary Search Tree takes the best from two other data structures - Arrays andn Linked Lists.
+
+| Data Structure | Searching for a value | Delete/ Insert leads to shifting in memory |
+---------------------------------------------------------
+| Sorted Array | Big O(log n) | Yes |
+| Linked Lists | Big O (n) | No |
+| BST | Big O (log n) | No |
+
+
+- Searching a BST is just as fast as Binary Search on an array, with the same time complexity - Big O(log n).
+
+- And deleting and inserting new values can be done without shifting elements in memory, just like with Linked Lists. So, BST gets the best of both data structures.
+
+
+### BST Balance and Time Complexity
+
+- 
