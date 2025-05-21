@@ -3447,5 +3447,28 @@ def delete(node, data):
 
 - So,, to optimize operations on a BST, the height must be minimized, and to do that, the tree must be balanced.
 
-- And keeping a Binary Search Tree balanced is exactly what AVL Trees do. 
+- And keeping a Binary Search Tree balanced is exactly what AVL Trees do.
 
+
+## AVL Trees
+
+- The AVL Tree is a type of Binary Search Tree named after two Soviet inventors Georgy Adelson- Velsky and Evegenii Landis, who invented the AVL tree in 1962.
+- AVL Trees are self-balancing, which means that the tree height is kept to a minimum so that a very fast runtime is guarnteed for searching, inserting, and deleting nodes, with time complexity - Big O(log n).
+
+- The only difference between a regular BST and an AVL tree is that AVL trees do rotation operations in addition, to keep the tree balance.
+- a BST is in balance when the difference in height between the left and right subtrees is less than 2.
+- by keeping balance, the AVL Tree ensures a minimum tree height, which means that search, insert, and delete operations can be done really fast.
+
+- lets say for example, we have a BST (unbalanced) of height 6, and an AVL Tree (self-balancing) of height 3. The two trees are both Binary Search Trees, they have the same nodes, and the same in-order traversal (alphabetical), but the height is very different because the AVL Tree has balanced itself.
+
+### Workings of an AVL Tree
+
+- an AVL tree works by inserting values to the nodes, then using a condition, if the root node is greater than a value, it will rotate left or right and self balance the tree.
+
+#### Left and Right Rotations
+
+- to restore balance in an AVL tree, left or right rotations are done, or a combination of left and right rotations.
+- if any left or right rotation happens in the tree, the subtree changes its parent. Subtrees change parent in this way during rotation to maintain the correct in-order traversal, and to maintain the BST property that the left child is less than the right child, for all the nodes in the tree.
+- Also, keep in mind that it is not always the root node that becomes unbalanced and need rotation.
+
+#### The Balance Factor
