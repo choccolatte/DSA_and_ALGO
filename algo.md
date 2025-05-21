@@ -3433,4 +3433,19 @@ def delete(node, data):
 
 ### BST Balance and Time Complexity
 
-- 
+- On a Binary Search Tree, operations like inserting a new node, deleting a node, or searching for a node are actually Big O(h). That means that the higher the tree is (h), the longer the operation will take.
+
+- The reason why we wrote that searching for a value is Big O(log n) in the table above is because that is true if the tree is 'balanced' - Balanced BST - where the left and right branches are almost the same numbers and spread.
+
+- A balanced BST is called so because there are approximately the same number of nodes on the left and right sides of the tree.
+
+- the exact way to tell that a Binary Tree is balanced is that the height of the left and right subtrees of any node only differs by one. For example, if in a BST, the left subtree of the root node has a height of h = 2, and the right subtree has a height of h = 3.
+
+- For a balanced BST, with a large number of nodes (big n), we get height h ~ log 2 n, and therefore the time complexity for searching, deleting, or inserting a node can be written as Big O(h) = Big O(log n).
+
+- But, in case the BST is completely unbalanced, for example, lets assume the height of the tree is approximately the same as the number of nodes, h ~ n, and we get time complexity Big O(h) = Big O(n), searching, deleting, or inserting a node.
+
+- So,, to optimize operations on a BST, the height must be minimized, and to do that, the tree must be balanced.
+
+- And keeping a Binary Search Tree balanced is exactly what AVL Trees do. 
+
