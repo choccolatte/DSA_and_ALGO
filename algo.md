@@ -3471,4 +3471,28 @@ def delete(node, data):
 - if any left or right rotation happens in the tree, the subtree changes its parent. Subtrees change parent in this way during rotation to maintain the correct in-order traversal, and to maintain the BST property that the left child is less than the right child, for all the nodes in the tree.
 - Also, keep in mind that it is not always the root node that becomes unbalanced and need rotation.
 
-#### The Balance Factor
+### The Balance Factor
+
+- A node's balance factor is the difference in subtree heights.
+- The subtree heights are stored at each node for all the nodes in an AVL Tree, and the balance factor is calculated based on its subtree heights to check if the tree has become out of balance.
+- The height of a subtree is the number of the edges between the root node of the subtree and the leaf node farthest down in that subtree.
+
+    - The Balance Factor (BF) for a node (X) is the difference in the height between its right and left subtrees.
+
+    - BF(X) = height(rightSubtree(X) - height(leftSubtree(X)))
+
+    - Balance factor values : 
+        - 0 - the node is in balance
+        - more than 0 - the node is 'right heavy'
+        - less than 0 - the node is 'left heavy'
+
+    - If the balance factor is less than -1, or more than 1, for one or more nodes in the tree, the tree is considered not in balance, and a rotation operation is needed to restore balance.
+
+- Now, we'll see the different rotation operations that an AVL tree can do to regain balance.
+
+#### The Four 'out-of-balance" Cases
+
+- when the balance factor of just one node is less than -1, or more than 1, the tree is regarded as out of balance, and a restoration is needed to restore balance.
+
+- There are four different ways an AVL Tree can be out of balance, and each of these cases require a different rotation operations.
+
