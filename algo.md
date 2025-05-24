@@ -3496,3 +3496,6 @@ def delete(node, data):
 
 - There are four different ways an AVL Tree can be out of balance, and each of these cases require a different rotation operations.
 
+| Case | Description | Rotation to Restore Balance |
+-------------------------------------------------
+| Left-Left (LL) | The unbalanced node and its left child node are both left-heavy. | A single right rotation. |
