@@ -3499,3 +3499,27 @@ def delete(node, data):
 | Case | Description | Rotation to Restore Balance |
 -------------------------------------------------
 | Left-Left (LL) | The unbalanced node and its left child node are both left-heavy. | A single right rotation. |
+
+| Right-Right (RR) | The unbalanced node and its right child node are bnoth right heavy. | A single left rotation. |
+
+| Left-Right (LR) | The unbalanced node is left heavy, and its left child node is right heavy. | First, do a left rotation on the left child node, then do a right rotation on the unbalanced node. |
+
+| Right-Left (RL) | The unbalanced node is right heavy, and its right child node is left heavy. | First, do a right rotation on the right child node, then do a left rotation on the unbalanced node. |
+
+
+#### The Left-Left (LL) Case
+
+- the node where the unbalance is discovered is left heavy, and the node's left child node is also left heavy.
+
+- When this LL case happens, a single right rotation on the unbalanced node is enough to resotre balance.
+
+- In a LL case, two LL cases happen - 
+    1. When D is added to a tree of P(left) and Q (root), the balance factor of Q becomes -2, which means the tree is unbalanced. This is an LL case because both the unbalance node Q and its left child node P are left heavy (negative balalce factors). A single right rotation at node Q restores the tree balance.
+    2. After nodes L, C, and B are added, P's balance factor is -2, which means the tree is out of balance. This is also an LL case because both the unbalanced node P and its left child node D are left heavy. A singel right rotation restores the balance.
+
+    - Note: The second time the LL case happens in the above case, a right rotation is done, and L goes from being the right child of D to being the left child of P. Rotations are done like that to keep the correct in-order traversal ('B, C, D, L, P, Q' in the case above). ANother reason for changing the parent when a rotation is done is to keep the BST property, that the left child is always lower than the node, and that the right child is always higher.
+
+#### The Right-Right (RR) Case
+
+- 
+
