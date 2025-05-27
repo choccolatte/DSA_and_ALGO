@@ -3521,5 +3521,161 @@ def delete(node, data):
 
 #### The Right-Right (RR) Case
 
-- 
+- a right-right case happens when a node is unbalanced and right heavy, and the right child node is also right heavy.
 
+- A single left rotation at the unbalanced node is enough to restore balance in the RR case.
+
+- lets take an exaple of a root node - A, and a right node B, here, we see how the RR case happens and when - 
+    
+    1. When node D is inserted, A becomes unbalanced, and bot A and B are right heavy. A left rotation at node A restores the tree balance.
+
+    2. After ndoes E, C, and F are inserted, node B becomes unbalanced. This is an RR case because both node B and its right child node D are right heavy. A left notation restores the tree balance.
+
+
+#### The Left-Right (LR) Case
+
+- the left-right case is when the unbalanced node is left heavy, but its child node is right heavy.
+
+- In this LR case, a left rotation is first done on the left child node, and then a right rotation is done on the original unbalanced node.
+
+- in an example of root node - Q, and left node E, we will see the LR case happen 2 times, and rotation operations are required and done to restore balance - 
+
+    1. When K is inserted at left, node Q (root) gets unbalanced with a balance factor of -2, so it is left heavy, and its left child E is right heavy, so this is a left-right case.
+
+    2. After nodes C, F, and G are inserted, node K becomes unbalanced and left heavy, with its left child node E right heavy, so its a left-right case.
+
+
+#### The Right-Left (RL) Case
+
+- the right-left case is when the unbalanced node is right heavy, and its right child node is left heavy.
+
+- in this case, we first do a right rotation on the unbalanced node's right child, adn then we do a left rotation on the unbalanced node itself.
+
+- lets take an example of an AVL - root node - A, and right node - F, and see where and when the righ-left case happens - 
+
+    1. After inserting node B at E's left node, we get a right-left case because node A becomes unbalanced and right heavy, and its right child is left heavy. TO restore balance, a right rotation is first done on node F, and then a left rotation is done on node A.
+
+    2. the next right-left case occurs after nodes G, (inserted at right of node F), E (inserted at left of node F), and D, (inserted at left of node E), are added. This is a right-left case because node B is unbalanced and right heavy, and its right child F is left heavy. TO restore balance, a right rotation is first done on node F, and then a left rotation is done on node B.
+
+
+### Retracing in AVL Trees
+
+- after inserting or deleting a node in an AVL tree, the tree may become unbalanced. To find out if the tree is unbalancecd, we need to update the heights and recalcualte the balance factors of all ancestor nodes.
+
+- This process, known as retracing, is handled through recursion. As the recursive calls propagate back to the root after an insertion or deletion, each ancestor node's height is updated and the balance factor is recalculated. If any ancestor node is found to have a balance factor outside the range of -1 to 1, a rotation is performed at that node to restore the tree's balance.
+
+    - suppose we take an example tree where node C is the root node, E is right node, and B is left node. If we add node F at the end of the right node (at the final right node), the nodes C, E, and H (all child nodes of node E), are all unbalanced, but sincec retracing works through recursion, the unbalance at node H is discovered and fixed first, which in this case also fixes the unbalance in nodes E and C.
+
+    - after node F is inserted, the code will retrace, calculating balancing factors as it propagates back up towards the root node. When node H is reached, and the balancing factor -2 is calculated, a right rotation is done. Only after this rotation is done, the code will continue to retrace, calculating balancing factors further up on ancestor nodes E and C.
+
+    - Because of the rotation, balancing factors for nodes E and C stay the same as before node F was inserted.
+
+
+### AVL Insert Node Implementation
+
+- this code below is based on the BST implementation on the previous topic, for inserting nodes.
+
+- there is only one new attribute for each node in the AVL tree compared to the BST, and that is height, but there are many new functions and extra code lines needed for the AVL tree implementation because of how the AVL tree rebalances itself.
+
+- the implementation below builds an AVL tree based on a list of characters. The last node inserted here will be 'F', also triggers a right rotation - 
+
+- code in py
+`
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+        self.height = 1
+
+def getHeight(node):
+    if not node:
+        return 0
+    return node.height
+
+def getBalance(node):
+    if not node:
+        return 0
+    return getHeight(node.left) - getHeight(node.right)
+
+def rightRotate(y):
+    print('Rotate right on node', y.data)
+    x = y.left
+    T2 = x.right
+    x.right = y
+    y.left = T2
+    y.height = 1 + max(getHeight(y.left), getHeight(y.right))
+    x.height = 1 + max(getHeight(x.left), getHeight(x.right))
+    return x
+
+def leftRotate(x):
+    print('Rotate left on node', x.data)
+    y = x.right
+    T2 = y.left
+    y.left = x
+    x.right = T2
+    x.height = 1 + max(getHeight(x.left), getHeight(x.right))
+    y.height = 1 + max(getHeight(y.left), getHeight(y.right))
+    return y
+
+def insert(node, data):
+    if not node:
+        return TreeNode(data)
+
+    if data < node.data:
+        node.left = insert(node.left, data)
+    elif data > node.data:
+        node.right = insert(node.right, data)
+
+    # Update the balance factor and balance the tree
+    node.height = 1 + max(getHeight(node.left), getHeight(node.right))
+    balance = getBalance(node)
+
+    # Balancing the tree
+    #LEFT LEFT
+    if balance > 1 and getBalance(node.left) >= 0:
+        return rightRotate(node)
+
+    # LEFT RIGHT
+    if balance > 1 and getBalance(node.left) < 0:
+        node.left = leftRotate(node.left)
+        return rightRotate(node)
+
+    # RIGHT RIGHT
+    if balance < -1 and getBalance(node.right) <= 0:
+        return leftRotate(node)
+
+    # RIGHT LEFT
+    if balance < -1 and getBalance(node.right) > 0:
+        node.right = rightRotate(node.right)
+        return leftRotate(node)
+
+    return node
+
+def inOrderTraversal(node):
+    if node is None:
+        return
+    inOrderTraversal(node.left)
+    print(node.data, end = ", ")
+    inOrderTraversal(node.right)
+
+# inserting nodes
+root = None
+letters = ['C', 'B', 'E', 'A', 'D', 'H', 'G', 'F']
+for letter in letters:
+    root = insert(root, letter)
+
+inOrderTraversal(root)
+
+`
+
+### AVL Delete Node Implementation
+
+- when deleting a node that is not a leaf node, the AVL tree requires the `minValueNode()` function to find a node's next node in the in-order traversal. This is the same as when deleting a node in a binary search tree, as explained in the prev main topic.
+
+- to delete a node in an AVL tree, the same code to restore balance is needed as for the code to insert a node - 
+
+- code in py
+`
+
+`
