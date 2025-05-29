@@ -3733,3 +3733,48 @@ def delete(node, data):
     
     return node
 `
+
+### Time Complexity for AVL Trees
+
+- comparing two trees - BST(unbalanced) and AVL. If we want to search for the last node in both the trees, in BST, it would mean all nodes except the node we're searchinf for much be compared. But searching for the same node in an AVL tree only requires us to visit 'h' nodes (depending on the height of the tree.)
+
+- So, in worst case, algorithms like search, insert, and delete must run through the whole height of the tree. This means that keeping the height (h) of the tree low, like we do using AVL trees, gives us a lower runtime.
+
+- See the comparison of the time complexities between BST and AVL Trees below, and how the time complexities relate to the height (h) of the tree, and the number of nodes (n) in the tree - 
+    
+    - The BST is not self-balancing. This means that a BST can be very unbalanced, almost like a long chain, where the height is nearly the same as the number of nodes. This makes the operations like searching, deleting and inserting the nodes slow, with time complexity Big O(h) = Big O(n).
+
+    - the AVL Tree however, is self balancing. That means that the height of the tree is kept to a minimum so that operations like searching, deleting and inserting nodes are much faster, with time complexity Big O(h) = Big O(log n).
+
+### Big O(log n) explained
+
+- the fact that the time complexity is Big O(h) = Big O(log n) for search, insert and delete on an AVL Tree with height h and nodes can be explained like this - 
+
+    - imagine a perfect Binary Tree where all nodes have two child nodes except on the lowest level.
+    - Then, the number of nodes on each level in such an AVL tree are - 1, 2, 4, 8, 16, 32,...
+    - which is the same as - 2(pow0), 2(pow1), 2(pow2), 2(pow3), 2(pow4), 2(pow5),...
+    - to get the number of nodes n in a perfect Binary Tree with height h = 3, we can add the number of nodes on each level together:
+        - n3 = (pow0), 2(pow1), 2(pow2), 2(pow3) = 15
+    - which is actually the same as - n3 = s(pow4 - 1) = 15
+    - and this is actually the case for larger trees as well! If we want to get the number of nodes n in a tree with height h = 5 for example, we find the number of nodes like this - n5 = 2(pow6 - 1) = 63
+    - so, in general, the relationship between the height h of a perfect Binary Tree and the number of nodes in it n, can be expressed as - 
+        - nh = 2(pow h + 1) - 1
+    
+    - Note: the formula above can also be found by calculating the sum of the geometric series 2(pow0) + 2(pow1) + 2(pow2) + 2(pow3) + .... + 2(pown)
+
+    - we know that the time complexity for searching, deleting or inserting a node in an AVL tree is Big O(h), but we want to argue that the time complexity is actually Big O(log (n)), so we need to find the height h described by the number of ndoes n:
+        - n = 2(pow h + 1) - 1
+        - n + 1 = 2(pow h + 1)
+        - log2(n+1) = log2(2(pow h + 1))
+        - h = log2(n + 1) - 1
+         
+        - Big O(h) = Big O(log n)
+
+    - How the last line above is derived might not be obvious, but for a Binary Tree with a lot of nodes (big n), the "+1" and "-1" terms are not important when we consider time complexity.
+
+    - the math above shows that the time complexity for search, delete and insert operations on an AVL Tree Big O(h), can actually be expressed as Big O(log n), which is fast, a lot faster than the time complexity for BST which is Big O(n).
+
+
+## Graphs
+
+- 
