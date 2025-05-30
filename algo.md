@@ -3777,4 +3777,101 @@ def delete(node, data):
 
 ## Graphs
 
-- 
+- a graph is a non-linear data structure that consists of vertices(nodes) and edges.
+- a vertex, also called a node, is a point or an object in the Graph, and an edge is used to connect two vertices with each other.
+- Graphs are non-linear because the data structure allows us to have different paths to get from one vertex to another, unlike with linear data structures like arrays or linked lists.
+- Graphs are used to represent and solve problems where the data consists of objects and relationships between them, such as - 
+    - Social Networks - each person is a vertex, and relationships(like friendships) are the edges. Algorithms can suggest potential friends.
+    - Maps and Navigation - locations, like a town or bus stops, are stored as vertices, and roads are stored as edges. Algorithms can find the shortest route between the two locations when stored as a Graph.
+    - Internet - Can be represented as a Graph, with web pages as vertices and hyperlinks as edges.
+    - Biology - Graphs can model systems like neural networks or the spread of diseases.
+
+
+### Graph Properties
+
+- Here are the properties and terms linked with Graphs, to help you understand it better - 
+
+    - Weighted - a weighted graph is a graph where the edges have values. Meaning, the edges have numbers, these numbers can be anything. The weight value of an edge can represent things like distance, capacity, time, or probability.
+
+    - Connected - a connected graph is when all the vertices are connected through edges somehow. A graph that is not connected, is a Graph with isolated (disjoint) subgraphs, or single isolated vertices.
+
+    - Directed - also known as a digraph, is when the edges between the vertex pairs have a direction (A -> B). The direction of an edge can represent things like hierarchy or flow.
+
+    - Cyclic - A cyclic graph is defined differently depending on whether it is directed or not - 
+        - a Directed cyclic graph is when you can follow a path along the directed edges that goes in circle. Removing the directed edge from one node(vertices) to another makes the directed Graph not cyclic anymore.
+        - An undirected cyclic graph is when you can come back to the same vertex you started at without using the same edge more than once. The undirected Graph is cyclic because we can start and end up in another vertes without using the same edge twice.
+
+    - Loop - also called a self-loop, is an edge that begins and ends on the same vertex. A loop is a cycle that only consists of one edge. By adding the loop on any vertex in a Graph, it becomes cyclic.
+
+
+### Graph Representations
+
+- a graph representation tells us how a graph is stored in memory.
+- different graph representations can:
+
+    - take up more or less space.
+    - be faster or slower to search or manipulate.
+    - be better suited depending on what type of graph we have (weighted, directed, etc.) and what we want to do with the graph.
+    - be easier to understand and implement than others.
+
+- There are many different graph representations, but here, we'll be using Adjacency Matrix moving forward, as its easy to understand and implement, and it also works in all cases relevant.
+- Graph representations store information about which vertices are adjacent, and how the edges between the vertices are. Graph representations are slightly different if the edges are directed or weighted.
+- Two vertices are adjacent, or neighbors, if there is an edge between them.
+
+
+### Adjacency Matrix Graph Representation
+
+- Adjacency Matrix is the Graph representation (structure) here.
+- the Adjacency Matrix is a 2D array (matrix) where each cell on index `(i, j)` stores information about the edge from vertex `i` to vertex `j`.
+
+- for example, lets say we have a graph of A-D, where each of them are connected to each other, except D, which is only connected to A. Here's what its adjacency matrix representation will look like - 
+
+        A B C D
+    A     1 1 1
+    B   1   1 
+    C   1 1
+    D   1
+
+- the adjacency matrix above represents an undirected Graph, so the values '1' only tells us where the edges are. Also, the values in the adjacency matrix is symmetrical because the edges go both ways (undirected graph).
+- To create a directed Graph with an adjacency matrix, we must decide which vertices the edges go from and to, by inserting the value at the correct indexes `(i, j)`. To represent a weighted Graph, we can put other values than '1' inside the adjacency matrix.
+
+- if we decide to create a directed and weighted Graph with the adjacency matrix representation, it will look like this.
+
+        A B C D
+    A     3 2 
+    B    
+    C     1
+    D   4
+
+- in the adjacency matrix above, the value `3` on index `(0, 1)` tells us that there is an edge from vertex A to vertex B, and the weight for that edge is `3`.
+
+- as you can see, the weights are placed directly into the adjacency matrix for the correct edge, and for a directed Graph, the adjacency matrix does not have to be symmetric.
+
+
+### Adjacency List Graph Representation
+
+- in case we have a 'sparse' Graph with many vertices, we can save space by using an Adjacency List compared to using an Adjacency Matrix, because an Adjacency Matrix would reserve a lot of memory on empty Array elements for edges that dont exist.
+- A 'sparse' graph is a Graph where each vertex only has edges to a small portion of the other vertices in the Graph.
+- An Adjacency List has an array that contains all the vertices in the Graph, and each vertex has a Linked List (or Array) with the vertex's edges.
+
+- eg. of an Adjacency List 
+      A -> 3 -> 1 -> 2 -> null
+      B -> 0 -> 2 -> null
+      C -> 1 -> 0 -> null
+      D -> 0 -> null
+
+- in the adjacency list above, the vertices A to D are placed in an array, and each vertex in the array has its index written right next to it.
+- each vertex in the array has a pointer to a linked list that represents that vertex's edges. More specifically, the linked list contains the indexes to adjacent (neighbor) vertices.
+- So, for example, vertex A has a link to a Linked List with values 3, 1, and 2. These values are the indexes to A's adjacent vertices D, B and C.
+
+- an adjacency list can also represent a directed and weighted graph, like this - 
+- eg. of an Adjacency List representing a directed and weighted graph
+      A -> 1,3 -> 2,2 -> null
+      B -> null
+      C -> 1,1 -> null
+      D -> 0,4 -> null
+
+- in the Adjacency List above, the vertices are stored in an array, each vertex has a pointer to a Linked List with edges stored as `i,w`, where `i` is the index of the vertex the edge goes to, and `w` is the weight of that edge.
+- Node D for example, has a poitner to a Linked List with an edge to vertex A. The values `0,4` means that vertex D has an edge to vertex on index `0` (vertex A), and the weight of that edge is `4`.
+
+
