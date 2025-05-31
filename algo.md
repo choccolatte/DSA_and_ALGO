@@ -3875,3 +3875,44 @@ def delete(node, data):
 - Node D for example, has a poitner to a Linked List with an edge to vertex A. The values `0,4` means that vertex D has an edge to vertex on index `0` (vertex A), and the weight of that edge is `4`.
 
 
+## Graphs Implementation
+
+### A basic graph implementation
+
+- before we can run algorithms on a Graph, we must first implement it somehow.
+
+- to implement a graph, we will use an Adjacency matrix, like the one below - 
+        A B C D
+    A     1 1 1
+    B   1   1
+    C   1 1
+    D   1
+
+- to store data for each vortex, in this case the letters A, B, C and D, the data is put in a seperate array that matches the indexes in the adjacency matrix, like this - 
+- vertexData = ['A', 'B', 'C', 'D']
+
+- For an undirected and not weighted Graph, like in the graph above, an edge between vertices `i` and `j` is stored with value `1`. It is stored as `1` on both places `(j, i)` and `(i, j)` because the edge goes in both directions. As you can see, the matrix becomes diagonally symmetric for such undirected Graphs.
+- Lets look at somethiong more specific. In the adjacency matrix above, vertex A is on index `0`, and vertex D is on index `3`, so we get the edge between A and D stored as value `1` in position `(0, 3)` and `(3, 0)`, because the edge goes in both directions.
+
+- here's an implementation of the undirected Graph from the image above in py - 
+
+`
+vertexData = ['A", 'B', 'C', 'D']
+
+adjacency_matrix = [
+    [0, 1, 1, 1], # edges for A
+    [1, 0, 1, 0], # edges for B
+    [1, 1, 0, 0], # edges for C
+    [1, 0, 0, 0] # edges for D
+]
+
+def print_adjacency_matrix(matrix):
+    print("\nAdjacency Matrix: ")
+    for row in matrix:
+        print(row)
+
+print('vertexData:', vertexData)
+print_adjacency_matrix(adjacency_matrix)
+`
+
+- 
