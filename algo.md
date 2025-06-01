@@ -3915,4 +3915,142 @@ print('vertexData:', vertexData)
 print_adjacency_matrix(adjacency_matrix)
 `
 
+- this implementation is basically just a two dimensional array, but to get a better sense of how the vertices are connected by edges in the Graph we have just implemented, we can run this function - 
+
+`
+def print_connections(matrix, vertices):
+    print("\nConnections for each vertex:")
+    for i in range(len(vertices)):
+        print(f"{vertices[i]}:", end="")
+        for j in range(len(vertices)):
+            if matrix[i][j]:  # if there is a connection
+                print(vertices[j], end=" ")
+        print() # prints new line
+`
+
+### GRaph Implementation using Classes
+
+- a more proper way to store a graph is to add an abstraction layer using classes so that a Graph's vertices, edges, and relevant methods, like algorithms that we will implement later, are contained in one place.
+
+- Programming languages with built-in object-oriented functionality like Python and Java, make implementation of Graphs using classes much easier than languages like C, without this built-in functionality.
+
+- an undirected Graph's adjacency Matrix
+
+    -   A B C D
+      A   1 1 1
+      B 1   1
+      C 1 1
+      D 1
+
+- here's how the undirected Graph above can be implemented using classes in python - 
+
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = 1
+            self.adj_matrix[v][u] = 1
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+
+    def print_graph(self):
+        print("Adjacency Matrix:)
+        for row in self.adj_matrix:
+            print(' '.join(map(str, row)))
+        print("\nVertex Data:")
+
+        for vertex, data in enumerate(self.vertex_data):
+            print(f"Vertex {vertex} : {data}")
+
+g = Graph(4)
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_edge(0, 1) # A - B
+g.add_edge(0, 2) # A - C
+g.add_edge(0, 3) # A - D
+g.add_edge(1, 2) # B - C
+
+g.print_graph()
+`
+
+- in the code above, the matrix symmetry we get for undirected Graphs is provided for on lines - '            self.adj_matrix[u][v] = 1
+self.adj_matrix[v][u] = 1' - and this saves us some code when initializing the edges in the Graph on lines - 
+g.add_edge(0, 1) # A - B
+g.add_edge(0, 2) # A - C
+g.add_edge(0, 3) # A - D
+g.add_edge(1, 2) # B - C.
+
+### Implementation of Directed and Weighted Graphs
+
+- to implement a Graph that is directed and weighted, we just need to do a few changes to previous implementation of the undirected Graph.
+
+- to create directed Graphs, we just need to remove line 10 in the previous example code above - self.adj_matrix[v][u] = 1, so that the matrix is not automatically symmetric anymore.
+
+- the second change we need to do is to add a `weight` argument to the `add_edge()` method, so that instead of just having value `1` to indicate that there is an edge between two vertices, we use the actual weight value to define the edge.
+
+- implementation of a directed and weighted graph - 
+-     A B C D
+    A   3 2
+    B
+    C   1
+    D 4
+
+- in python using Class- 
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[None] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self,  u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = weight
+            # self.adj_matrix[v][u] = weight
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+
+    def print_graph(self):
+        print("Adjacency Matrix: ")
+        for row in self.adj_matrix:
+            print(' '.join(map(lambda x: str(x) if x is not None else '0', row)))
+        print("\nVertex Data:")
+        for vertex, data in enumerate(self.vertex_data):
+            print(f"Vertex{vertex} : {data}")
+
+g = Graph(4)
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_edge(0, 1, 3)  # A -> B with weight 3
+g.add_edge(0, 2, 2)  # A -> C with weight 2
+g.add_edge(3, 0, 4)  # D -> A with weight 4
+g.add_edge(2, 1, 1)  # C -> B with weight 1
+
+g.print_graph()
+`
+
+- here, this line - self.adj_matrix = [[None] * size for _ in range(size)] - represents, all edges are set to `None` initially.
+
+- on line - def add_edge(self,  u, v, weight):
+ - the weight can now be added to an edge with additional `weight` argument.
+
+- on line - # self.adj_matrix[v][u] = weight - by removing this line (commenting), the Graph can now be set up as being directed.
+
+
+## Graphs Traversal
+
 - 
+
