@@ -4052,5 +4052,19 @@ g.print_graph()
 
 ## Graphs Traversal
 
-- 
+- to traverse a Graph means to start in one vertex, and go along the edges to visit other vertices untl all vertices, or as many as possible, have been visited.
+
+- Understanding how a graph can be traversed is important for understanding how algorithms that run on Graphs work.
+
+- The two most common ways a Graph can be traersed are - 
+    - Depth First Search (DFS)
+    - Breadth First Search (BFS)
+
+- DFS is usually implemented using a Stack, or by the use of recursion (which utilizes the call stack), while BFS is usually implemented using a Queue.
+
+- **Note:**
+    - the `call stack` keeps functions running in the correct order.
+    - if for example, FunctionA calls FunctionB, FunctionB is placed on top of the call stack and starts running. Once FunctionB is finished, it is then removed from the stack, and then FunctionA resumes its work.
+
+
 
