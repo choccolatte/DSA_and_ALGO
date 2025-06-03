@@ -4067,4 +4067,148 @@ g.print_graph()
     - if for example, FunctionA calls FunctionB, FunctionB is placed on top of the call stack and starts running. Once FunctionB is finished, it is then removed from the stack, and then FunctionA resumes its work.
 
 
+### Depth First Search Traversal (DFS)
 
+- DFS is said to go 'deep' because it visits a vertex, then an adjacent vertex, and then that vertex' adjacent vertex, and so on, and in this way, the distance from the starting vertex increases for each recursive iteration.
+
+- **How it works?**
+
+    1. Start DFS traversal on a vertex.
+    2. Do a recursive DFS traversal on each of the adjacent vertices as long as they are not already visited.
+
+- if we use this traversal pattern on a graph, we see that DFS traversal starts in vertex D(lets say x), marks D as visited. Then, for every new vertex visited, the traversal method is called recursively on all adjacent vertices that have not been visited yet. So, when vertex A is visited (parernt node of D), vertex C or vertex E(depending on the implementation - C is adjacent to A, E is adjacent to D), is the next vertex where the traversal continues.
+
+- Example in code - in py - 
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[10] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = 1
+            self.adj_matrix[v][u] = 1
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+
+    def print_graph(self):
+        print("Adjacency Matrix:")
+        for row in self.adj_matrix:
+            print(' '.join(map(str, row)))
+        print("\nVertex Data:")
+        
+        for vertex, data in enumerate(self.vertex_data):
+            print(f"Vertex {vertex}: {data}")
+
+    def dfs_util(self, v, visited):
+        visited[v] = True
+        print(self.vertex_data[v], end=' ')
+
+        for i in range(self.size):
+            if self.adj_matrix[v][i] == 1 and not visited[i]:
+                self.dfs_util(i, visited)
+
+    def dfs(self, start_vertex_data):
+        visited = [False] * self.size
+        start_vertex = self.vertex_data.index(start_vertex_data)
+        self.dfs_util(start_vertex, visited)
+
+g = Graph(7)
+
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_vertex_data(4, 'E')
+g.add_vertex_data(5, 'F')
+g.add_vertex_data(6, 'G')
+# <!-- g.add_vertex_data(7, 'H')
+# g.add_vertex_data(8, 'I')
+# g.add_vertex_data(9, 'J') -->
+
+g.add_edge(3, 0) # D - A
+g.add_edge(0, 2)  # A - C
+g.add_edge(0, 3)  # A - D
+g.add_edge(0, 4)  # A - E
+g.add_edge(4, 2)  # E - C
+g.add_edge(2, 5)  # C - F
+g.add_edge(2, 1)  # C - B
+g.add_edge(2, 6)  # C - G
+g.add_edge(1, 5)  # B - F
+
+g.print_graph()
+
+print("\nDFS starting from vertex D: ")
+g.dfs('D')
+`
+
+- line g.dfs('D') - 
+    - the DFS traversal starts when the `dfs()` method is called.
+
+- line visited = [False] * self.size - 
+    - the `visited` array is first set to `false` for all vertices, because no vertices are visited yet at this point.
+
+- line self.dfs_util(start_vertex, visited) -
+    - the `visited` array is sent as an argument to the `dfs_util()` method. When the `visited` array is sent as an argument like this, it is usually just a reference to the `visited` array thjat is sent to the `dfs_util()` method, and not the actual array with the values inside. So, there is always just one `visited` array in our program, and the `dfs_util()` method can make changes to it as nodes are visited (line - visited[v] = True)
+
+- line for i in range(self.size):
+            if self.adj_matrix[v][i] == 1 and not visited[i]:
+                self.dfs_util(i, visited) - 
+    
+    - for the current vertex `v`, all adjacent nodes are called recursively if they are not already visited.
+
+
+### Breadth First Search (BFS) Traversal
+
+- BFS visits all adjacent vertices of a vertex before visiting the neighboring vertices to the adjacent vertices. This means that vertices with the same distance from the starting vertex are visited before vertices further away from the starting vertex are visited.
+
+- **How it works?**
+    
+    1. Put the starting vertex into the queue.
+    2. For each vertex taken from the queue, visit the vertex, then put all unvisited adjacent vertices into the queue.
+    3. Continue as long as there are vertices in the queue.
+
+- BFS traversal visits vertices the same distance from the starting vertex, before visiting vertices further away. So, for example, after visiting verte A, vertex E and C are visited before visiting vertex B, F, and G because those vertices are further away(they have more distance count from the original vertex).
+
+- BFS traversal works this way by putting all adjacent vertices in a queue (if they are not already visited), and then using the queue to visit the next vertex.
+
+- here's the example in python code - 
+
+`
+def bfs(self, start_vertex_data):
+    queue = [self.vertex_data.index(start_vertex_data)]
+    visited = [False] * self.size
+    visited[queue[0]] = True
+
+    while queue:
+        current_vertex = queue.pop(0)
+        print(self.vertex_data[current_vertex], end = ' ')
+
+        for i in range(self.size):
+            if self.adj_matrix[current_vertex][i] == 1 and not visited[i]:
+                visited[i] = True
+`
+
+- line - queue = [self.vertex_data.index(start_vertex_data)]
+    visited = [False] * self.size
+    visited[queue[0]] = True -
+
+    - `bfs()` method starts by creating a queue with the start vertex inside, creating a `visited` array, and setting the start vertex as visited.
+
+- line - while queue:
+        current_vertex = queue.pop(0)
+        print(self.vertex_data[current_vertex], end=' ')
+      
+        for i in range(self.size):
+            if self.adj_matrix[current_vertex][i] == 1 and not visited[i]:
+                queue.append(i)
+                visited[i] = True
+    
+    - the bfs traversal works by taking a vertex from the queue, printing it, and adding adjacent vertices to the queue if they are not visited yet, and then continue to take vertices from the queue in this way. The traversal finishes when the last element in the queue has no unvisited adjacent vertices.
+
+
+### DFS and BFS Traversal of a Directed Graph
