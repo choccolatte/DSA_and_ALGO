@@ -4212,3 +4212,27 @@ def bfs(self, start_vertex_data):
 
 
 ### DFS and BFS Traversal of a Directed Graph
+
+- DFS and BFS traversals can actually be implemented to work on directed Graphs (instead of undirected) with just very few changes.
+
+- to go from traversing a directed Graph instead of an undirected Graph, we just need to remove the last line in the `add_edge()` method we created earlier.
+
+- `
+def add_edge(self, u, v):
+    if 0 <= u < self.size and 0 <= v < self.size:
+        self.adj_matrix[u][v] = 1
+`
+
+- we must also take care when we build our Graph because the edges are now directed.
+
+- the code example below contains both BFS and DFS traversal of the directed Graph in python - 
+
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add
+`
