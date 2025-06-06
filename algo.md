@@ -4324,4 +4324,190 @@ g.bfs('D')
     1. DFS - Depth First Search traversal explores the Graph and marks the vertices as visited. A cycle is detected when the current vertex has an adjacent vertex that has already been visited.
     2. Union-Find - This works by initially defining each vertex as a group, or a subset. Then these groups are joined for every edge. Whenever a new edge is explored, a cycle is detected if two vertices already belong to the same group.
 
+
 ### DFS Cycle Detection for Undirected Graphs
+
+- to detect cycles in an undirected Graph using Depth First Search (DFS), we use a code very similar to the DFS Trraversal code with just a few changes.
+
+- **How it works?**
+    1. Start DFS Traversal on each unvisited vertex (in case the Graph is not connected).
+    2. During DFS, mark vertices as visited, and run DFS on the adjacent vertices (recursively).
+    3. If an adjacent vertex is already visited and is not the parent of the current vertex, a cycle is detected, and `True` is returned.
+    4. If DFS Traversal is done on all vertices and no cycles are detected, `False` is returned.
+
+- the DFS Traversal starts in vertex A, because that is the first vertex in the adjacency matrix. Then, for every new vertex visited, the traversal method is called recursively on all adjacent vertices that have not been visited yet. The cycle is detected when vertex F(last) is visited, adn it is discovered that the adjacent vertex C(middle node connected to A and F - both main nodes) has already been visited.
+
+- code example in python -
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v):
+        if 0 <= u self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = 1
+            self.adj_matrix[v][u] = 1
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex <self.size:
+            self.vertex_data[vertex] = data
+
+    def print_graph(self):
+        print("Adjacency Matrix: ")
+        for row in self.adj_matrix:
+            print(' '.join(map(str, row)))
+        print("\nVertex Data: ")
+
+        for vertex, data in enumerate(self.vertex_data):
+            print(f"Vertex {vertex} : {data}")
+
+    def dfs_util(self, v, visited, parent):
+        visited[v] = True
+
+        for i in range(self.size):
+            if self.adj_matrix[v][i] == 1:
+                if not visited[i]:
+                    if self.dfs_util(i, visited, v):
+                        return True
+                    elif parent != 1:
+                        return True
+        return False
+
+    def is_cyclic(self):
+        visited = [False] * self.size
+        for i in range(self.size):
+            if not visited[i]:
+                if self.dfs_util(i, visited, -1):
+                    return True
+        return False
+
+g = Graph(7)
+
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_vertex_data(4, 'E')
+g.add_vertex_data(5, 'F')
+g.add_vertex_data(6, 'G')
+
+g.add_edge(3, 0)  # D - A
+g.add_edge(0, 2)  # A - C
+g.add_edge(0, 3)  # A - D
+g.add_edge(0, 4)  # A - E
+g.add_edge(4, 2)  # E - C
+g.add_edge(2, 5)  # C - F
+g.add_edge(2, 1)  # C - B
+g.add_edge(2, 6)  # C - G
+g.add_edge(1, 5)  # B - F
+
+g.print_graph()
+
+print("\nGraph has cycle:", g.is_cyclic())
+`
+
+- here, line print("\nGraph has cycle:", g.is_cyclic()) - 
+    - the DFS cycle detection starts when the `is_cyclic()` method is called.
+
+- line visited = [False] * self.size - 
+    - the `visited` array is first set to `false` for all vertices, because no vertices are visited yet at this point.
+
+- lines - for i in range(self.size):
+            if not visited[i]:
+                if self.dfs_util(i, visited, -1):
+                    return True
+          return False
+    - DFS cycle detection is run on all vertices in the Graph. This is to make sure all vertices in case the Graph is not connected. If a node is already visited, there must be a cycle, and `True` is returned. If all nodes are visited just once, which means no cycles are detected, `False` is returned.
+
+- liens - def dfs_util(self, v, visited, parent):
+        visited[v] = True
+
+        for i in range(self.size):
+            if self.adj_matrix[v][i] == 1:
+                if not visited[i]:
+                    if self.dfs_util(i, visited, v):
+                        return True
+                elif parent != i:
+                    return True
+        return False
+    - this is the part of the DFS cycle detection that visits a vertex, and then visits adjacent vertices recursively. A cycle is detected and `True` is returned if an adjacent vertex has already been visited, and it is not the parent node.
+
+
+### DFS Cycle Detection for Directed Graphs
+
+- To detect cycles in Graphs that are directed, the algorithm is still very similar as for undirected Graphs, but the code must be modified a little bit because for a directed Graph, if we come to an adjacent node that has already been visited, it does not necessarily mean that there is a cycle.
+
+- to implement DFS cycle detection on a directed Graph, we need to remove the symmetery we have in the adjacency matrix for undirected Graphs. We also need to use `recStack` array to keep track of visited vertices in the current recursive path.
+
+- example in python - 
+`
+class Graph:
+    # ...
+    def add_edge(self, u, v):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = 1
+            # self.adj_matrix[v][u] = 1
+
+    # ...
+    def dfs_util(self, v, visited, recStack):
+        visited[v] = True
+        recStack[v] = True
+        print("Current vertex: ", self.vertex_data[v])
+
+        for i in range(self.size):
+            if self.adj_matrix[v][i] == 1:
+                if not visited[i]:
+                    if self.dfs_util(i, visited, recStack):
+                        return True
+                elif recStack[i]:
+                    return True
+
+        recStack[v] = False
+        return False
+
+    def is_cyclic(self):
+        visited = [False] * self.size
+        recStack = [False] * self.size
+
+        for i in range(self.size):
+            if not visited[i]:
+                print() # new line
+                if self.dfs_util(i, visited, recStack):
+                    return True
+        return False
+
+g = Graph(7)
+
+# ...
+g.add_edge(3, 0)  # D -> A
+g.add_edge(0, 2)  # A -> C
+g.add_edge(2, 1)  # C -> B
+g.add_edge(2, 4)  # C -> E
+g.add_edge(1, 5)  # B -> F
+g.add_edge(4, 0)  # E -> A
+g.add_edge(2, 6)  # C -> G
+
+g.print_graph()
+
+print("Graph has cycle: ", g.is_cyclic())
+`
+
+- here, line - # self.adj_matrix[v][u] = 1 - omitted
+    - this line is removed because it is only applicable for undirected graphs.
+
+- line - recStack = [False] * self.size - 
+    - the `recStack` array keeps an overview over which vertices have been visited during a recursive exploration of a path.
+
+- line - if self.adj_matrix[v][i] == 1:
+                if not visited[i]:
+                    if self.dfs_util(i, visited, recStack):
+                        return True
+                elif recStack[i]:
+                    return True
+    - for every adjacent vertex not visited before, do a recursive DFS cycle detection. If an adjacent vertex has been visited before, also in the same recursive path (for i in range(self.size):), a cycle has been found, and `True` is returned.
+
+
+### Union-Find Cycle Detection
+
