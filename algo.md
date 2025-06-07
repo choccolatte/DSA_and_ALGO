@@ -4511,3 +4511,15 @@ print("Graph has cycle: ", g.is_cyclic())
 
 ### Union-Find Cycle Detection
 
+- Detecting cycles using Union-Find is very different from using DFS.
+
+- Union-Find Cycle detection works by first putting each node in its own subset (like a bag or a container). Then, for every edge, the subsets belonging to each vertex are merged. For an edge, if the vertices already belong to the same subset, it means that we have found a cycle.
+
+- Union Find Cycle detection is only applicable for Graphs that are undirected.
+- Union Find cycle detection is implemented using the adjacency matrix representation, so setting up the Graph structure with vertices and edges is basically the same as in previous examples.
+
+- example in python -
+`
+
+
+`
