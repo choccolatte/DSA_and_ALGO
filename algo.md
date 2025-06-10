@@ -4595,3 +4595,15 @@ print("Graph has cycle: ", g.is_cyclic())
 
 
 ## Shortest Path
+
+### The Shortest Path Problem
+
+- the shortest path problem is famous in the field of computer science.
+- To solve the shortest path problem means to find the shortest possible route or path between two vertices(or nodes) in a Graph.
+- In the shortest path problem, a Graph can represent anything from a road network to a communication network, where the vertices can be intersections, cities, or routers, and the edges can be roads, flight paths, or data links.
+
+- lets say we have an example graph, in that graph, the shortest path from vertex D(bottomost left) to vertex F(topmost right) in the graph is D -> E -> C -> F, with a total path weight of 2 + 4 + 4 = 10. Other paths from D to F are also possible, but they have a heigher total weight, so they can not be considered to be the shortest path.
+
+### Solutions to the Shortest Path Problem
+
+- 
