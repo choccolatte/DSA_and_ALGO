@@ -4616,9 +4616,21 @@ print("Graph has cycle: ", g.is_cyclic())
 ### Positive and Negative Edge Weights
 
 - Some algorithms that find the shortest paths, like the Dijkstra's algorithm, cna only find the shortest paths in graphs where all the edges are positive. Such graphs with positive distances are also the easiest to understand because we can think of the edges between the vertices as distances between locations.
-- 
+- if we interpret the edge weighs as money lost by going down one vertex to another, a positive edge weight of 4 from vertex A to C in a graph means that we must spend $4 to go from A to C.
+- But graphs can also have negative edges, and for such the Bellman-Ford algorithm can be used to find the shortest paths.
+- and similarly, if the edge weights represent money lost, the negative edge weight -3 from vertex C to A in a graph can be understood as an edge where there is more money to be made than money lost by going from C to A. So, if for example, the cost of fuel is $5 going from C to A, and we get paid $8 for picking up packages in C and delivering them in A, money lost is -3, meaning we are actually earning $3 in total.
 
 
 ### Negative Cycles in Shortest Path Problems
 
-###
+- FInding the shortest paths becomes impossible if a graph has negative cycles.
+- Having a negative cycle means that there is a path where you can go in circles, and the edges that make up this circle have a total path weight that is negative.
+- Lets say, in an example graph, the path A -> E -> B -> C -> A is a negative cycle because the total path weight is 5 + 2 - 4 - 4 = 1.
+- the reason why it is impossible to find the shortest paths in a graphs with negative cycles is that it will always be possible to continue running an algorithms to find even shorter paths.
+- Lets say for example that we are looking for the shortest distance from vertex D in a graph, to all other vertices. At first, we find the distance from D to E to be 3, by just walking the edge D -> E. But after this, if we talk one round in the negative cycle E -> B -> C -> A -> E, then the distance to E becomes 2. After walking one more round the distance becomes 1, which is even shorter, and so on. We can always walk one more round in the negative cycle to find the shorter distance to E, which means the shortest distance cna never be found.
+- Luckily, the Bellman-Ford algorithm, that runs on graphs with negative edges, can be implemented with detection for negative cycles.
+
+
+## Dijkstra's Algorithm
+
+- 
