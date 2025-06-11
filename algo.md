@@ -4606,4 +4606,19 @@ print("Graph has cycle: ", g.is_cyclic())
 
 ### Solutions to the Shortest Path Problem
 
+- Dijkstrea's algorithm and the Bellman-Ford algorithm find the shortest path from one start vertex, to all other vertices.
+- To solve the shortest path problem means to check the edges inside the Graph until we find a path where we can move from one vertex to another using the lowest possible combined weight along the edges.
+- this sum of weights along the edges that mke up a path is called a **path cost** or a **path weight**.
+- algorithms that find the shortest paths, like the Dijkstra's algorithm or the Bellman-Ford algorithm, find the shortest paths from one start vertex to all the other vertices.
+- To begin with, the algorithms set the distance from the start vertex to all vertices to be infinitely long. And as the algorithms run, edges between the vertices are checked over and over, and shorter paths might be found many times until the shortest paths are found at the end.
+- Every time an edge is checked and it leads to a shorter distance to a vertex being found and updated, it is called a **relaxation** or **relaxing an edge**.
+
+### Positive and Negative Edge Weights
+
+- Some algorithms that find the shortest paths, like the Dijkstra's algorithm, cna only find the shortest paths in graphs where all the edges are positive. Such graphs with positive distances are also the easiest to understand because we can think of the edges between the vertices as distances between locations.
 - 
+
+
+### Negative Cycles in Shortest Path Problems
+
+###
