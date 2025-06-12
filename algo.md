@@ -4633,4 +4633,30 @@ print("Graph has cycle: ", g.is_cyclic())
 
 ## Dijkstra's Algorithm
 
+- Dijkstra's shortest path algorithm was invented in 1956 by the Dutch computer scientist Edsger W. Dijkstra's during a twenty minutes coffee break, while out shopping with his fiancee in Amsterdam.
+- The reason for inventing the algorithm was to test a new computer called ARMAC.
+
+- Dijkstra's Algorithm finds the shortest path from one vertex to all other vertices.
+- It does so by repeatedly selecting the nearest unvisited vertex and calculating the distance to all the unvisited neighboring vertices.
+
+- Dijkstra's Algorithm is often considered to be the most straightforward algorithm for solving the shortest path problem.
+- Dijkstra's Algorithm is used for solving single-source shortest path problems for directed or undirected paths. Single-source means that one vertex is chosen to be the start, and the algorithm mwill find the shortest path from that vertex to all other vertices.
+- Dijkstra's Algorithm does not work for graphs with negative edges. For graphs with negative edges, the Bellman-Ford algorithm that can be used instead.
+- To find the shortest path, Dijkstra's Algorithm needs to know which vertex is the source, it needs a way to mark vertices as visited, and it needs an overview of the current shortest distance to each vertex as it works its way through the graph, updating these distances when a shorter distance is found.
+
+**How it works?**
+
+1. Set initial distances for all vertices: 0 for the source vertex, and infinity for all the other.
+2. Choose the unvisited vertex with the shortest distance from the start to be the current vertex. So the algorithm will always start with the source as the current vertex.
+3. FOr each of the current vertex's unvisited neighbor vertices, calculate the distance from the source and update the distance if the new, calculated, distance is lower.
+4. We are now done with the current vertex, so we mark it as visited. A visited vertex is not checked again.
+5. GO back to step 2 to choose a new current vertex, and keep repeating these steps until all vertices are visited.
+6. In the end, we are left with the shortest path from the source vertex to every other vertex in the graph.
+
+**Note:**
+- the basic version of Dijkstra's Algorithm gives us the value of the shortest path cost to every vertex, but not what the actual path is. So, for example, if we get the shortest path cost value 10 to vertex F in a graph, but the algorithm does not give us which vertices (D -> E -> C -> D -> F) that make up this shortest path. We will add this functionality later.
+
+
+### A Detailed Dijkstra's Simulation
+
 - 
