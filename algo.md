@@ -4659,4 +4659,18 @@ print("Graph has cycle: ", g.is_cyclic())
 
 ### A Detailed Dijkstra's Simulation
 
+- If you run through a specific graph using Dijkstra Algorithm, you'll see that the distances calculated from vertex D to all other vertices, by always choosing the next vertex to be the closest unvisited vertex from the starting point.
+
+### Manual Run Through of Dijkstra Algorithm
+
+- Lets take an example graph, where we want to find the shortest path from the source vertex D to all other vertices, so that for example, the shortest path to C is D -> E -> C, with path weight 2 + 4 = 6.
+- to find the shortest path, Dijkstra Algorithm uses an array with the distances to all other vertices, and initially sets these distances to infinite, or a very big number. And distance to the vertex we start from (the source) is set to 0.
+
+- `distances = [inf, inf, inf, 0, inf, inf, inf]
+    #vertices [A ,  B ,  C , D,  E ,  F ,  G]
+`
+
+- now, if we portray the above code in a graph, we see the initial infinite distances to other vertices from the starting vertex D. The distance value for vertex D is 0 because that is the starting point.
+
+- Dijkstra Algorithm then sets the vertex D as the current vertex, and looks at the distance to the adjacent vertices. Since the initial distance to vertices A and E is infinite, the new distance to these are updated with the edge weights. So, vertex A gets the distance changed from infinite to 4, and vertex E gets the distance changed to 2. Note that, updating the distance values in this way is called 'relaxing'.
 - 
