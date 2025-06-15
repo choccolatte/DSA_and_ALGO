@@ -4673,4 +4673,8 @@ print("Graph has cycle: ", g.is_cyclic())
 - now, if we portray the above code in a graph, we see the initial infinite distances to other vertices from the starting vertex D. The distance value for vertex D is 0 because that is the starting point.
 
 - Dijkstra Algorithm then sets the vertex D as the current vertex, and looks at the distance to the adjacent vertices. Since the initial distance to vertices A and E is infinite, the new distance to these are updated with the edge weights. So, vertex A gets the distance changed from infinite to 4, and vertex E gets the distance changed to 2. Note that, updating the distance values in this way is called 'relaxing'.
-- 
+
+- After relaxing vertices A and E, vertex D is considered visited,and will not be visited again.
+- The next vertex to be chosen as the current verrtex must the vertex with the shortest distances to the source vertex (vertex D), among the previously unvisited vertices. Vertex E is therefore chosen as the current vertex after vertex D.
+
+- the distance to all adjacent and not previously visited vertices from vertex E must not be calculated, and updated if needed.
