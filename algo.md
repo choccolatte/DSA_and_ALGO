@@ -4678,3 +4678,44 @@ print("Graph has cycle: ", g.is_cyclic())
 - The next vertex to be chosen as the current verrtex must the vertex with the shortest distances to the source vertex (vertex D), among the previously unvisited vertices. Vertex E is therefore chosen as the current vertex after vertex D.
 
 - the distance to all adjacent and not previously visited vertices from vertex E must not be calculated, and updated if needed.
+- the calculated distance from D to vertex A, via E, is 2 + 4 = 6. But the current distance to vertex A is already 4, which is lower, so the distance to vertex A is not updated.
+- The distance to vertex C is calculated to be 2 + 4 = 6, which is less than infinity, so the distance to vertex C is updated.
+- Similarly, the distance to node G is calculated and updated to be 2 + 5 = 7.
+- the next vertex to be visited is vertex A because it has the shortest distance from D of all the unvisited vertices.
+
+- the calculated distance to vertex C, via A, is 4 + 3 = 7, which is higher than the already set distance to vertex C, so the distance to vertex C is not updated.
+- Vertex A is now marked as visited, and the next current vertex is vertex C because that has the lowest distance from vertex D between the remaining unvisited vertices.
+
+- Vertex F gets updated distance 6 + 5 = 11, and vertex B gets updated distance 6 + 2 = 8.
+- calculated distance to vertex G via vertex C is 6 + 5 = 11 which is higher than the already set distance of 7, so distance to vertex G isnot updated.
+- vertex C is marked as visitedd, and the next vertex to be visited is G because it has the lowest distance between the remaining unvisited vertices.
+
+- vertex F already has a distance of 11. This is lower than the calculated distance from G, which is 7 + 5 = 12, so the distance to vertex F is not updated.
+- vertex G is marked as visited, and B becomes the current vertex because it has the lowest distance of the remaining unvisited vertices.
+
+- the new distance to F via B is 8 + 2 = 10, because it is lower than F's existing distance of 11.
+- vertex B is marked as visited, and there is nothing to check for the last unvisited vertex F, so Dijkstra's algorithm is finished.
+- every vertrex has been visited only once, and the result is the lowest distance from the source vertex D to every other vertex in the graph.
+
+
+### Implementation of Dijkstra's Algorithm
+
+- To implement Dijkstra's algorithm, we create a `Graph` class. The `Graph` class represents the graph with its vertices and edges.
+- example in Python -
+
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = weight
+            self.adj_matrix[v][u] = weight # for undirected graph
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+`
