@@ -4719,3 +4719,90 @@ class Graph:
         if 0 <= vertex < self.size:
             self.vertex_data[vertex] = data
 `
+
+- here, in line - self.adj_matrix = [[0] * size for _ in range(size)]
+    - we create the `adj_matrix` to hold all the edges and edge weights. Initial values are set to `0`.
+
+- in line - self.size = size
+    - `size` is the number of vertices in the graph.
+
+- in line - self.vertex_data = [''] * size
+    - the `vertex_data` holds the names of all the vertices.
+
+- in line - def add_edge(self, u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = weight
+            self.adj_matrix[v][u] = weight  # For undirected graph
+    - the `add_edge` method is used to add an edge from vertex `u` to vertex `v`, with edge weight `weight`.
+
+- in line - def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+    - the `add_vertex_data` method is used to add a vertex to the graph. The index where the vertex should belong is given with the `vertex` argument, and the `data` is the name of the vertex.
+
+- the `Graph` class also contains the method that runs the Dijkstra's algorithm:
+`
+def dijkstra(self, start_vertex_data):
+    start_vertex = self.vertex_data.index(start_vertex_data)
+    distances = [float('inf')] * self.size
+    distances [start_vertex] = 0
+    visited = [False] * self.size
+
+    for _ in range(self.size):
+        min_distance = float('inf')
+        u = None
+        for i in range(self.size):
+            if not visited[i] and distances[i] < min_distance:
+                min_distance = distances[i]
+                u = i
+
+            if u is None:
+                break
+
+            visited[u] = True
+
+            for v in range(self.size):
+                if self.adj_matrix[u][v] != 0 and not visited[v]:
+                    alt = distances[u] + self.adj_matrix[u][v]
+                    if alt <distances[v]:
+                        distances[v] = alt
+    
+    return distances
+`
+
+- here, in line distances = [float('inf')] * self.size
+        distances[start_vertex] = 0
+    - the initial distance is set to infinity for all the vertices in the `distances` array, except for the start vertex, where the distance is 0.
+
+- in line - visited = [False] * self.size
+    - all vertices are initially set to `False` to mark them as not visited in the `visited` array.
+
+- in line - min_distance = float('inf')
+            u = None
+            for i in range(self.size):
+                if not visited[i] and distances[i] < min_distance:
+                    min_distance = distances[i]
+                    u = i
+    - the next current vertex is found. Outgoing edges from this vertex will be checked to see if shorter distances can be found. It is the unvisited vertex with the lowest distance from the start.
+
+- in line - if u is None:
+                break
+    - here, if the next current vertex has not been found, the algorithm is finished. This means that all vertices that are reachable from the source have been visited.
+
+- in line - visited[u] = True
+    - here, the current vertex is set as visited before relaxing adjacent vertices. This is more effective because we avoid checking the distance to the current vertex itself.
+
+- in line - for v in range(self.size):
+                if self.adj_matrix[u][v] != 0 and not visited[v]:
+                    alt = distances[u] + self.adj_matrix[u][v]
+                    if alt < distances[v]:
+                        distances[v] = alt
+    - here, distances are calculated for not visited adjacent vertices, and updated if the new calculated distance is lower.
+
+- After defining the `Graph` class, the vertices and edges must be defined to initialize the specific graph, and the complete code for this Dijkstra's algorithm example looks like this - 
+`
+
+`
+
+
+### Dijkstra's Algorithm on Directed Graphs
