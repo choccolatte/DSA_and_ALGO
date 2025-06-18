@@ -5067,4 +5067,121 @@ for i, d in enumerate(distances):
 
 ### Dijkstra's Algorithm with a Single Destination Vertex
 
-- 
+- Lets say we are only interested in finding the shortest path between two vertices, like finding the shortest distance between vertex D(midpoint) and vertex F(fatherest) in a graph.
+
+- Dijkstra's algorithm is normally used for finding the shortest path from one source vertex to all other vertices in the graph, but it can also be modified to only find the shortest path from the source to a single destination vertex, by just stopping the algorithm when the destination is reached (visited).
+- this means that for the specific graph we're talking about, Dijkstra's algorithm will stop after visiting F(the destination vertex), before visiting vertices H, I, and J because they are farther away from D than F is.
+- Lets say, vertex F got visited and just got updated with distance 10 from vertex B(adjacent to it). Since F is the unvisited vertex with the lowest distance from D, it would normally be the next current vertex, but since it is the destination, the algorithm stops. If the algorithm did not stop, J(last node) would be the next vertex to get an updated distance 11 + 2 = 13, from vertex I(second last).
+- the code below is Dijkstra's algorithm implemented to find the shortest path to a single destination vertex - 
+`
+class Graph:
+        def __init__(self, size):
+        self.adj_matrix=[[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = weight
+            self.adj_matrix[v][u] = weight # for undirected graph
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex <self.size:
+            self.vertex_data[vertex] = data
+
+    def dijkstra(self, start_vertex_data, end_vertex_data):
+        start_vertex = self.vertex_data.index(start_vertex_data)
+        end_vertex = self.vertex_data.index(end_vertex_data)
+        distances = [float('inf')] * self.size
+        predecessors = [None] * self.size
+        distances[start_vertex] = 0
+        visited = [False] * self.size
+
+        for _ in range(self.size):
+            min_distance = float('inf')
+            u = None
+            for i in range(self.size):
+                if not visited[i] and distances[i] < min_distance:
+                    min_distance = distances[i]
+                    u = i
+
+            if u is None or u == end_vertex:
+                print(f"Breaking out of loop. Current Vertex: {self.vertex_data[u]}")
+                print(f"Distances: {distances}")
+                break
+
+            visited[u] = True
+            print(f"Visited vertex: {self.vertex_data[u]}")
+
+            for v in range(*self.size):
+                if self.adj_matrix[u][v] != 0 and not visited[v]:
+                    alt = distances[u] + self.adj_matrix[u][v]
+                    if alt < distances[v]:
+                        distances[v] = alt
+                        predecessors[v] = u
+
+        return distances[end_vertex], self.get_path(predecessors, start_vertex_data, end_vertex_data)
+
+    def get_path(self, predecessors, start_vertex, end_vertex):
+        path = []
+        current = self.vertex_data.index(end_vertex)
+        while current is not None:
+            path.insert(0, self.vertex_data[current])
+            current = predecessors[current]
+            if current == self.vertex_data.index(start_vertex):
+                path.insert(0, start_vertex)
+                break
+        return '->'.join(path) # join the vertices with '->'
+
+#example usage
+g = Graph(7)
+
+#rest of the graph setup
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_vertex_data(4, 'E')
+g.add_vertex_data(5, 'F')
+g.add_vertex_data(6, 'G')
+
+g.add_edge(3, 0, 4)  # D - A, weight 5
+g.add_edge(3, 4, 2)  # D - E, weight 2
+g.add_edge(0, 2, 3)  # A - C, weight 3
+g.add_edge(0, 4, 4)  # A - E, weight 4
+g.add_edge(4, 2, 4)  # E - C, weight 4
+g.add_edge(4, 6, 5)  # E - G, weight 5
+g.add_edge(2, 5, 5)  # C - F, weight 5
+g.add_edge(2, 1, 2)  # C - B, weight 2
+g.add_edge(1, 5, 2)  # B - F, weight 2
+g.add_edge(6, 5, 5)  # G - F, weight 5
+
+distance, path = g.dijkstra('D', 'F')
+print(f"Path: {path}, Distance: {distance}")
+
+`
+
+- here, in line -if u is None or u == end_vertex:
+                    print(f"Breaking out of loop. Current vertex: {self.vertex_data[u]}")
+                    print(f"Distances: {distances}")
+                    break
+    - if we are about to choose the destination vertex as the current vertex adn mark it as visited, it means we have already calculated the shortest distance to be the destination vertex, and the Dijkstra's algorithm can be stopped in this single destination case.
+
+
+### Time Complexity for Dijkstra's algorithm
+
+- with V as the number of vertices in our graph, the time complexity for Dijkstra's algorithm is - 
+    - Big O(V * V) #V squared basically
+
+- the reason why we get this time complexity is that the vertex with the lowest distance must be search for the next current vertex, and that takes Big O(V) time. And since this must be done for every vertex connected to the source, we need to factor that in, and so we get the time complexity - Big O(V * V) for Dijkstra's algorithm.
+- By using a Min-heap or Fibonacci-heap data structure for the distances instead, the time needed to search for the minimum distance vertex is reduced from Big O(V) to Big O(log V), which results in an improved time complexity for Dijkstra's algorithm -
+
+    - Big O(V.logV + E)
+
+        - here, V is the number of vertices in the graph, and E is the number of edges.
+    
+- the improvement we get from using a Min-heap data structure for Dijkstra's algorithm is especially good if we have a large and sparse graph, which means a graph with a large number of vertices, but not as many edges.
+- the implementation of Dijkstra's algorithm with the Fibonacci-heap data structure is better for dense graphs, where each vertex has an edge to almost every other vertex.
+
+
+## Bellman-Ford Algorithm
