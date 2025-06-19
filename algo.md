@@ -5185,3 +5185,22 @@ print(f"Path: {path}, Distance: {distance}")
 
 
 ## Bellman-Ford Algorithm
+
+- the Bellman-Ford algorithm is best suited to find the shortest paths in a directed graph, with one or more negative edge weights, from the source vertex to all other vertices.
+- It does so by repeatedly checking all the edges in the graph for shorter paths, as many as there are vertices in the graph(minus 1).
+
+- the Bellman-Ford algorithm can also be used for graphs with positive edges(both directed and undirected), like we can with Dijkstra's algorithm, but Dijkstra's algorithm is preferred in such cases because it is faster.
+- Using the Bellman-Ford algorithm on a graph with negative cycles will not produce a result of shortest paths because in a negative cycle, we can always go one more round and get a shorter path.
+- A negative cycle is a path we can follow in circles, where the sum of the edge weights is negative.
+- Luckily, the Bellman-Ford algorithm can be implemented to safely detect and report the presence of negative cycles.
+
+**How it works?**
+1. Set initial distance to zero for the source vertex, and set initial distances to infinity for all other vertices.
+2. For each edge, check if a shorter distance can be calculated, and update the distance if the calculated distance is shorter.
+3. Check all edges(step 2) V - 1 times. This is as many times as there are vertices (V), minus one.
+4. Optional: Check for negative cycles. (will be explained better later).
+
+
+### Manual Run Through
+
+- 
