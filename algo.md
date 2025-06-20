@@ -5203,4 +5203,64 @@ print(f"Path: {path}, Distance: {distance}")
 
 ### Manual Run Through
 
+- the Bellman-Ford algorithm is actually quite straight forward, because it checks all the edges, using the adjacency matrix. Each check is to see if a shorter distance can be made by going from the vertex on one side of the edge, via the edge, to the vertex on the other side of the edge.
+- And this check of all edges is done V - 1 times, with V being the number of vertices in the graph.
+- In an example graph, our Bellman-Ford algorithm checks all the edges in the adjacency matrix in our graph - 5 - 1 = 4 times.
+
+        A B C D E
+    A       4   5
+    B       -4 
+    C   -3
+    D   4    7  3
+    E     2 3
+
+- the first four edges that are checked in our graph are A -> C, A -> E, B -> C, and C -> A. These first four edge checks do not lead to any updates of the shortest distances because the starting vertex of all these edges has an infinite distance.
+- AFter the edges from vertices A, B, C are checked, the edges from D are checked. Since the starting point (vertex D) has distance 0, the updated distances for A, B, and C are the edge weights going out from vertex D.
+- the next edges to be checked are the edges going from vertex E, which leads to updated distances for vertices B and C.
+- the Bellman-Ford algorithm have now checked all edges 1 time. the algorithm will check all edegs 3 more times before it is finished, because the Bellman-Ford algorithm will check all edges as many times as there are vertices in the graph, minus 1.
+- the algorithm starts checking all edges a second time, starting with checking the edges going out from vertex A. Checking the edges A -> C and A -> E do not lead to updated distances.
+- the next edge to be checked is B -> C, going out from vertex B. this leads to an updated distance from vertex D to C of 5 - 4 = 1.
+- Checking the next edge C -> A, leads to an updated distance 1 - 3 = -2 for vertex A.
+- the check of edge C -> A in round 2 of the Bellman-Ford algorithm is actually the last check that leads to an updated distance for this specific graph. the algorithm will continue to check all edges 2 more times without updating any distances.
+- Checking all edges V - 1 times in the Bellman-Ford algorithm may seem like a lot, but it is done this many times to make sure that the shortest distances will always be found.
+
+
+### Implementation of the Bellman-Ford Algorithm
+
+- implementing the Bellman-Ford algorithm is very similar to how we implemented the Dijkstra's algorithm.
+- We start by creating the `Graph` class, where the methods `__init`, `add_edge`, and `add_vertex` will be used to create the specific graph we want to run the Bellman-Ford algorithm on to find the shortest paths.
+
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[10] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = weight
+            #self.adj_matrix[v][u] = weight # For undirected graph
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+
+    def bellman_ford(self, start_vertex_data):
+        start_vertex = self.vertex_data.index(start_vertex_data)
+        distances = [float('inf')] * self.size
+        distances[start_vertex] = 0
+
+        for i in range(self.size - 1):
+            for u in range(self.size):
+                for v in range(self.size):
+                    if self.adj_matrix[u][v] != 0:
+                        if distances[u] + self.adj_matrix[u][v] < distances[v]:
+                            distances[v] = distances[u] + self.adj_matrix[u][v]
+                            print(f"Relaxingg edge {self.vertex_data[u]} - {self.vertex_data[v]}, Updated distances to {self.vertex_data[v]}: {distances[v]}")
+        return distances
+`
+
+- notice that, the `bellman_ford` method is also placed inside the `Graph` class. It is this method that runs the Bellman-Ford algorithm.
+
 - 
