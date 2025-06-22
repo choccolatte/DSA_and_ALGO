@@ -5336,3 +5336,10 @@ for i, d in enumerate(distances):
 `
 
 ### Negative Edges in the Bellman-Ford Algorithm
+
+- to say that the Bellman-Ford algorithm finds the "shortest paths" is not intuitive, because how can we draw or imagine distances that are negative? So, to make it easier to understand we could isntead say that it is the "cheapest paths" that are found with Bellman-Ford.
+- In practise, the Bellman-Ford Algorithm could for example help us to find delivering routes where the edges weights represent the cost of fuel and other things, minus the money to be made by driving that edge between those two vertices.
+- With this implementation in mind, the -3 weight on edge C -> A could mean that the fuel cost is $5 driving from C to A, and that we get paid $8 for picking up packages in C and delivering them in A. So, we end up earning $3 more than we spend. therefore, a total of $2 can be made by driving the delivery route D -> E -> B -> C -> A in our graph.
+
+
+### Negative Cycles in the Bellman-Ford Algorithm
