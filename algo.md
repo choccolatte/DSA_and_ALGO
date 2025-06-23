@@ -5343,3 +5343,58 @@ for i, d in enumerate(distances):
 
 
 ### Negative Cycles in the Bellman-Ford Algorithm
+
+- if we can go in circles in a graph, and the sum of edges in that circle is negative, we have a negative circle.
+- By changing the weight on edge C -> A from -3 to -9, we get two negative cycles: A -> C -> A and A -> E -> C -> A. And every time we check these edges with the Bellman-Ford algorithm, the distances we calculate and update just become lower and lower.
+- The problem with negative cycles is that a shortest path does not exist, because we can always go one more round to get a path that is shorter.
+- That is why, it is useful to implement the Bellman-Ford algorithm with detection for negative cycles.
+
+
+### Detection of Negative Cycles in the Bellman-Ford Algorithm
+
+- after running the Bellman-Ford algorithm, checking all edges in a graph V -1 times, all the shortest distances are found.
+- but, if the graph continues negative cycles, and we go one more round checking all edges, we will find at least one shorter distance in this last round, right?
+- so, to detect negative cycles in the Bellman-Ford algorithm, after checking all edges V -1 times, we just need to check all edges one more time, and if we find a shorter distance this last time, we can conclude that a negative cycle must exist.
+- Below is the `bellman-ford` method, with negative cycle detection included, running on the graph example above with negative cycles due to the C -> A edge weight of -9.
+- example in py - 
+
+`
+def bellman-ford(self, start_vertex_data):
+    start_vertex = self.vertex_data.index(start_vertex_data)
+    distances = [float('inf')] * self.size
+    distances[start_vertex] = 0
+
+    for i in range(self.size - 1):
+        for u in range(self.size):
+            for v in range(self.size):
+                if self.adj_matrix[u][v] != 0:
+                    if distances[u] + self.adj_matrix[u][v] < distances[v]:
+                        distances[v] = distances[u] + self.adj_matrix[u][v]
+                        print(f"Relaxing edeg {self.vertex_data[u]} -> {self.vertex_data[v]}, Updated distance to {self.vertex_data[v]}: {distances[v]}")
+
+    #negative cycle detection
+    for u in range(self.size):
+        for v in range(self.size):
+            if self.adj_matrix[u][v] != 0:
+                if distances[u] + self.adj_matrix[u][v] < distances[v]:
+                    return (True, None) #Indicate a negative cycle was found
+    
+    return (False, distances) #indicate no negative cycle and return distances
+`
+
+- here, in line -         for u in range(self.size):
+            for v in range(self.size):
+                if self.adj_matrix[u][v] != 0:
+                    if distances[u] + self.adj_matrix[u][v] < distances[v]:
+    - all edges are checked one more time to see if there are negative cycles.
+
+- in line - return (True, None)  # Indicate a negative cycle was found
+    - returning `True` indicates that a negative cycle exists, and `None` is returned instead of the shortest distances, because finding the shortest distances in a graph with negative cycles does not make sense (because a shorter distance can always be found by checking all edges one more time).
+
+- in line - return (False, distances)  # Indicate no negative cycle and return distances
+    - returning `False` means that there is no negative cycles, and the `distances` can be returned.
+
+
+### Returning the Paths from the Bellman-Ford Algorithm
+
+- 

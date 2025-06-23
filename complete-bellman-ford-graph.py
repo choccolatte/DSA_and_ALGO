@@ -25,7 +25,18 @@ class Graph:
 						if distances[u] + self.adj_matrix[u][v] < distances[v]:
 							distances[v] = distances[u] + self.adj_matrix[u][v]
 							print(f"Relaxing edge {self.vertex_data[u]} - {self.vertex_data[v]}, Updated distance to {self.vertex_data[v]}: {distances[v]}")
-		return distances
+	
+	#return distances
+
+		#negative cycle detection
+		for u in range(self.size):
+			for v in range(self.size):
+				if self.adj_matrix[u][v] != 0:
+					if distances[u] + self.adj_matrix[u][v] < distances[v]:
+						return (True, None) #Indicate a negative cycle was found
+    
+		return (False, distances) #indicate no negative cycle and return distances
+			
 
 g = Graph(5)
 
