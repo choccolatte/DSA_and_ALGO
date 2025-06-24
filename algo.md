@@ -5397,4 +5397,130 @@ def bellman-ford(self, start_vertex_data):
 
 ### Returning the Paths from the Bellman-Ford Algorithm
 
+- we are currently finding the total weight of the shortest paths, so that for example, 'distance from D to A: -2' is a result from running the Bellman-Ford algorithm.
+- but, by recording the predecessor of each vertex whenever an edeg is relaxed, we can use that later in our code to print the result including the actual shortest paths. This means we can give more information in our result, with the actual path in addition to the path weight: 'D -> E -> B -> C -> A, Dstance: -2'.
+- this last code example is the complte code for the Bellman-Ford algorithm, with everything we have discussed up until now: finding the weights of shortest paths, detecting negative cycles, and finding the actual shortest paths:
+- code in py- 
+`
+class Graph:
+	def __init__(self, size):
+		self.adj_matrix = [[0] * size for _ in range(size)]
+		self.size = size
+		self.vertex_data = [''] * size
+
+	def add_edge(self, u, v, weight):
+		if 0 <= u < self.size and 0 <= v < self.size:
+			self.adj_matrix[u][v] = weight
+			#self.adj_matrix[v][u] = weight # for undirected graph
+	
+	def add_vertex_data(self, vertex, data):
+		if 0 <= vertex < self.size:
+			self.vertex_data[vertex] = data
+
+	def bellman_ford(self, start_vertex_data):
+		start_vertex = self.vertex_data.index(start_vertex_data)
+		distances = [float('inf')] * self.size
+        predecessors = [None] * self.size
+		distances[start_vertex] = 0
+
+		for i in range(self.size - 1):
+			for u in range(self.size):
+				for v in range(self.size):
+					if self.adj_matrix[u][v] != 0:
+						if distances[u] + self.adj_matrix[u][v] < distances[v]:
+							distances[v] = distances[u] + self.adj_matrix[u][v]
+                            predecessors[v] = u
+							print(f"Relaxing edge {self.vertex_data[u]} - {self.vertex_data[v]}, Updated distance to {self.vertex_data[v]}: {distances[v]}")
+	
+	#return distances
+
+		#negative cycle detection
+		for u in range(self.size):
+			for v in range(self.size):
+				if self.adj_matrix[u][v] != 0:
+					if distances[u] + self.adj_matrix[u][v] < distances[v]:
+						return (True, None) #Indicate a negative cycle was found
+    
+		return (False, distances) #indicate no negative cycle and return distances
+
+    def get_path(self, predecessors, startg_vertex, end_vertex):
+        path=[]
+        current = self.vertex_data.index(end_vertex)
+        while current is not None:
+            path.insert(0, self.vertex_data[current])
+            current = predecessors[current]
+            if current == self.vertex_data.index(start_vertex):
+                path.insert(0, start_vertex)
+                break
+        return '->'.join(path)
+
+g = Graph(5)
+
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_vertex_data(4, 'E')
+
+g.add_edge(3, 0, 4)  # D -> A, weight 4
+g.add_edge(3, 2, 7)  # D -> C, weight 7
+g.add_edge(3, 4, 3)  # D -> E, weight 3
+g.add_edge(0, 2, 4)  # A -> C, weight 4
+g.add_edge(2, 0, -3) # C -> A, weight -3
+g.add_edge(0, 4, 5)  # A -> E, weight 5
+g.add_edge(4, 2, 3)  # E -> C, weight 3
+g.add_edge(1, 2, -4) # B -> C, weight -4
+g.add_edge(4, 1, 2)  # E -> B, weight 2
+
+#Running the bellman-ford algo from D to all vertices
+print("\nThe Bellman-Ford Algorithm starting from vertex D:")
+negative_cycle, distances, predecessors = g.bellman_ford('D')
+if not negative_cycle:
+    for i, d in enumerate(distances):
+        if d != float('inf'):
+            path = g.get_path(predecessors, 'D', g.vertex_data[i])
+            print(f"{path}, Distance: {d}")
+        else:
+            print(f"No path from D to {g.vertex_data[i]}, Distance: Infinity")
+else:
+    print("Negative weight cycle detected. Cannot compute shortest paths.")
+`
+
+- here, in line - predecessors = [None] * self.size
+    - the `predecessors` array holds each vertex' predecessor vertex in the shortest path.
+
+-in line - predecessors[v] = u
+    - the `predecessors` array gets updated with the new predecessor vertex every time an edge is relaxed.
+
+- line - def get_path(self, predecessors, start_vertex, end_vertex):
+        path = []
+        current = self.vertex_data.index(end_vertex)
+        while current is not None:
+            path.insert(0, self.vertex_data[current])
+            current = predecessors[current]
+            if current == self.vertex_data.index(start_vertex):
+                path.insert(0, start_vertex)
+                break
+        return '->'.join(path)
+    - the `get_path` method uses the `predecessors` array to generate the shortest path string for each vertex.
+
+
+### Time Complexity for the Bellman-Ford Algorithm
+
+- the time complexity for the Bellman-Ford Algorithm mostly depends on the nested loops.
+- the **outer for-loop** runs V - 1 times, or V times in case we also have negative cycle detection. For graphs with many vertices, checking all edegs one less time than there are vertices makes little difference, so we can say that the outer loop contributes with big O(V) to the time compexity.
+- the **two inner for-loops** checks all edges in the graph. If we assume a worst case scenario in terms of time complexity, then, we have a very dense graph where every vertex has an edge to every other vertex, so for all vertex V, the edge to all other vertices V must be checked, which contributes with Big O(V * V) to the time complexity. 
+- So, in total, we get the time complexity for the Bellman-Ford Algorithm:
+        - Big O(V * V * V) - v cubed
+
+- however, in practical situations and especially for sparse graphs, meaning each vertex only has edges to a small portion of the other vertices, time complexity of the two inner for-loops checking all edges can be approximated from Big O(V * V) to Big O(E), and we get the total time complexity for the Bellman-Ford:
+        - Big O(V * E)
+
+- the time complexity for the Bellman-Ford Algorithm is slower than for Dijkstra's algorithm, but the Bellman-Ford can find the shortest paths in the graphs with negative edges and it can detect negative cycles, which Dijkstra's algorithm can't do.
+
+
+
+## Minimum Spanning Tree Problem
+
+- the Minimum Spanning Tree(MST) is the collection of edges required to connect all vertices in an undirected graph, with the minimum total edge weight.
 - 
