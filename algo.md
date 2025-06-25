@@ -5523,4 +5523,54 @@ else:
 ## Minimum Spanning Tree Problem
 
 - the Minimum Spanning Tree(MST) is the collection of edges required to connect all vertices in an undirected graph, with the minimum total edge weight.
-- 
+- One way to find MST, is to run Prim's algorithm, another way to do this which also works for unconnected graphs, is to run Kruskal's algorithm.
+- It is called a Minimum Spanning Tree, because it is connected, acyclic, undirected graph, which is the definition of a tree data structure.
+- in the real world, finding the Minimum Spanning Tree can help us find the most effective way to connect to the internet or to the electrical grid, or it can help us finding the fastest route to deliver packages.
+
+### An MST Thought Experiment
+
+- lets imagine that the circles(points) in a graph are villages that are without electrical power, and you want to connect them to the electrical grid. After one village is given electrical power, the electrical cables must then be spread out from that village to the others. The villages can then be connected in a lot of different ways, each route having a different cost.
+- the electrical cables are expensive, and digging ditches for the cables, or stretching the cables in the air is expensive as well. The terrain can certainly be a challenge, and then there is perhaps a future cost for maintenance that is different depending on where the cables end up.
+- all these route costs can be factored in as edge weights in a graph. Every vertex represents a village, and every edge represents a possible route for the electrical cable between two villages.
+- After such a graph is created, the Minimum Spanning Tree(MST) can be found, and that will be the most effective way to connect these villages to the electrical grid.
+- And this is actually what the first MST algorithm (Boruvka's algorithm) was made for in 1926: To find the best way to connect historical region of Moravia, in the Check Republic, to the electrical grid.
+
+
+### MST Algorithms
+
+- Can it find the MST (a Minimum Spanning Tree) in an unconnected graph? -> 
+    - Prim's Algorithm - No 
+    - Kruskal's algorithm - Yes
+
+- How does it start?
+    - Prim's Algorithm - The MST grows from a randomly chosen vertex.
+    - Kruskal's algorithm - The first edge in the MST is the edge with the lowest edge weight.
+
+- What time complexity does it have?
+    - Prim's Algorithm - Big O(V * V), or Big O(E * log V)(optimized)
+    - Kruskal's algorithm - Big O(E * log E)
+
+
+## MST Prim's Algorithm
+
+- Prim's algorithm was invented in 1930 by the Czech mathematician Vojtecj Jarnik.
+- The algorithm was then rediscovered by Robert C. Prim in 1957, and then also rediscovered by Edgar W. Dijkstra in 1959. Therefore, the algorithm is also sometimes called "Jarnik's algorithm" or the "Prim-Jarnik algorithm."
+
+- Prim's algorithm finds the Minimum Spanning Tree (MST) in a connected and undirected graph.
+- the MST found by Prim's algorithm is the collection of edges in a graph, that connects all vertices, with a minimum sum of edge weights.
+- Prim's algorithm finds the MST by first including a random vertex to the MST. The algorithm then finds the vertex with the lowest edge weight from the current MST, and includes that to the MST. Prim's algorithm keeps doing this until all nodes are included in the MST.
+- Prim's algorithm is greedy, and has a straightforward way to create a minimum spanning tree.
+- For Prim's algorithm to work, all the nodes must be connected. To find the MST's in an unconnected graph, Kruska;'s algorithm can be used instead.
+
+
+**How it works?**
+1. Choose a random vertex as the starting point, and include it as the first vertex in the MST.
+2. Compare the edges going out from the MST. Choose the edge with the lowest weight that connects a vertex among the MST vertices to a vertex outside the MST.
+3. Add that edge and vertex to the MST.
+4. Keep doing step 2 and 3 until all vertices belong to the MST.
+
+**Note**: Since the starting vertex is chosen at random, it is possible to have different edges included in the MST for the same graph, but the total edge weight of the MST will still have the same minimum value.
+
+
+### Manual Run Through
+
