@@ -5574,3 +5574,55 @@ else:
 
 ### Manual Run Through
 
+- Lets run through Prim's algorithm manually on an example graph, so we undeerstand the detailed step-by-step operations before we try to program it.
+- Prim's algorithm starts growing the Minimum Spanning Tree(MST) from a random vertex, but for this demonstration, vertex A(left-most node) is chosen as the starting vertex.
+- From vertex A, the MST grows along the edge with the lowest weight. So, vertices A and D now belong to the group of vertices that belong to the Minimum Spanning Tree.
+- A `parents` array is central to how Prim's algorithm grows the edges in the MST.
+- at this point, the `parents` array looks like this -
+
+`
+parents = [-1, 0, -1, 0, 3, 3, -1, -1]
+#vertices [A, B, C, D, E, F, G, H]
+`
+
+- vertex A, the starting vertex, has no parent, and has therefore value `-1`. Vertex D's parent is A, that is why DW's parent value is `0` (vertex A is located at index 0). B's parent is also A, and D is the parent of E and F.
+- the `parents` array helps us to keep the MST tree structure (a vertex can only have one parent).
+- Also, to avoid cycles and to keep track of which vertices are currently in the MST, the `in_mst` array is used.
+- the `in_mst` array currently looks like this - 
+
+`
+in_mst = [true, false, false, true, false, false, false, false]
+#vertices [A, B, C, D, E, F, G, H]
+`
+
+- the next step in Prim's algorithm is to include one more vertex as part of the MST, and the vertex closest to the current MST nodes A and D is chosen.
+- Since both A-B and D-F have the same lowest edge weight `4`, either B or F can be chosen as the next MST vertex. We choose B as the next MST vertex here.
+- as you can see, the MST edge to E came from vertex D before, now it comes from vertex B, because B-E with weight `6` is lower than D-E with weight `7`. Vertex E can only have one parent in the MST tree structure ( and in the `parents` array), so B-E and D-E can't both be MST edges to E.
+- The next vertex in the MST is vertex C, because edge B-C with weight `3` is the shortest edge weight from the current MST vertices.
+- As vertex C is included in the MST, edges out from C are checked to see if there are edges with a lower weight from this MST vertex to vertices outside the MST. Edge C-E has a lower weight (`3`) than the previous B-E MST edge(`6`), and the C-H edge gets included in the MST with edge weight `2`.
+- Vertex H is the next to be included in the MST, as it has the lowest edge weight `6`, and vertex H becomes the parent of vertex G in the `parents` array.
+- The next vertex to be included in the MST is either E or F, because they have both the lowest edge weight to them: `4`.
+- we choose vertex E here as the next vertex to be included in the MST for the example.
+- the next and last two vertices to be added to the MST are vertices F and G. D-F is the MST edge to F, and E-G is the MST edge to G because these edges are the edegs with the lowest weight from the current MST.
+
+
+### Implementation of Prim's algorithm
+
+- for Prim's algorithm to find a Minimum Spanning Tree (MST), we create a `Graph` class. We will use the methods inside this `Graph` class later to create the graph from the example above, and to run the Prim's algorithm on it.
+- code in py -
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = weight
+            self.adj_matrix[v][u] = weight # For undirected graph
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+`
