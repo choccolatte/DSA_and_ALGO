@@ -5626,3 +5626,127 @@ class Graph:
         if 0 <= vertex < self.size:
             self.vertex_data[vertex] = data
 `
+
+- here, in line - self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+    - at first, the adjacency matrix is empty, meaning there are no edges in the graph. Also, the vertices have no names to start with.
+
+- in line - def add_edge(self, u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.adj_matrix[u][v] = weight
+            self.adj_matrix[v][u] = weight  # For undirected graph
+    - the `add_edge` method is for adding an edge, with an edge weight value, to the undirected graph.
+
+- in line - def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+    - the `add_vertex_data` method is used for giving names to the vertices, like for example 'A' or 'B'.
+
+- now that the structure for creating a graph is in place, we can implement Prim's algo as a method inside the `Graph` class.
+`
+    def prims_algo(self):
+        in_mst = [False] * self.size
+        key_values = [float('inf')] * self.size
+        parents = [-1] * self.size
+
+        key_values[0] = 0 # starting vertex
+
+        print("Edge \tWeight ")
+        for _ in range(self.size):
+            u = min((v for v in range(self.size) if not in_mst[v]), key = lambda v: key_values[v])
+
+            in_mst[u] = True
+
+            if parents[u] != -1: #skip printing for the first vertex since it has no parent 
+                print(f"{self.vertex_data[parents[u]]} - {self.vertex_data[u]} \t{self.adj_matrix[u][parents[u]]}")
+
+            for v in range(self.size):
+                if 0 < self.adj_matrix[u][v] < key_values[v] and not in_mst[v]:
+                    key_values[v] = self.adj_matrix[u][v]
+                    parents[v] = u
+`
+
+- here, in line - in_mst = [False] * self.size
+    - the `in_mst` array holds the status of which vertices are currently in the MST. Initially, none of the vertices are part of the MST.
+
+- in line - key_values = [float('inf')] * self.size
+    - the `key_values` array holds the current shortest distance from the MST vertices to each vertex outside the MST.
+
+- in line - parents = [-1] * self.size
+    - the MST edges are stored in the `parents` array. Each MST edge is stored by storing the parent index for each vertex.
+
+- in line - key_values[0] = 0  # Starting vertex
+    - to keep it simple, and to make this code run like in the "Manual Run Through" example above, the first vertex (vertex A at index `0`) is set as the starting vertex. Changing the index to `4` will run Prim's algorithm from vertex E, and that works just as well.
+
+- in line - u = min((v for v in range(self.size) if not in_mst[v]), key=lambda v: key_values[v])
+    - the index is found for the vertex with the lowest key value that is not yet part of the MST.
+
+- in line - for v in range(self.size):
+                if 0 < self.adj_matrix[u][v] < key_values[v] and not in_mst[v]:
+                    key_values[v] = self.adj_matrix[u][v]
+                    parents[v] = u
+    - after a new vertex is added to the MST(with this line - in_mst[u] = True), this part of the code checks to see if there are now edegs from this newly added MST vertex that can lower the key values to other vertices outside the MST. If that is the case, the `key_values` and `parents` array are updated accordingly. This can be seen clearly in the example aboev when a new vertex is added to the MST and becomes the active (current) vertex.
+
+- now, we create the graph from the "Manual Run Through" above and run Prim's algo on it:
+- code in py - 
+`
+g = Graph(8)
+
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_vertex_data(4, 'E')
+g.add_vertex_data(5, 'F')
+g.add_vertex_data(6, 'G')
+g.add_vertex_data(7, 'H')
+
+g.add_edge(0, 1, 4)  # A - B
+g.add_edge(0, 3, 3)  # A - D
+g.add_edge(1, 2, 3)  # B - C
+g.add_edge(1, 3, 5)  # B - D
+g.add_edge(1, 4, 6)  # B - E
+g.add_edge(2, 4, 4)  # C - E
+g.add_edge(2, 7, 2)  # C - H
+g.add_edge(3, 4, 7)  # D - E
+g.add_edge(3, 5, 4)  # D - F
+g.add_edge(4, 5, 5)  # E - F
+g.add_edge(4, 6, 3)  # E - G
+g.add_edge(5, 6, 7)  # F - G
+g.add_edge(6, 7, 5)  # G - H
+
+print("Prim's Algorithm MST: ")
+g.prims_algo()
+
+`
+
+- here, in line - for v in range(self.size):
+    - we can actually avoid the last loop in Prim's algo by changing this line to for _ in range(self.size - 1):. This is because when there is just one vertex not yet in the MST, the parent vertex for that vertex is already set correctly in the `parents` array, so the MST is actually already found at this point.
+
+
+### Time Complexity for Prim's Algorighm
+
+- with V as the number of vertices in our graph, the time complexity for Prim's algorithm is 
+    - Big O(V * V)
+
+- the reason why we get this time complexity is because of the nested loops inside the Prim's algorithm (one for-loop with two other for-loops inside it).
+- The first for-loop(for _ in range(self.size):) goes through all the vertices in our graph. This has time complexity of - Big O(V).
+- the second for-loop(u = min((v for v in range(self.size) if not in_mst[v]), key=lambda v: key_values[v])) goes through all the adjacent vertices in the graph to find the vertex with the lowest key value that is outside the MST, so that it can be the next vertex included in the MST. This has time complexity of - Big O(V).
+- after a new vertex is included in the MST, a third for-loop(for v in range(self.size):) checks all other vertices to see if there are outgoing edges from the newly added MST vertex to vertices outside the MST that can lead to lower key values and updated parent relations. This also has time complexity - Big O(V).
+
+- Putting the time complexities together we get - 
+    - Big O(V) * (Big O(V) + Big O(V)) = Big O(V) * (2 * Big O(V))
+                                    = Big O(V * 2 * V)
+                                    = Big O(2 * V * V)
+                                    = Big O(V * V)
+    
+- By using a priority queue data structure to manage key values, instead of using an array like we do here, the time complexity  for Prim's algo can be reduced to - 
+    - Big O(E * log V)
+
+    - where, E is the number of edges in the graph, and V is the number of vertices.
+
+- Such an implementation of Prim's algorithm using a priority queue is best for sparse graphs. A graph is sparse when each vertex is just connected to a few of the other vertices.
+
+
+### Kruskal's Algorithm
