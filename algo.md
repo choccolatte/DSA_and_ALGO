@@ -5750,3 +5750,25 @@ g.prims_algo()
 
 
 ### Kruskal's Algorithm
+
+- Kruskal's algorithm finds the Minimum Spanning Tree (MST), or the Minimum Spanning Forest, in an undirected graph.
+- the MST (or MSTs) found by Kruskal's algorithm is the collection of edges that connect all vertices (or as many as possible) with the minimum total edge weight.
+- Kruskal's algorithm adds edges to the MST (or Minimum Spanning Forest,) starting with the edges with the lowest edge weights.
+- Edges that would create a cycle are not added to the MST.
+- Kruskal's algorithm checks all edges in the graph.
+
+
+### Minimum Spanning Forest
+- is what it is called when a graph has more than one Minimum Spanning Tree. This happens when a graph is not connected.
+- Unlike Prim's algo, Kruskal's algorithm can be used for such graphs that are not connected, which means that it can find more than one MST, and that is what we call a Minimum Spanning Forest.
+
+- here, to find out if an edge will create a cycle, we will use the Union-Find Cycle detection inside Kruskal's algorithm.
+
+**How it works?**
+1. Sort the edges in the graph from the lowest to the highest edge weight.
+2. For each edge, starting with the one with the lowest edge weight:
+    a. Will this edge create a cycle in the current MST?
+        - if no: Add the edge as an MST edge.
+
+
+### Manual Run Through
