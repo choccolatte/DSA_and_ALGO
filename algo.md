@@ -5772,3 +5772,65 @@ g.prims_algo()
 
 
 ### Manual Run Through
+
+- lets run through Kruskal's algorithm manually on an example graph, so that we understand the detailed step-by-step operations before we try to program it.
+- The first three edges are added to the MST. These three edges have the lowest edge weights and do not create any cycles:
+- C-E, weight 2
+- D-E, weight 3
+- A-B, weight 4
+
+- after that, edge C-D cannot be added as it would lead to a cycle.
+- the next four edges Kruskal's algorithm tries to add to the MST are - 
+    - E-G, weight 6
+    - C-G, weight 7(not added)
+    - D-F, weight 7
+    - B-C, weight 8
+
+- edge C-G cannot be added to the MST because it would create a cycle.
+
+- as you can already see the MST is already created at this point, but Kruskal's algorithm will continue to run until all the edges are tested to see if they can be added to the MST.
+- The last three edges Kruskal's algorithm tries to add to the MST are the ones with the highest edge weights-
+    - A-C, weight 9(not added)
+    - A-G, weight 10(not added)
+    - F-G, weight 11 (not added)
+
+- each of these edges would create a cycle in the MST, so they cannot be added.
+- Kruskal's algorithm is now finished.
+
+
+**Note:**
+- Although Kruskal's algorithm checks all the edges in the graph, the example we talked about at the top of this topic stops right after the last edge isadded to the MST or Minimum Spanning Forest so that we donthave to look at all the red edges that cant be added.
+- This is possible because for a connected graph, there is just one MST, and the search can stop when the number of edges in the MST is one less than there are vertices in the graph (V - 1). For the unconnected graph, there are two MSTs in our example, and the algorithm stops when the MSTs have reached a size of V - 2 edges in total.
+
+
+### Implementation of Kruskal's Algorithm
+
+- for Kruskal's algorithm to find a Minimum Spanning Tree(MST), or a Minimum Spanning Forest, we create a `Graph` class. We will use the methods inside the `Graph` class later to create the graph from the example above, and to run the Kruskal's algorithm on it.
+
+- code in py - 
+`
+class Graph:
+    def __init__(self, size):
+        self.size = size
+        self.edges = [] # for storing edges as (weight, u, v)
+        self.vertex_data = [''] * size # store vertex names
+
+    def add_edge(self, u, v, weight):
+        if 0 <= u self.size and 0 <= v < self.size:
+            self.edges.append((weight, u, v)) # add edge with weight
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+`
+
+- here, in line - if 0 <= u < self.size and 0 <= v < self.size: 
+and 
+if 0 <= vertex < self.size:
+    - checks if the input arguments `u`, `v`, adn `vertex` are within the possible range of index values.
+
+- to do Union-Find Cycle detection in Kruskal's algo, these two methods `find` and `union` are also defined inside the `Graph` class.
+
+`
+
+`
