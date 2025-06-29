@@ -5749,7 +5749,7 @@ g.prims_algo()
 - Such an implementation of Prim's algorithm using a priority queue is best for sparse graphs. A graph is sparse when each vertex is just connected to a few of the other vertices.
 
 
-### Kruskal's Algorithm
+## Kruskal's Algorithm
 
 - Kruskal's algorithm finds the Minimum Spanning Tree (MST), or the Minimum Spanning Forest, in an undirected graph.
 - the MST (or MSTs) found by Kruskal's algorithm is the collection of edges that connect all vertices (or as many as possible) with the minimum total edge weight.
@@ -5832,5 +5832,37 @@ if 0 <= vertex < self.size:
 - to do Union-Find Cycle detection in Kruskal's algo, these two methods `find` and `union` are also defined inside the `Graph` class.
 
 `
+    def find(self, parent, i):
+        if parent[i] == i:
+            return i
+        return self.find(parent, parent[i])
 
+    def union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
 `
+
+- here, line - def find(self, parent, i):
+                    if parent[i] == i:
+                        return i
+                    return self.find(parent, parent[i])
+    - the `find` method uses the `parent` array to recursively find the root of a vertex. For each vertex, the `parent` array holds a pointer (index) to the parent of that vertex. The root vertex is found when the `find` method comes to a vertex in the `parent` array that points to itself. Keep reading to see how the `find` method and the `parent` array are used inside the `kruskals_algo` method.
+
+- in line -     def union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
+    - when an edge is added to the MST, the `union` method uses the `parent` array to merge (union) two trees. The `rank` array holds a rough estimate of the tree height for every root vertex. When merging two trees, the root with a lesser rank becomes a child of the other tree's root vertex.
