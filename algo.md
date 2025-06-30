@@ -5866,3 +5866,151 @@ if 0 <= vertex < self.size:
             parent[yroot] = xroot
             rank[xroot] += 1
     - when an edge is added to the MST, the `union` method uses the `parent` array to merge (union) two trees. The `rank` array holds a rough estimate of the tree height for every root vertex. When merging two trees, the root with a lesser rank becomes a child of the other tree's root vertex.
+
+
+- now, here's how Kruskal's algo is implemented as a method inside the `Graph` class:
+
+`
+    def kruskals_algo(self):
+        result = [] # MST
+        i = 0 # edge counter
+
+        self.edges = sorted(self.edges, key = lambda item: item[2])
+
+        parent, rank = [], []
+
+        for node in range(self.size):
+            parent.append(node)
+            rank.append(0)
+
+        while i < len(self.edges):
+            u, v, weight = self.edges[i]
+            i += 1
+
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+            if x != y:
+                result.append((u, v, weight))
+                self.union(parent, rank, x, y)
+
+        print("Edge \tWeight")
+        for u, v, weight in result:
+            print(f"{self.vertex_data[u]} - {self.vertex_data[v]} \t{weight}")
+`
+
+- here, in line - self.edges = sorted(self.edges, key = lambda item: item[2])
+    - the edegs must be sorted before Kruskal's algo starts trying to add the edges to the MST.
+
+- in line - parent.append(node)
+            rank.append(0)
+    - the `parent` and `rank` arrays are initialized. to start with, every vertex is its own root (every element in the `parent` array points to itself), and every vertex has no height (0 values in the rank array).
+
+- in line - u, v, weight = self.edges[i]
+            i += 1
+    - pick the smallest edge, and increment `i` so that the correct edge is picked in the next iteration.
+
+- in line - x = self.find(parent, u)
+            y = self.find(parent, v)
+            if x != y:
+                result.append((u, v, weight))
+                self.union(parent, rank, x, y)
+    - if the vertices `u` and `v` at each end of the current edge have different roots `x` and `y`, it means that there will be no cycle for the new edge and the trees are merged. To merge the trees, the current edge is added to the `result` array, and we run the `union` method to make sure the trees are merged correctly, so that there is only one root vertex in the resulting merged tree.
+
+- now, lets create the graph from our manual run through example above and run Kruskal's algo on it - 
+
+- `
+class Graph:
+    def __init__(self, size):
+        self.size = size
+        self.edges = [] #For storing edges as (weight, u, v)
+        self.vertex_data = [''] * size # store vertex names
+
+    def add_edge(self, u, v, weight):
+        if 0 <= u < self.size and 0 <= v < self.size:
+            self.edges.append((u, v, weight)) #add edeg with weight
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+
+    def find(self, parent, i):
+        if parent[i] == i:
+            return i
+        return self.find(parent, parent[i])
+    
+    def union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
+
+    def kruskals_algo(self):
+        result = [] # MST
+        i = 0 #edge counter
+
+        self.edges = sorted(self.edges, key = lambda item: item[2])
+
+        parent, rank = [], []
+
+        for node in range(self.size):
+            parent.append(node)
+            rank.append(0)
+
+        while i < len(self.edges):
+            u, v, weight = self.edges[i]
+            i += 1
+
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+            if x!= y:
+                result.apend((u, v, weight))
+                self.union(parent, rank, x, y)
+
+        print("Edge \tWeight:")
+        for u, v, weight in result:
+            print(f"{self.vertex_data[u]}-{self.vertex_data[v]} \t{weight}")
+
+g = Graph(7)
+g.add_vertex_data(0, 'A')
+g.add_vertex_data(1, 'B')
+g.add_vertex_data(2, 'C')
+g.add_vertex_data(3, 'D')
+g.add_vertex_data(4, 'E')
+g.add_vertex_data(5, 'F')
+g.add_vertex_data(6, 'G')
+
+g.add_edge(0, 1, 4)  #A-B,  4
+g.add_edge(0, 6, 10) #A-G, 10
+g.add_edge(0, 2, 9)  #A-C,  9
+g.add_edge(1, 2, 8)  #B-C,  8
+g.add_edge(2, 3, 5)  #C-D,  5
+g.add_edge(2, 4, 2)  #C-E,  2
+g.add_edge(2, 6, 7)  #C-G,  7
+g.add_edge(3, 4, 3)  #D-E,  3
+g.add_edge(3, 5, 7)  #D-F,  7
+g.add_edge(4, 6, 6)  #E-G,  6
+g.add_edge(5, 6, 11) #F-G, 11
+
+print("Kruskal's Algorithm MST: ")
+g.kruskals_algo()
+`
+
+
+### Time Complexity for Kruskal's Algorithm
+
+- with \(E\) as the number of edges in our graph, the time complexity for Kruskal's algo is - 
+    - \[ Big O( E \cdot log{E} ) \]
+
+- we get this time complexity because the edges must be sorted before Kruskal's can start adding edges to the MST. Using a fast algorithm like Quick Sort or Merge Sort gives us a time complexity of \(Big O( E \cdot log{E} ) \) for this sorting alone.
+
+- after the edges are sorted, they are all checked one by one, to see if they will create a cycle, and if not, they are added to the MST.
+- although it looks like a lot of work to check if a cycle will be created using the `find` method, and then to include an edge to the MST using the `union` method, this can still be viewed as one operation. The reason we can see this as just one operation is that it takes approximately constant time. That means that the time this operation takes grows very little as the graph grows, and so it does actually not contribute to the overall time complexity.
+- Since the time complexity for Kruskal's algorithm only varies with the number of edges \ (E\), it is especially fast for sparse graphs where the ratio between the number of edges \(E\) and the number of vertices \(V\) is relatively low.
+
+
+## 
