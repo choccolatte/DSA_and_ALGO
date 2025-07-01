@@ -6013,4 +6013,36 @@ g.kruskals_algo()
 - Since the time complexity for Kruskal's algorithm only varies with the number of edges \ (E\), it is especially fast for sparse graphs where the ratio between the number of edges \(E\) and the number of vertices \(V\) is relatively low.
 
 
-## 
+## Maximum Flow
+
+- the maximum flow problem is about finding the maximum flow through a directed graph, from one place in the graph to another.
+- more specifically, the flow comes from a source vertex s, and ends up in a sink vertex t, and each edge in the graph is degined witha flow and a capacity, where the capacity is the maximum flow that edge can have.
+
+- Finding the maximum flow can be very useful - 
+    - for planning roads in a city to avoid future traffic jams.
+    - to assess the effect of removing a water pipe, or electrical wire, or network cable.
+    - to find out where in the flow network expanding the capacity will lead to the highest maximum flow, with the purpose of increasing for example traffic, data traffic, or water flow.
+
+
+### Terminology and Concepts
+
+-a **flow network** if often what we call a directed graph with a flow flowing through it.
+- the **capacity** c of an edge tells us how much flow is allowed to flow through that edge.
+- Each edge also has a **flow** value that tells how much the current flow is in that edge.
+    - v1 -> 0/7 -> v2
+
+- the edge in the equation above - v1 -> v2, going from vertex v1 to vertex v2, has its flow and capacity described as `0/7`, which means that the flow is `0`, and the capacity is `7`. So, the flow in this edge can be increased up to 7, but not more.
+- in its simplest form, flow network has one `source vertex s` where the flow comes out, and one `sink vertex t` where the flow goes in. The other vertices just have flow passing through them.
+- for all vertices except s and t, there is a `conservation of flow`, which means that the same amount of flow that goes into a vertex, must also come out of it.
+- the maximum flow is found by algorithms such as Ford-Fulkerson, or Edmonds-Karp, by sending more and more flow through the edges in the flow network until the capacity of the edges are such that no more flow can be sent through. Such a path where more flow can be sent through is called an `augumented path`.
+- the Ford-Fulkerson and Edmonds-Karp algorithms are implemented using something called a `residual network`. This will be explained in more detail later.
+- the `residual network` is set up with the `residual capacities` on each edge, where the residual capacity of an edge is the capacity on that edge, minus the flow. So, when the flow is increased in a an edge, the residual capacity is decreased with the same amount.
+- for each edge in the residual network, there is also a `reversed edge` that points in the opposite direction of the original edge. The residual capacity of a reversed edge is the flow of the original edge. Reversed edges are important for sending flow back on an edge as part of the maximum flow algorithms.
+- when the maximum flow is found, we get a value for how much flow can be sent through the flow network in total.
+
+
+### Multiple Source and Sink Vertices
+
+- the Ford-Fulkerson and Edmonds-Karp algorithms expects one source vertex and one sink vertex to be able to find the maximum flow.
+- If the graph has more than one source vertex, or more than one sink vertex, the graph should be modified to find the maximum flow.
+- 
