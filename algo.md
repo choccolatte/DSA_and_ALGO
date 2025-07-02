@@ -6045,4 +6045,42 @@ g.kruskals_algo()
 
 - the Ford-Fulkerson and Edmonds-Karp algorithms expects one source vertex and one sink vertex to be able to find the maximum flow.
 - If the graph has more than one source vertex, or more than one sink vertex, the graph should be modified to find the maximum flow.
+- to modify the graph so that you can run the Ford-Fulkerson or Edmonds-Karp algorithm on it, create an extra super-source vertex if you have multiple source vertices, and create an extra super-sink vertex if you have multiple sink-vertices.
+- From the super-source vertex, create edges to the original source vertices, with infinite capacities. And create edges from the sink vertices to the super-sink vertex similarly, with infinite capacities.
+- To run the Ford-Fulkerson or Edmonds-Karp on an example graph where s1 and s2 are two sources, and t1, t2, t3 are three sinks, a super source S is created with edges with infinite capacities to the original source nodes, and a super sink T is created with edges infinite capacities to it from the original sinks.
+- the Ford-Fulkerson or Edmonds-Karp algorithm is now able to find maximum flow in a graph with multiple source and sink vertices, by going from the super source S, to the super sink T.
+
+
+### The Max-Flow Min-Cut Theorem
+
+- to understand what this theorem says, we first need to know what a cut is.
+- we create two sets of vertices: one with only the source vertex inside it called 'S' and one with all the other vertices inside it (including the sink vertex) called 'T'.
+- now, starting in the source vertex, we can choose to expand set S by including adjacent vertices, and continue to include adjacent vertices as much as we want as long as we do not include the sink vertex.
+- expanding set S will shrink set T, because any vertex belongs either to set S or set T.
+- in such a setup, with any vertex belonging to either set S or set T, there is a 'cut' between the sets. the cut consists of all the edges stretching from set S to set T.
+- if we add all the capacities from edges going from set S to set T, we get the capacity of the cut, which is the total possible flow from source to sink in this cut.
+- the maximum cut is the cut we can make with the lowest total capacity, which will be the bottleneck.
+- lets say, in an example graph, we make three cuts - A, B, C, all three with different total capacity and max cuts.
+
+- Cut A - this cut has vertices s and v1 in set S, and the other vertices are set in set T. The total capacity of the edges leaving set S in this cut, from sink to source, is 3 + 4 + 7 = 14. We are not adding the capacity from edge v2 -> v1, because this edge goes in the opposite direction, from sink to source. So the maximum possible flow across cut A is 14.
+- Cut B - the maximum possible flow is 3 + 4 + 3 = 10 across cut B.
+- cut C - the maximum possible flow is 2 + 6 = 8 across cut C. If we checked all other cuts in the graph, we would not find a cut with a lower total capacity. THis is the minimum cut. In our example above, 8 is the maximum flow, which is what the max-flow min-cut theorem says.
+- The max-flo min-cut theorem says that finding the minimum cut in a graph, is the same as finding the maximum flow, because the value of the minimum cut will be the same value as the maximum flow.
+
+
+### Pracical Implications of the Max-Flow Min-Cut Theorem
+
+- finding the maximum flow in a graph using an algorithm like Ford-Fulkerson also helps us understand where the minimum cut is: The minimum cut will be where the edges have reached full capacity.
+- The minimum cut will be where the bottleneck is, so if we want to increase flow beyond the maximum limit, which is often the case in practical solutions, we now know which edges in the graph that needs to be modified to increase the overall flow.
+- Modifying edges in the minimum cut to allow more flow can be very sueful in many situations:
+    
+    - Better traffic flow can be achieved because city planners now know where to create extra lanes, where to re-route traffic, or where to optimize traffic signals.
+    - in manufacturing, a higher production output can be reached by targeting improvements where the bottleneck is, by upgrading equipment or reallocating resources for example.
+    - in logistics, knowing where the bottleneck is, the supply chain can be optimized by changing the routes, or increase the capacity at critical points, ensuring that goods are moved more effectively from warehouses to consumers.
+
+- So, using maximum flow algorithms to find the minimum cut, helps us to understand where the system can be modified to allow an even higher throughput.
+
+
+### The Maximum Flow Problem Described Mathematically
+
 - 
