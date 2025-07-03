@@ -6137,3 +6137,40 @@ class Graph:
         if 0 <= vertex < self.size:
             self.vertex_data[vertex] = data
 `
+
+- here, in line - self.adj_matrix = [[0] * size for _ in range(size)]
+    - we create the `adj_matrix` to hold all the edges and edge capacities. Initial values set to `0`.
+- in line - self.size = size
+    - `size` is the number of vertices in the graph.
+- in line - self.vertex_data = [''] * size
+    - the `vertex_data` holds the names of all the vertices.
+- in line - def add_edge(self, u, v, c):
+        self.adj_matrix[u][v] = c
+    - the `add_edge` method is used to add an edge from vertex `u` to vertex `v`, with capacity `c`.
+- in line - def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+    - here, the `add_vertex_data` method is used to add a vertex name to the graph. The index of the vertex is given with the `vertex` argument, and `data` is the name of the vertex.
+
+- the `Graph` class also contains the `dfs` method to find augumented paths, using DFS:
+`
+    def dfs(self, s, t, visited=None, path=None):
+        if visited is None:
+            visited = [False] * self.size
+        if path is None:
+            path = []
+
+        visited[s] = True
+        path.append(s)
+
+        if s == t
+            return path
+
+        for ind, val in enumerate(self.adj_matrix[s]):
+            if not visited[ind] and val > 0:
+                result_path = self.dfs(ind, t, visited, path.copy())
+                if result_path:
+                    return result_path
+        
+        return None
+`
