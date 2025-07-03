@@ -6083,4 +6083,57 @@ g.kruskals_algo()
 
 ### The Maximum Flow Problem Described Mathematically
 
-- 
+- the maximum flow problem is not just a topic in Computer science, it is also a type of mathematical optimization, that belongs to the field of mathematics.
+
+
+## DS Ford-Fulkerson Algorithm
+
+- the Ford-Fulkerson Algorithm solves the maximum flow problem.
+- finding the maximum flow can be helpful in many areas: for optimizing network traffic, for manufacturing, for supply chain and logistics, or for airline scheduling.
+
+- the Ford-Fulkerson Algorithm solves the maximum flow problem for a directed graph.
+- the flow comes from a source vertrex(s), and ends up in a sink vertex(t), and each edge in the graph allow a flow, limited by a capacity.
+- the Ford-Fulkerson Algorithm works by looking for a path with available capacity from the source to the sink (called an augumented path), and then sends as much flow as possible through that path.
+- the Ford-Fulkerson Algorithm continues to find new paths to send more flow through until the maximum flow is reached.
+- if we take an example, the Ford-Fulkerson Algorithm solves the maximum flow problem: it finds out how much flow can be sent from the source vertex, s, to the sink vertex, t, and that maximum flow is 8.
+- the numbers in the example graph are fractions, where the first number is the flow, and the second number is the capacity (maximum possible flow in that edge). So, for example, `0/7` on edge s -> v2, means there is `0` flow, with a capacity of `7` on that edge.
+
+- **Note**
+- the Ford-Fulkerson Algorithm is often described as a method of as an algorithm, because it does not specify how to find a path where flow can be increased. This means it can be implemented in different ways, resulting in different time complexities. But here, we will call it an algorithm, and use DFS to find the paths.
+
+
+- **How it works?**
+1. Start with zero flow on all edges.
+2. Find an augumented path where more flow can be sent.
+3. Do a bottleneck calculation to find out how much flow can be sent through that augumented path.
+4. Increase the flow found from the bottleneck calculation for each edge in the augumented path.
+5. Repeat steps 2-4, until max flow is found. This happens when a new augumented path can no longer be found.
+
+
+### Residual Network in Ford-Fulkerson Algorithm
+
+- the Ford-Fulkerson Algorithm actually works by creating and using something called a residual network, which is a representation of the original path.
+- in this residual network, every edge has a residual capacity, which is the original capacity of the edge, minus the flow in that edge. The residual capacity can be seen as the leftover in an edge with some flow.
+- For example, if there is a flow of 2 in the v3 -> v4 edge, and the capacity is 3, the residual flow is 1 in that edge, because there is no room for sending 1 more unit of flow through that edge.
+
+
+### Reversed Edges in Ford-Fulkerson Algorithm
+
+
+### Implementation of the Ford-Fulkerson Algorithm
+
+- to implement the Ford-Fulkerson Algorithm, we create a `Graph` class, the `Graph` represents the graph with its vertices and edges - 
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, c):
+        self.adj_matrix[u][v] = c
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+`
