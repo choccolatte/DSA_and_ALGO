@@ -6119,6 +6119,21 @@ g.kruskals_algo()
 
 ### Reversed Edges in Ford-Fulkerson Algorithm
 
+- the Ford-Fulkerson Algorithm also uses something called reversed edegs to send flow back. This is useful to increase the total flow.
+- for example, the last augumented path s -> v2 -> v4 -> v3 -> t in the example above and the manual run through below shows how the total flow is increased by one more unit, by actually sending flow back on edge v4 -> v3, sending the flow in the reverse direction.
+- sending flow back in the reverse direction on edge v3 -> v4 in our example means that this 1 unit of flow going out of vertex v3, now leaves v3 on edge v3 -> t instead of v3 -> v4.
+- to send the flow back, in the opposite direction of the edge, a reverse edge is created for each original edge in the netwkr. The Ford-Fulkerson Algorithm can then use these reverse edges to send flow in the reverse direction.
+- a reversed edge has no flow or capacity, just residual capacity. The residual capacity for a reversed edge is always the same as the flow in the corresponding original edge. In our example, the edge v3 -> v4 has a flow of 2, which means there is a residual capacity of 2 on the corresponding reversed edge v4 -> v3.
+- this just means that when there is a flow of 2 on the original edge v3 -> v4, there is a possibility of sending that same amount of flow back on that edge, but in the reversed direction. Using a reversed edge to push back flow can also be seen as undoing a part of the flow that is already created.
+- the idea of a residual network with residual capacity on edges, and the idea of reversed edges, are central to how the Ford-Fulkerson Algorithm works, and we will go into more detail about this when we implement the algorithm.
+
+
+### Manual Run Through
+
+- there is no flow in the graph to start with.
+- to find the maximum flow, the Ford-Fulkerson Algorithm must increase flow, but first, it needs to find out where the flow can be increased: it must find an augumented path.
+- the Ford-Fulkerson Algorithm actually does not specify how such an augumented path is found (that is why it is often described as a method instead of an algorithm), but we will use DFS to find the augumented paths for the Ford-Fulkerson Algorithm here.
+- 
 
 ### Implementation of the Ford-Fulkerson Algorithm
 
