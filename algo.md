@@ -6211,3 +6211,16 @@ class Graph:
         
         return None
 `
+
+- in line - if visited is None:
+            visited = [False] * self.size
+        if path is None:
+            path = []
+    - the `visited` array helps to avoid revisiting the same vertices during the search for an augumented path. Vertices that belong to the augumented path are stored in the `path` array.
+- in line - visited[s] = True
+        path.append(s)
+    - the current vertex is marked as visited, and then added to the path.
+- in line - if s == t:
+                return path
+    - if the current vertex is the sink node, we have found an augumented path from the source vertex to the sink vertex, so that the path can be returned.
+- 
