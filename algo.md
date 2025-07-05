@@ -6133,7 +6133,29 @@ g.kruskals_algo()
 - there is no flow in the graph to start with.
 - to find the maximum flow, the Ford-Fulkerson Algorithm must increase flow, but first, it needs to find out where the flow can be increased: it must find an augumented path.
 - the Ford-Fulkerson Algorithm actually does not specify how such an augumented path is found (that is why it is often described as a method instead of an algorithm), but we will use DFS to find the augumented paths for the Ford-Fulkerson Algorithm here.
-- 
+- the first augumented path Ford-Fulkerson finds using DFS is s -> v1 -> v3 -> v4 -> t.
+- and using the bottleneck calculation, Ford-Fulkerson finds that 3 is the highest flow that can be sent through the augumented path, so the flow is increased by 3 for all the edges in this path.
+
+- the next iteration of the Ford-Fulkerson algorithm is to do these steps again:
+    2. Find a new augumented path.
+    3. Find how much the flow in that path can be increased.
+    4. Increase the flow along the edges in that path accordingly.
+
+- the next augumented path is found to be s -> v2 -> v1 -> v4 -> v3 -> t, which includes the reversed edge v4 -> v3, where the flow is sent back.
+- the Ford-Fulkerson concept of reversed edegs comes in handy because it allows the path finding part of the algorithm to find an augumented path where reversed edges can also be included.
+- in this specific case, that means that a flow of 2 can be sent back on edge v3 -> v4, going into v3 -> t instead.
+- the flow can only be increased by 2 in this path because that is the capacity in the v3 -> t edge.
+
+- the next augumented path is found to be 2 -> v2 -> v1 -> v4 -> t.
+- the flow can be increased by 2 in this path. The bottleneck (limiting edge) is v1 -> v4 because there is only room for sending two more units of flow in that edge.
+
+- the next and last augumented path is s -> v2 -> v4 -> t.
+- the flow can only be increased by 1 in this path because of edge v4 -> t being the bottleneck in this path with only space for one more unit of flow (capacity - flow = 1).
+
+- at this point, a new augumenting path cannot be found (it is not possible to find a path where more flow can be sent through from s to t), which means the max flow has been found, and the Ford-Fulkerson algo is finished.
+- the maximim flow is 8. As you can see now, the flow (8) is the same going out to the source vertex s, as the flow going into the sink vertex t.
+- also, if you take any other vertex than s or t, you can see that the amount of flow going into a vertex, is the same as the flow going out of it. This is what we call conservation of flow, and this must hold for all such flow networks (directed graphs where each edge has a flow and a capacity).
+
 
 ### Implementation of the Ford-Fulkerson Algorithm
 
