@@ -6223,4 +6223,154 @@ class Graph:
 - in line - if s == t:
                 return path
     - if the current vertex is the sink node, we have found an augumented path from the source vertex to the sink vertex, so that the path can be returned.
-- 
+- in line - for ind, val in enumerate(self.adj_matrix[s]):
+            if not visited[ind] and val > 0:
+                result_path = self.dfs(ind, t, visited, path.copy())
+                if result_path:
+                    return result_path
+    - looping through all edges in the adjacency matrix starting from the current vertex `s`, `ind` represents an adjacent node, and `val` is the residual capacity on the edge to that vertex. If the adjacent is not visited, and has residual capacity on the edge to it, go to that node and continue searching for a path from that vertex.
+- in line - return None
+    - `None` is returned if no path is found.
+
+- the `fordFulkerson` method is the last method we add to the `Graph` class.
+
+`
+def fordFulkerson(self, source, sink):
+    max_flow = 0
+
+    path = self.dfs(source, sink)
+    while path:
+        path_flow = float("Inf")
+        for i in range(len(path) - 1):
+            u, v = path[i], path[i + 1]
+            path_flow = min(path_flow, self.adj_matrix[u])[v]
+
+        for i in range(len(path) - 1):
+            u, v = path[i], path[i + 1]
+            self.adj_matrix[u][v] -= path_flow
+            self.adj_matrix[v][u] += path_flow
+
+        max_flow += path_flow
+
+        path_names = [self.vertex_data[node] for node in path]
+        print("Path:", " -> ".join(path_names), ", Flow:", path_flow)
+
+        path = self.dfs(source, sink)
+    return max_flow
+`
+
+- Initially, the `max_flow` is `0`, and the `while` loop keeps increasing the `max_flow` as long as there is an augumented path to increase the flow in.
+
+- in line - path = self.dfs(source, sink)
+    - the augumented path is found.
+- in line - path_flow = float("Inf")
+            for i in range(len(path) - 1):
+                u, v = path[i], path[i + 1]
+                path_flow = min(path_flow, self.adj_matrix[u][v])
+    - every edge in the augumented path is checked to find out how much flow can be sent through that path.
+- in line - for i in range(len(path) - 1):
+                u, v = path[i], path[i + 1]
+                self.adj_matrix[u][v] -= path_flow
+    - the residual capacity (capacity minus flow) for every forward edge is reduced as a result of increased flow.
+- in line - self.adj_matrix[v][u] += path_flow
+    - this represents the reversed edge, used by the Ford-Fulkerson algorithm so that flow can be sent back (undone) on the original forward edges. It is important to understand that these reversed edges are not in the original graph, they are fictitious edges introduced by the Ford-Fulkerson to make the algorithm work.
+- in line - max_flow += path_flow
+    - every time flow in increased over an augumented path, `max_flow` is increased by the same value.
+- in line - path_names = [self.vertex_data[node] for node in path]
+            print("Path:", " -> ".join(path_names), ", Flow:", path_flow)
+    - this is just for printing the augumented path before the algorithm starts the next iteration.
+
+- after defining the `Graph` class, the vertices and edges must be defined to initialize the specific graph, and the complete code for the Ford-Fulkerson algo example looks like this:
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, c):
+        self.adj_matrix[u][v] = c
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+
+    def dfs(self, s, t, visited=None, path=None):
+        if visited is None:
+            visited = [False] * self.size
+        if path is None:
+            path = []
+
+        visited[s] = True
+        path.append(s)
+
+        if s == t:
+            return path
+
+        for ind, val in enumerate(self.adj_matrix[s]):
+            if not visited[ind] and val > 0:
+                result_path = self.dfs(ind, t, visited, path.copy())
+                if result_path:
+                    return result_path
+
+        return None
+
+    def fordFulkerson(self, source, sink):
+        max_flow = 0
+
+        path = self.dfs(source, sink)
+        while path:
+            path_flow = float("Inf")
+            for i in range(len(path) - 1):
+                u, v = path[i], path[i + 1]
+                path_flow = min(path_flow, self.adj_matrix[u][v])
+
+            for i in range(len(path) - 1):
+                u, v = path[i], path[i + 1]
+                self.adj_matrix[u][v] -= path_flow
+                self.adj_matrix[v][u] += path_flow
+
+            max_flow += path_flow
+
+            path_names = [self.vertex_data[node] for node in path]
+            print("Path:", " -> ".join(path_names), ", Flow:", path_flow)
+
+            path = self.dfs(source, sink)
+
+        return max_flow
+
+g = Graph(6)
+vertex_names = ['s', 'v1', 'v2', 'v3', 'v4', 't']
+for i, name in enumerate(vertex_names):
+    g.add_vertex_data(i, name)
+
+g.add_edge(0, 1, 3)  # s  -> v1, cap: 3
+g.add_edge(0, 2, 7)  # s  -> v2, cap: 7
+g.add_edge(1, 3, 3)  # v1 -> v3, cap: 3
+g.add_edge(1, 4, 4)  # v1 -> v4, cap: 4
+g.add_edge(2, 1, 5)  # v2 -> v1, cap: 5
+g.add_edge(2, 4, 3)  # v2 -> v4, cap: 3
+g.add_edge(3, 4, 3)  # v3 -> v4, cap: 3
+g.add_edge(3, 5, 2)  # v3 -> t,  cap: 2
+g.add_edge(4, 5, 6)  # v4 -> t,  cap: 6
+
+source = 0; sink = 5
+
+print("The maximum possible flow is %d " % g.fordFulkerson(source, sink))
+`
+
+### Time Complexity for the Ford-Fulkerson Algorithm
+
+- the time complexity for the Ford-Fulkerson varies with the number of vertices V, the number of edges E, and it actually varies with the maximum flow f in the graph as well.
+- the reason why the time complexity varies with the maximum flow f in the graph, is because in a graph with a high throughput, there will be more augumented paths that increase flow, and that means the DFS method that finds these augumented paths will have to run more times.
+    - DFS has time complexity of - Big O(V + E)
+
+- DFS runs once for every new augumented path. If we assume that each augumented graph increase flow by 1 unit, DFS must run f times, as many as the value of maximunm flow.
+- this means that time complexity for the Ford-Fulkerson algo, using DFS is - 
+    - Big O((V + E) . f)
+
+- for dense graphs, where E > V, time complexity for DFS can be simplified to Big O(E), which means that the time complexity for the Ford-Fulkerson algo also can be simplified to - 
+    - Big O(E.f)
+
+- a dense graph does not have an accurate definition, but it is a graph with many edges.
+
