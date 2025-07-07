@@ -6374,3 +6374,20 @@ print("The maximum possible flow is %d " % g.fordFulkerson(source, sink))
 
 - a dense graph does not have an accurate definition, but it is a graph with many edges.
 
+
+## Edmonds-Karp Algorithm
+
+- the Edmonds-Karp Algorithm solves the maximum flow problem.
+- finding the maximum flow can be helpful in many areas: for optimizing network traffic, for manufacturing, for supply chain and logisstics, or for airline scheduling.
+
+- the Edmonds-Karp Algorithm solves the maximum flow problem for a directed graph.
+- the flow comes from a source vertex (s) and ends up in a sink vertex (t), and each edge in the graph allows a flow, limited by a capacity.
+- the Edmonds-Karp Algorithm is very similar to the Ford-Fulkerson algo, except the Edmonds-Karp Algorithm uses BFS to find augumented paths to increase flow.
+- the Edmonds-Karp Algorithm works by using BFS to find a path with available capacity from the source to the sink (called an augumented path), and then sends as much flow as possible through that path.
+- the Edmonds-Karp Algorithm continues to find new paths to send more flow through until the maximum flow is reached.
+- lets say in an example graph, the Edmonds-Karp Algorithm solves the maximum flow problem: it finds out how much flow can be sent from the source vertex s, to the sink vertex t, and that maximum flow is 8.
+- the number in the example graph are in fractions, where the first number is the flow, and the second number is the capacity (maximum possible flow in that edge). So, for example, `0/7` on edge s -> v2, means there is `0` flow, with a capacity of `7` on that edge.
+- you can see the basic step-by-step description of how the Edmonds-Karp Algorithm works below, but we need to go into more detail later to actually understand it.
+
+**How it works?:**
+1. 
