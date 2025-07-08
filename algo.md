@@ -6389,5 +6389,111 @@ print("The maximum possible flow is %d " % g.fordFulkerson(source, sink))
 - the number in the example graph are in fractions, where the first number is the flow, and the second number is the capacity (maximum possible flow in that edge). So, for example, `0/7` on edge s -> v2, means there is `0` flow, with a capacity of `7` on that edge.
 - you can see the basic step-by-step description of how the Edmonds-Karp Algorithm works below, but we need to go into more detail later to actually understand it.
 
+
 **How it works?:**
-1. 
+1. Start with zero flow on all edges.
+2. Use BFS to find an augmented path where more flow can be sent.
+3. Do a bottleneck calculation to find out how muich flow can be sent through that augumented path.
+4. Increase the flow found from the bottleneck calculation for each edge in the augumented path.
+5. Repeat steps 2-4 until max flow is found. This happens when a new augumented path can no longer be found.
+
+
+### Residual Network in Edmonds-Karp
+
+- The Edmonds-Karp algo works by creating and using something called a residual network, which is a representation of the original graph.
+- in the residual network, every edge has a residual capacity, which is the original capacity of the edge, minus the flow in that edge. The residual capacity can be seen as the leftover capacity in an edge with some flow.
+- For example, if there is a flow of 2 in the v3 -> v4 edge, and the capacity is 3, the residual flow is 1 in that edge, because there is room for sending 1 more unit of flow through that edge.
+
+
+### Reversed Edges in Edmonds-Karp
+
+- the Edmonds-Karp algorithm also uses something called reversed edges to send flow back. this is useful to increase the total flow.
+- to send flow back, in the opposite direction of the edge, a reverse edge is created for each original edge in the network. The Edmonds-Karp algo can then use these reverse edges to send flow in the reverse direction.
+- a reversed edge has no flow or capacity, just residual capacity. The residual capacity for a reversed edge is always the same as the flow in the corresponding original edge.
+- in our example, the edge v1 -> v3 has a flow of 2, which means there is a residual capacity of 2 on the corresponding reversed edge v3 -> v1.
+- this just means that when there is a flow of 2 on the original edge v1 -> v3, there is a possibility of sending that same amount of flow back on that edge, but in the reversed direction. Using a reversed edge to push back flow can also be seen as undoing a part of the flow that is already created.
+- the idea of a residual network with residual capacity on edges, and the idea of reversed edges, are central to how the Edmonds-Karp algo works, and we will go into more detail about this when we implement the algo later.
+
+
+### Manual Run Through
+
+- there is no flow in the graph to start with.
+- the Edmonds-Karp algo starts with using BFS to find an augumented path where flow can be increased, which is s -> v1 -> v3 -> t.
+- after finding the augumented path, a bottleneck calculation is done to find how much flow can be sent through that path, and that flow is: 2.
+- so, a flow of 2 is sent over each edge in the augumented path.
+
+- the next iteration of the Edmonds-Karp algo is to do these steps again: Find a new augumented path, find how much the flow in that path can be increased, and increase the flow along the edges in that path accordingly.
+- the next augumented path is found to be s -> v1 -> v4 -> t.
+- the flow can only be increased by 1 in this path because there is only room for one more unit of flow in the s -> v1 edge.
+
+- the next augumented path is found to be s -> v2 -> v4 -> t.
+- the flow can be increased by 3 in this path. The bottleneck (limiting edge) is v2 -> v4 because the capacity is 3.
+
+- the last augumented path found is s -> v2 -> v1 -> v4 -> t.
+- the flow cna only be increased by 2 in this path because of edge v4 -> t being the bottleneck in this path with only space for 2 more units of flow (capacity - flow = 1).
+
+- at this point, a new augumenting path cannot be found (it is not possible to find a path where more flow can be sent through from s to t), which means the max flow has been found, and the Edmonds-Karp algo is finished.
+- the maximum flow is 8. As you can see, the flow (8) is the same going out of the source vertex s, as the flow going into the sink vertex t.
+- also, if you take any other vertex than s or t, you can see that amount of flow going into a vertex, is the same as the flow going out of it. This is what we call conservation of flow, and this must hold for all such flow networks (directed graphs where each edge has a flow and a capacity).
+
+
+### Implementation of the Edmonds-Karp Algo
+
+- to implement the Edmonds-Karp algo, we create a `Graph` class.
+- the `Graph` represents the graph with its vertices and edges:
+
+-`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, c):
+        self.adj_matrix[u][v] = c
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+`
+
+- here, in line - self.adj_matrix = [[0] * size for _ in range(size)]
+    - we create the `adj_matrix` to hold all the edges and edge capacities. Initial values are set to `0`.
+
+- in line - self.size = size
+    - `size` is the number of vertices in the graph.
+
+- in line - self.vertex_data = [''] * size
+    - the `vertex_data` holds the names of all the vertices.
+
+- in line - def add_edge(self, u, v, c):
+        self.adj_matrix[u][v] = c
+    - the `add_edge` method is used to add an edge from vertex `u` to vertex `v`, with capacity `c`.
+
+- in line - def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+    - the `add_vertex_data` method is used to add a vertex name to the graph. The index of the vertex is given with the `vertex` argument, and `data` is the name of the vertex.
+
+- the `Graph` class also contains the `bfs` method to find augumented paths, using BFS:
+
+`
+def bfs(self, s, t, parent):
+    visited = [False] * self.size
+    queue = [] # using list as a queue
+    queue.append(s)
+    visited[s] = True
+
+    while queue:
+        u = queue.pop(0) # pop from the start of the list
+
+        for ind, val in enumerate (self.adj_matrix[u]):
+            if not visited[ind] and val > 0:
+                queue.append(ind)
+                visited[ind] = True
+                parent[ind] = u
+                
+    return visited[t]
+`
+
+- here, in line - 
