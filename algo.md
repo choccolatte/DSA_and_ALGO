@@ -6496,4 +6496,189 @@ def bfs(self, s, t, parent):
     return visited[t]
 `
 
-- here, in line - 
+- here, in line - visited = [False] * self.size
+        queue = []  # Using list as a queue
+        queue.append(s)
+        visited[s] = True
+    - the `visited` array helps to avoid revisiting the same vertices during the search for an augumented path. The `queue` holds vertices to be explored, the search always starts with the source vertex `s`.
+- in line - while queue:
+            u = queue.pop(0)  # Pop from the start of the list
+    - as long as there are vertices to be explored in the `queue`, take the first vertex out of the `queue` so that a path can be found from there to the next vertex.
+- in line - for ind, val in enumerate(self.adj_matrix[u]):
+    - for every adjacent vertex to the current vertex.
+- in line - if not visited[ind] and val > 0:
+                    queue.append(ind)
+                    visited[ind] = True
+                    parent[ind] = u
+    - if the adjacent vertex is not visited yet, and there is a residual capacity on the edge to that vertex: add it to the queue of the vertices that needs to be explored, mark it as visited, and set the `parent` of the adjacent vertex to be the current vertex `u`.
+
+- the `parent` array holds the parent of a vertex, creating a path from the sink vertex, backwards to the source vertex. The `parent` is used later in the Edmonds-Karp algo, outside the `bfs` method, to increase flow in the augumented path.
+
+- in line - return visited[t]
+    - the last line returns `visited[t]`, which is `true` if the augumented path ends in the sink node `t`. Returning `true` means that an augumentingg path has been found.
+
+- the `edmonds_karp` method is the last method we add to the `Graph` class:
+
+`
+def edmonds_karp(self, source, sink):
+    parent = [-1] * self.size
+    max_flow = 0
+
+    while self.bfs(source, sink, parent):
+        path_flow = float("Inf")
+        s = sink
+        while (s != source):
+            path_flow = min(path_flow, self.adj_matrix[parent[s][s]])
+            s = parent[s]
+
+        max_flow += path_flow
+        v = sink
+        while(v != source):
+            u = parent[v]
+            self.adj_matrix[u][v] -= path_flow
+            self.adj_matrix[v][u] += path_flow
+            v = parent[v]
+
+        path = []
+        v = sink
+        while(v != source):
+            path.append(v)
+            v = parent[v]
+        path.append(source)
+        path.reverse()
+        path_names = [self.vertex_data[node] for node in path]
+        print("Path: ", " -> ".join(path_names), ", Flow: ", path_flow)
+
+    return max_flow
+`
+
+- initially, the `parent` array holds invalid index values, because there is no augumented path to begin with, and the `max_flow` is 0, and the `while` loop keeps increasing the `max_flow` as long as there is an augumented path to increase the flow in.
+
+- here, in line - while self.bfs(source, sink, parent):
+    - the outer `while` loop makes sure the Edmonds-Karp algo keeps increasing flow as long as there are augumented paths to increase the flow along.
+- in line - path_flow = float("Inf")
+            s = sink
+    - the initial flow along as augumented path is infinite, and the possible flow increase will be calculated starting with the sink vertex.
+- in line - while(s != source):
+                path_flow = min(path_flow, self.adj_matrix[parent[s]][s])
+                s = parent[s]
+    - the value for `path_flow` is found by going backwards from the sink vertex towards the source vertex. The lowest value of residual capacity along the path is what decides how much flow can be sent on the path.
+- in line - max_flow += path_flow
+    - `path_flow` is increased by the `path_flow`.
+- in line - while(v != source):
+                u = parent[v]
+                self.adj_matrix[u][v] -= path_flow
+                self.adj_matrix[v][u] += path_flow
+                v = parent[v]
+    - stepping through the augumented path, going backwards from sink to source, the residual capacity is decreased with the `path_flow` on the forward edges, and the residual capacity is increased with the `path_flow` on the reversed edges.
+- in line - path = []
+            v = sink
+            while(v != source):
+                path.append(v)
+                v = parent[v]
+            path.append(source)
+            path.reverse()
+            path_names = [self.vertex_data[node] for node in path]
+            print("Path:", " -> ".join(path_names), ", Flow:", path_flow)
+    - this part of the code is just for printing so that we are able to track each time an augumented path is found, and how much flow is sent through that path.
+
+- after defining the `Graph` class, the vertices and edges must be defined to initialize the specific graph, and the complete code for the Edmonds-Karp algo example looks like this - 
+`
+class Graph:
+    def __init__(self, size):
+        self.adj_matrix = [[0] * size for _ in range(size)]
+        self.size = size
+        self.vertex_data = [''] * size
+
+    def add_edge(self, u, v, c):
+        self.adj_matrix[u][v] = c
+
+    def add_vertex_data(self, vertex, data):
+        if 0 <= vertex < self.size:
+            self.vertex_data[vertex] = data
+
+    def bfs(self, s, t, parent):
+        visited = [False] * self.size
+        queue = []  # Using list as a queue
+        queue.append(s)
+        visited[s] = True
+
+        while queue:
+            u = queue.pop(0)  # Pop from the start of the list
+
+            for ind, val in enumerate(self.adj_matrix[u]):
+                if not visited[ind] and val > 0:
+                    queue.append(ind)
+                    visited[ind] = True
+                    parent[ind] = u
+
+        return visited[t]
+
+    def edmonds_karp(self, source, sink):
+        parent = [-1] * self.size
+        max_flow = 0
+
+        while self.bfs(source, sink, parent):
+            path_flow = float("Inf")
+            s = sink
+            while(s != source):
+                path_flow = min(path_flow, self.adj_matrix[parent[s]][s])
+                s = parent[s]
+
+            max_flow += path_flow
+            v = sink
+            while(v != source):
+                u = parent[v]
+                self.adj_matrix[u][v] -= path_flow
+                self.adj_matrix[v][u] += path_flow
+                v = parent[v]
+
+            path = []
+            v = sink
+            while(v != source):
+                path.append(v)
+                v = parent[v]
+            path.append(source)
+            path.reverse()
+            path_names = [self.vertex_data[node] for node in path]
+            print("Path:", " -> ".join(path_names), ", Flow:", path_flow)
+
+        return max_flow
+
+#Example usage:
+g = Graph(6)
+vertex_names = ['s', 'v1', 'v2', 'v3', 'v4', 't']
+for i, name in enumerate(vertex_names):
+    g.add_vertex_data(i, name)
+
+g.add_edge(0, 1, 3)  # s  -> v1, cap: 3
+g.add_edge(0, 2, 7)  # s  -> v2, cap: 7
+g.add_edge(1, 3, 3)  # v1 -> v3, cap: 3
+g.add_edge(1, 4, 4)  # v1 -> v4, cap: 4
+g.add_edge(2, 1, 5)  # v2 -> v1, cap: 5
+g.add_edge(2, 4, 3)  # v2 -> v4, cap: 3
+g.add_edge(3, 4, 3)  # v3 -> v4, cap: 3
+g.add_edge(3, 5, 2)  # v3 -> t,  cap: 2
+g.add_edge(4, 5, 6)  # v4 -> t,  cap: 6
+
+source = 0; sink = 5
+print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
+
+`
+
+### Time Complexity for the Edmonds-Karp Algorithm
+
+- the difference between Edmonds-Karp and Ford-Fulkerson is that Edmonds-Karp uses BFS to find augumented paths, while Ford-Fulkerson uses DFS.
+- this means that the time it takes to run Edmonds-Karp is easier to predict than Ford-Fulkerson, because Edmonds-Karp is not affected by the maximum flow value.
+- with the number of vertices V, the number of edges E, the time complexity for the Edmonds-Karp algo is - 
+    - Big O(V . E*E) - here, E is squared
+
+- this means that Edmonds-Karp does not depend on the maximum flow, like Ford-Fulkerson does, but on how many vertices and edges we have.
+- The reason we get this time complexity for Edmonds-Karp is that it runs BFS which has time complexity Big O (E + V).
+- But if we assume a bad case scenario for Edmonds-Karp, with a dense graph, where the number of edges E is much greated than the number of vertices V, time complexity for BFS becomes Big O(E).
+- BFS must run one time for every augumented path, and there can actually be found close to V.E augumented paths during running of the Edmonds-Karp algo.
+- so, BFS with time complexity Big O(E) can run close to V.E times in the worst case, which means we get a total time complexity for Edmonds-Karp: 
+    - Big O(V . E . E) = Big O(V . E * E).
+
+
+
