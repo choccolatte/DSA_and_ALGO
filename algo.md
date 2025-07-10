@@ -6681,4 +6681,60 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
     - Big O(V . E . E) = Big O(V . E * E).
 
 
+## Time Complexity
 
+### Runtime
+
+- to fully understand algorithms we must first understand how to evaluate the time an algorithm needs to do its job, the runtime.
+- exploring the runtime of algorithms is important because using an inefficient algorithm could make our program slow or even unworkable.
+- by understanding algorithm runtime, we can choose the right algorithm for our need, and we can then make our programs run faster and handle larger amounts of data effectively.
+
+
+### Actual Runtime
+
+- when considering the runtime for different algorithms, we will **not** look at the actual time an implemented algorithm uses to run, and here is why.
+- if we implement an algorithm in a programming language, and run that program, the actual time it will use depends on many factors:
+    - the programming language used to implement the algorithm
+    - how the programmer writes the program for the algorithm
+    - the compiler or interpreter used so that the implemented algorithm can run
+    - the hardware on the computer the algorithm is running on
+    - the operating system and other tasks going on on the computer
+    - the amount of data the algorithm is working on
+
+- with all these different factors playing a part in the actual runtime for an algorithm, how can we know if one algorithm is faster than another? We need to find a better measure of runtime.
+
+
+### Time Complexity
+
+- to evaluate and compare different algorithms, instead of looking at the actual runtime for an algorithm, it makes more sense to use something called time complexity.
+- time complexity is more abstract than actual runtime, and does not consider factors such as programming language or hardware.
+- time complexity is the number of operations needed to run an algorithm on large amounts of data. And the number of operations can be considered as time because the computer uses some time for each operation.
+- for example, in the algorithm that finds the lowest value in an array, each value in the array must be compared one time. Every such comparison can be considered an operation, and each operation takes a certain amount of time. So, the total time the algorithm needs to find the lowest value depends on the number of values in the array.
+- the time it takes to find the lowest value is therefore linear with the number of values. 100 values results in 100 comparisons, and 5000 values results in 5000 comparisons.
+- the relationship between time and the number of values in the array is linear, and can be displayed in a graph as - linear going from 0(x, y) to 100(x, y), diagonally.
+
+
+### "One Operation"
+
+- when talking about "operations" here, "one operation" might take one or several CPU cycles, and it really is just a word helping us to abstract, so that we can understand what time complexity is, and so that we can find the time complexity for different algorithms.
+- one operation in an algorithm can be understood as something we do in each iteration of the algorithm, or for each piece of data, that takes constant time.
+
+- for example: Comparing two array elements, and swapping them if one is bigger than the other, like the Bubble Sort algorithm does, can be understood as one operation. Understanding this as one, two, or three operations actually does not affect the time complexity for Bubble Sort, because it takes constant time.
+
+- we say that an operation takes "constant time" if it takes same time regardless of the amount of data(n) the algorithm is processing. Comparing two specific array elements, and swapping them if one is bigger than the other, takes the same time if the array contains 10 or 1000 elements.
+
+
+### Big O Notation
+
+- in maths, Big O Notation is used to described the upper bound of a function.
+
+- in computer science, Big O Notation is used more specifically to find the worst case time complexity for an algorithm.
+
+- Big O Notation uses a capital letter O with paranthesis O(), and inside the paranthesis there is an expression that indicates the algorithm runtime. Runtime is usually expresed using n, which is the number of values in the data set the algorithm is working on.
+- Below are some examples of Big O Notation for different algorithms, just to get the idea:
+
+| Time Complexity | Algorithm |
+
+Big O(1) - Looking up a specific element in an array, like this example here - 
+    - print (my_array[100])
+    - here, no matter the size of the array, an element can be looked up directly, it just requires one operation. (This is not really an algorithm by the way, but it can help us understand how time complexity actually works.)
