@@ -6735,6 +6735,19 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 | Time Complexity | Algorithm |
 
-Big O(1) - Looking up a specific element in an array, like this example here - 
+- **O(1)** - Looking up a specific element in an array, like this example here - 
     - print (my_array[100])
     - here, no matter the size of the array, an element can be looked up directly, it just requires one operation. (This is not really an algorithm by the way, but it can help us understand how time complexity actually works.)
+
+- **O(n)** - finding the lowest value. The algorithm must do n operations in an array with n values to find the lowest value, because the algorithm must compare each value one time.
+
+- **O(n * n)** - n squared - bubble sort, selection sort, and insertion sort are algorithms with this time complexity. 
+    - Large data sets slows down these algorithms significantly. With just an increase in n from 100 to 200 values, the number of operations can increase by as much as 30000!
+
+- O(n log n) - the quicksort algorithm is faster on average than the three sorting algorithms mentioned above, with O(n log n) being the average and not the worst case time. Worst case time for Quicksort is also O(n * n), but it is the average time that makes Quicksort so interesting.
+
+
+### Best, Average and Worst Case
+
+- 
+
