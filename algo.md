@@ -6749,5 +6749,53 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 ### Best, Average and Worst Case
 
-- 
+- 'Worst case' time complexity has already been mentioned when explaining the Big O notation, but how can an algorithm have a worst case scenario?
+- the algorithm that finds the lowest value in an array with n values requires n operations to do so, and that is always the same. So, this algorithm has the same best, average, and worst case scenario.
+-  but for many other algorithms, we will look at, if we keep the number of values n fixed, the running can still change a lot depending on the actual values.
+- without going into all the details, we can understand that a sorting algorithm can have different runtimes, depending on the values it is sorting.
+- Just imagine you have to sort 20 values manually from lowest to highest:
+    - 8, 16, 19, 15, 2, 17, 4, 11, 6, 1, 7, 13, 5, 3, 9, 12, 14, 20, 18, 10
+
+- this will take you some seconds to finish.
+- now, imagine you have to sort 20 values that are almost sorted already:
+    - 1, 2, 3, 4, 5, 20, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+
+- you can sort the values really fast, by just moving 20 to the end of the list and you are done, right?
+- algorithms work similarly: For the same amount of data they can sometimes be slow and sometimes fast. So, to be able to compare different algorithms' time complexities, we usually look at the worst-case scenario using Big O notation.
+
+
+### Big O Explained Mathematically
+
+- here, we are trying to create a mroe solid mathematical basis for those who need Big O explained mmore thoroughly.
+- in maths, Big O Notation is used to create an upper bound for a function, and in CS, Big O Notation is used to describe how the runtime of an algorithm increases when the number of data values n increase.
+- For example, consider the function - 
+    - f(n) = 0.5n(cube) - 0.75n(square) + 1
+
+- the graph for the function f will look something like a fish hook inverted.
+
+- consider another function - 
+    - g(n) = n(cubed)
+
+- which we can see that its graph starts from x-axis and will go higher - like a hockey stick.
+
+- using Big O Notation we can say that Big O(g(n)) is an upper bound for f(n) because we can choose a constant C so that C.g(n) > f(n) as long as n is big enough.
+- Ok. Lets try. W C = 0.75 so that C.g(n) = 0.75.n(cubed)
+
+- drawing the 0.75.g(n) and f(n) in the same plot, it will be an inverted fish hook for f(n), and hockey stick for 0.75.g(n).
+
+- we can see that Big O(g(n)) = O(n cubed) is the upper bound for f(n) because 0.75.g(n) > f(n) for all n larger than 1.
+
+- in this example above n must be larger than 1 for O(n cubed) to be an upper bound. We call this limit n0.
+
+- **Definition**
+    - let f(n) and g(n) be two functions. We say that f(n) is O(g(n)) if and only if, there are positive constants C and n0 such that - 
+        - C.g(n) > f(n)
+     for all n > n0.
+
+- when evaluating time complexity for an algorithm, it is ok that O() is the only true for a large number of values n, because that is when the time complexity becomes important. To put it differently: if we are sorting 10, 20, or even 100 values, the time complexity for the algorithm is not so interesting, because the computer will sort the values in a short amount of time anyway.
+
+
+## Bubble Sort Time Complexity
+
+
 
