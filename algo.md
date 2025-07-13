@@ -6797,5 +6797,22 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 ## Bubble Sort Time Complexity
 
+- the bubble sort algorithm runs through the array, every value is compared to the next, and swaps the values if the left value is larger than the right. This means that the highest value bubbles up, and the unsorted part of the array becomes shorter and shorter until the sorting is done. So, on average, n/2 elements are considered when the algorithm goes through the array comparing and swapping values.
+- we can start calculating the number of operations done by the Bubble Sort algorithm on n values - 
+    - Operations = (n - 1).n/2 = n(squared)/2 - n/2
+
+- when looking at the time complexity for algorithms, we look at very large data sets, meaning n is a very big number. And for a very big number, n, the term n(squared)/2 becomes a lot bigger than the term n/2. So large in fact, that we can approximate by simply removing that second term n/2.
+    - Operations = n(squared)/2 - n/2 = n(squared)/2 = 1/2.n(squared)
+
+- when we are looking at time complexioty like we are here, using Big O notation, factors are disregarded, so factor 1/2 is omitted. This means that the run time for the Bubble Sort algorithm can be described with time complexity, using Big O Notation, like this - 
+    - O(1/2.n(squared) = O(n(squared)))
+
+- and the graph describing the Bubble Sort time complexity looks like - a hockey stick(upward direction) - where x-axis is number of values, and y-axis is time.
+
+
+## Selection Sort Time Complexity
+
+
+
 
 
