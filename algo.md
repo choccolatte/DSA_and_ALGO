@@ -6812,7 +6812,27 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 ## Selection Sort Time Complexity
 
+- the selection sort algorithm goes through all the elements in an array, finds the lowest value, and moves it to the front of the array, and does this over and over until the array is sorted.
+- Selection Sort goes through an array of n alues n - 1 times. This is because when the algorithm has sorted all the values except the last, the last value must also be in its correct place.
+- the first time the algorithm runs through the array, every value is compared to find out which one is the lowest.
+- the second time the algorithm runs through the array, every value **except the first value** is compared to find out which is the lowest.
+- and in this way, the unsorted part of the array becomes shorter and shorter until the sorting is done. So, on average, n/2 elements are considered when the algorithm goes through the array finding the lowest value and moving it to the front of the array.
+- In addition to all the compares needed, the number of swap considering needed is n - 1.
+- we can start calculatingg the number of operations for the Selection Sort algorithm:
+    - Operations = (n-1).n/2 + (n - 1)
+    -           = n(squared)/2 - n/2 + (n - 1)
+                = n(squared)/2 + n/2
+
+- when looking at the runtime for algorithms, we look at very large data sets, meaning n is a very big number. And for a very big number n, the term n(squared)/2 becomes so much bigger than the term n/2 that we can approximate by simply removing that second term n/2.
+    - Operations = n(squared)/2 + n/2 = n(squared)/2 = 1/2.n(squared)
+
+- using Big O notation to describe the time complexity for the Selection Sort algorithm, we get - 
+    - O(1/2.n * n (n squared)) = O(n * n)
+
+- and the time complexity for the Selection Sort algorithm can be displayed as - a linear hockey stick, where x-axis is the number of values (n), and y-axis is time.
+
+- if we run a simulation of selection sort for multiple numbers(range), the best and the worst case is actually almost the same - O(n * n), but for Bubble sort, the best case runtime is only - O(n)
+- the difference in best and worst case for selection Sort is mainly the number of swaps. In the best case scenario, Selection Sort does not have to swap any of the values because the array is already sorted. And in the worst case scenario, where the array already sorted, but in the wrong order, so Selection Sort must do as many swaps as there are values in the array.
 
 
-
-
+## Insertion Sort Time Complexity
