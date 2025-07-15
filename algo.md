@@ -6836,3 +6836,38 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 
 ## Insertion Sort Time Complexity
+
+- the worst case scenario for Insertion sort is if the array is already sorted, but with the highest values first. That is because in such a scenario, every new value must 'move through' the whole sorted part of the array.
+- these are the operations that are done by the Insertion Sort algorithm for the first elements:
+    - the 1st value is already in the correct position.
+    - the 2nd value must be compared and moved past the 1st value.
+    - the 3rd value must be compared and moved past two values.
+    - the 3rd value must be compared and moved past three values.
+    - and so on.
+
+- if we continue this pattern, we get the total number of operations for n values:
+    - 1 + 2 + 3 + ... + (n-1)
+
+- this is a well known series in mathematics that can be written like this - 
+    - n(n - 1)/2 = n * n / 2 - n / 2
+
+- for a very large n, the n * n/2 term dominates, so we can simplify by removing the second term n/2.
+- using Big O notation, we get this time complexity for the Inertion Sort algorithm:
+    - O(n * n/2) = O(1/2.n*n) = O(n * n)
+
+- this time complexity cna be displayed as a somewhat straight hockey stick, where x-axis is the number of values(n), and y-axis is the time.
+
+- as you can see, the time used by insertion sort increases fast when the number of values is n increased.
+
+
+### Insertion Sort Simulation
+
+- for insertion sort, there is a big difference between best, average and worst case scenarios.
+- the theoretical upper bound time complexity for insertion sort is - O(n * n) and the actual function in this case is 1.07.n * n
+- remember that a function f(n) is said to be O(g(n)) if we ahve a positive constant C so that C.g(n) > f(n).
+- in this case, f(n) is the number of operations used by insertion sort, g(n) = n * n and C = 1.07.
+
+
+## Time Complexity for Specific Algorithms
+
+- 
