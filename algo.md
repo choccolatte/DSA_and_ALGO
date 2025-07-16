@@ -6870,4 +6870,33 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 ## Time Complexity for Specific Algorithms
 
-- 
+### Quicksort Time Complexity
+
+- the quicksort algorithm chooses a value as the 'pivot' element, and moves the other values so that higher values are on the right of the pivot element, and lower values are on the left of the pivot element.
+- the quicksort algorithm then continues to sort the sub-arrays on the left and right side of the pivot element recursively until the array is sorted.
+
+#### Worst Case
+
+- to find the time complexity for quicksort, we can start by looking at the worst case scenario.
+- the worst case scenario for Quicksort is if the array is already sorted. In such a scenario, there is only one sub-array after each recursive call, and new sub-arrays are only one element shorter than the previous array.
+- This means that quicksort must call itself recursively n times, and each time it must do n/2 comparisons on average.
+- Worst case time complexity is - 
+    - O(n . n/2) = O(n * n)
+
+#### Average Case
+
+- on average, quicksort is actually much faster.
+- quicksort is fast on average because the array is split approximately in half each time quicksort runs recursively, and so the size of the sub-arrays decrease really fast, which means that not so many recursive calls are needed, and quicksort can finish sooner than in the worst case scenario.
+
+- lets take an example, of an array of 23 values, and split into sub-arrays when sorted with quicksort.
+- the pivot element(in the middle) is moved into the middle, and the array is split into sub-arrays(smaller arrays - both with their own pivot elements in the middle). There are 5 recursions levels with smaller and smaller sub-arrays, where about n values are touched somehow on each level - compared, or moved, or both.
+- log2 tells us how many times a number can be split in 2, so log2, is a good estimate for how many levels of recursions there are. log2(23) = 4.5, which is a good enough approximation of the number of recursion levels in the specific example above.
+- in reality, the sub-arays are not split exactly in half each time, and there are not exactly n values compared or moved on each level, but we can say that this is the average case to find the time complexity - 
+    - O(n . log2n)
+
+- the recursion part of the quicksort algorithm is actually a reason why the average sorting scenario is so fast, becasue for good picks of the pivot element, the array will be split in half somewhat evenly each time the algorithm calls itself. So, the number of recursive calls do not double, even if the number of values n double.
+
+- the theoretical upper bound time complexity O(n * n) for the worst case scenario, and the average case scenario time complexity with random values for quick sort is O(n log2n).
+
+- for quicksort, there is a big difference between average random case scenarios and scenarios where arrays are already sorted.
+- the reason why the already ascending sorted array needs so many operations is that it requires the most swapping of elements, because of the way it is implemented. In this case, the last element is chosen as the pivot element, and the last element is also the highest number. So, all other values in every sub-array is swapped around to land on the left side of the pivot element (where they are positioned already).
