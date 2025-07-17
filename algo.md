@@ -6900,3 +6900,37 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 - for quicksort, there is a big difference between average random case scenarios and scenarios where arrays are already sorted.
 - the reason why the already ascending sorted array needs so many operations is that it requires the most swapping of elements, because of the way it is implemented. In this case, the last element is chosen as the pivot element, and the last element is also the highest number. So, all other values in every sub-array is swapped around to land on the left side of the pivot element (where they are positioned already).
+
+
+## Counting Sort Time Complexity
+
+- counting sort works by first counting the occurance of different values, and then uses that to recreate the array in a sorted array.
+- as a rule of thumb, the counting sort algorithm runs fast when the range of possible values k is smaller than the number of values n.
+- to represent the time complexity with Big O notation we need to first count the number of operations the algorithm does:
+    - finding the maximum value: every value must be evaluated once to find out if it is the maximum value, so n operations are needed.
+    - initializing the counting array: with k as the max value in the array, we need k + 1 elements in the counting array to include 0. every element in the counting array must be initialized, so k + 1 operations are needed.
+    - every value we want to sort is counted once, then removed, so 2 operations per count, 2 . n operations in total.
+    - building the sorted array: create n elements in the sorted array: n operations.
+
+- in total, we get:
+    - Operations = n + (k+1) + (2.n) + n
+                = 4.n + k + 1
+                = 4.n + k
+
+- based on what we have seen about time complexity earlier, we can create a simplified expression using Big O notation to represent time complexity:
+    - O(4.n + k) = O(4.n) + O(k)
+    -           = O9n + O(k)
+                = O(n + k)
+
+- it has already been mentioned that counting sort is effective when the range of different values k is relatively small compared to the total number of values to be sorted n. We can now see this directly from the Big O expression O(n + k).
+- just imagine for example that the range of different numbers k is 10 times as large as the number of the values to be sorted. In such a case, we can see that the algorithm uses most of its time on handling the range of different numbers k, although the actual number of values to be sorted n is small in comparison.
+- it is not straight forward to show the time complexity for Counting SOrt in a graph, or to have a simulation for the time complexity as we have had for earlier algorithms, because the time complexity is so greatly affected by the range of values k.
+
+- the **best case** scenario for counting sort would have be to have the range k just a fraction of n, lets say k(n) = 0.1.n. As an example of this, for 100 values, the range would be from 0 to 10, or for 1000 values the range would be from 0 to 100. In this case, we get the time complexity - O(n + k) = O(n + 0.1 . n) = O(1.1 . n) which is simplified to O(n).
+
+- the **worst case** however, would be if the range is a lot larger than the input. Lets say for an input of just 10 values, the range is between 0 to 100, or similarly, for an input of 1000 values, the range is between 0 and 1000000. In such a scenario, the growth of k is quadratic with respect to n, like this - k(n) = n * n, and we get the time complexity - O(n + k) = O(n + n * n), which is simplified to O(n * n). A case that is even worse than this could also be constructed, but this case is chosen because it is relatively easy to understand, and perhaps not that unrealistic either.
+
+- as you can see, it is important to consider the range of values comapred to the number of values to be sorted before choosing counting sort as your algorithm. Also, as mentioned at the top of the page, keep in mind that counting sort only works for non-negative integer values.
+
+- as mentioned before, if the numbers to be sorted varies a lot in value (large k), and there are few numbers to sort (small n), the counting sort algorithm is not effective.
+- if we hold n and k fixed, the "random", "descending", and "ascending" alternatives in a given array results in the samem number of operations. This is because the same thing happens in all three cases - a counting array is set up, the numbers are counted, and the new sorted array is created.
