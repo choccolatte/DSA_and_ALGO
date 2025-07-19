@@ -6934,3 +6934,15 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 
 - as mentioned before, if the numbers to be sorted varies a lot in value (large k), and there are few numbers to sort (small n), the counting sort algorithm is not effective.
 - if we hold n and k fixed, the "random", "descending", and "ascending" alternatives in a given array results in the samem number of operations. This is because the same thing happens in all three cases - a counting array is set up, the numbers are counted, and the new sorted array is created.
+
+
+## Radix Sort Time Complexity
+
+- the radix sort algorithm sorts the non-negative integers, one digit at a time.
+- there are n values that need to be sorted, and k is the number of digits in the highest value.
+- when radix sort runs, every value is moved to the radix array, and then every value is moved back into the initial aray. So, n values are moved into the radix array, and n values are moved back. This gives us n + n = 2.n operations.
+- and the moving of values as described above needs to be done for every digit. THis gives us a total of 2.n.k operations.
+- this gives us the time complexity for radix sort - 
+    - O(2.n.k) = O(n.k)
+
+-
