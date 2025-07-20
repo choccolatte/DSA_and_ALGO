@@ -6945,4 +6945,18 @@ print("The maximum possible flow is %d " % g.edmonds_karp(source, sink))
 - this gives us the time complexity for radix sort - 
     - O(2.n.k) = O(n.k)
 
--
+- radix sort is perhaps the fastest sorting algorithms there is, as long as the number of digits k is kept relatively small compared to the number of values n.
+- we can now imagine a scenario where the number of digits k is the same as the number of values n, in such a case we get time complexiity - O(n.k) = O(n * n), which is quite slow, and has the same time complexity as for example Bubble Sort.
+- we can also imagine a scenario where the number of digits k grow as the number of values n grow, so that k(n) = log n. In such a scenario, we get the time complexity - Big O(n.k) = O(n.logn), which is the same as for example Quicksort.
+
+- in an example scenario, if we hold n and k fixed, the Random, Descending, and Ascending alternatives in the example results in the same number of operations. This is because the same thing happens in all three cases.
+
+
+## Merge Sort Time Complexity
+
+- the merge sort algorithm breaks the array down into smaller and smaller pieces.
+- the array becomes sorted when the sub-arrays are merged back together so that the lowest values comes first.
+- the arrya that needs to be sorted has n values, and we can find the time complexity by start looking at the number of operations needed by the algorithm.
+- the main operations merge sort does is to split, and then merge by comparing elements.
+- to split an array from start until the sub-arrays only consists of one value, merge sort does a total of n - 1 splits. Just imagine an array with 16 values. It is split one time into sub-arrays of length 8, split again and again, and the size of the sub-arrays reduces to 4, 2, and finally 1. The number of splits for an array of 16 elements is 1 + 2 + 4 + 8 = 15.
+
