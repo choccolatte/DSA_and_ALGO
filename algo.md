@@ -6989,4 +6989,18 @@ Comparing 9 and 8, result: [1,2,3,4,6,7,8]
 
 ## Linear Search Time Complexity
 
+- linear search compares each value with the value it is looking for. If the value is found, the index is returned, and if it is not found -1 is returned.
+- to find the time complexity for linear search, lets see if we can find out how many compare operations are needed to find a value in an array with n values.
+- Best Case Scenario - is if the value we are looking for is the first value in the array. In such a case, only one compare is needed and the time complexity is O(1).
+- Worst Case Scenario - is if the whole array is looked through without finding the target value. In such a case, all values in the array are compared with the target value, and the time complexity is O(n).
+- Average Case Scenario - is not so easy to pinpoint. What is the possibility to finding the target value? That depends on the values in the array right? But if we assume that exactly one of the values in the array is equal to the target value, and that the position of that value can be anywhere, the average time needed for linear search is half of the time needed in the worst case scenario.
+
+- time complexity for linear search is O(n).
+- in graphical representation, it will look like a diagonal line from x,y to x,y(n).
+
+- if we have 10 arrays with values we want to find using linear search, the search requires few compares if the value is found fast, but if the value we are looking for is not found, the maximum of compares are done.
+
+
+## Selection Sort Time Complexity
+
 - 
