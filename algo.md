@@ -7029,3 +7029,56 @@ Comparing 9 and 8, result: [1,2,3,4,6,7,8]
 
 
 ## Euclidean Algorithm
+
+- it is named after the ancient Greek mathematician Euclid, the Euclidean algorithm is the oldest known non-trivial algorithm, described in Euclid's famous book 'Elements' from 300 BCE.
+
+- the Euclidean algorithm finds the greatest common divisor (gcd) of two numbers a and b.
+- the greatest common divisor is the largest number that divides both a and b without having a remainder.
+
+- the algorithm uses divison with remainder. It takes the remainder from the previous step to set up the calculation in the next step.
+
+**How it works?**
+1. Start with the two initial numbers a and b.
+2. Do a divison with remainder: a = q0 . b + r0
+3. Use the remainder (r0) and the divisor (b) from the last calculation to set up the next calculation: b = q1 . r0 + r1
+4. Repeat steps 2 and 3 until the remainder is 0.
+5. The second last remainder calculated is the greatest commo divisor.
+
+
+### Mathematical Terminology
+
+- before we get more into euclidean algorithm, we need to understand the explanations for these terms - 
+
+- Divisor: a number we can use to divide a number by, without leaving a remainder. We say that 3 is a divisor of 6 because 6/3 = 2, without leaving a remainder (the remainder is 0).
+
+- Remainder: the part you are left with after dividing a number with another number. Dividing 7 by 3 is 2, with a remainder of 1. (So, 3 is not a divisor of 7).
+
+- Common Divisor: For numbers a and b, a common divisor is a number that can divide both a and b without leaving a remainder. The common divisors of 18 and 12 are 2, 3, 6, because both 18 and 12 can be divided by 2, 3, and 6 without producing a remainder.
+
+- Greatest Common Divisor: the largest of the common divisors. The greatest common divisor of 18 adn 12 is 6 because that is the largest of the common divisors 2, 3, and 6.
+
+- the grestest common divisor is used in the mathematical field of Number Theory, and in cryptography for encrypting messages.
+
+- Note: all numbers used by the Euclidean algorithm are integers.
+
+
+### Manual Run Through
+
+- 
+
+- example, in code: here, we are finding the greatest common divisor of 120 and 25 using the Euclidean algorithm:
+`
+def gcd_divison(a, b):
+    while b != 0:
+        remainder = a % b
+        print (f"{a} = {a//b} * {b} + {remainder}")
+        a = b
+        b = remainder
+    return a
+
+a = 120
+b = 25
+
+print("The Euclidean algorithm using divison:\n")
+print(f"The GCD of {a} and {b} is: {gcd_divison(a, b)}")
+`
