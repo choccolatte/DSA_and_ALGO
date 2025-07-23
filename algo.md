@@ -7001,6 +7001,31 @@ Comparing 9 and 8, result: [1,2,3,4,6,7,8]
 - if we have 10 arrays with values we want to find using linear search, the search requires few compares if the value is found fast, but if the value we are looking for is not found, the maximum of compares are done.
 
 
-## Selection Sort Time Complexity
+## Binary Search Time Complexity
 
-- 
+- binary search finds the target value in an already sorted array by checking the center value. If the center value is not the target value, Linear Search selects the left or right sub-array and continues the search until the target value is found.
+- to find the time complexity for binary search, lets see how many compare operations are needed to find the target value in an array with n values.
+- the best case scenario is if the first middle value is the same as the target value. If this happens, the target value is found straight away, with only one compare, so the time complexity is O(1) in this case.
+- the worst case scenario is if the search area must be cut in half over and over until the search area is just one value. When this happens, it does not affect the time complexity if the target value is found or not.
+
+- lets consider array lengths that are powers of 2, like 2, 4, 8, 16, 32, 64 and so on.
+- how many times must 2 be cut in half until we are looking at just one value? It it just one time right?
+- how about 8? we must cut an aray of 8 values in half 3 times to arrive at just one value.
+- An array of 32 values must be cust in half 5 times.
+- we can see that 2 = 2 * 1, 8 = 2 * 3, and 32 = 2 * 5. So, the number of times we must cut an array to arrive at just one element can be found in the power with base 2. Another way to look at it is to ask 'how many times must i multiply 2 with itself to arrive at this number?' Mathematically, we can use the base-2 logarithm, so that we can find out that an array of length n can be split in half log2(n) times.
+
+- this means that the time complexity for binary search is - 
+    - O(log2 n)
+
+- the average case scenario is not so easy to pinpoint, but since we understand time complexity of an algorithm as the upper bound of the worst case scenario, using Big O notation, the average case scenario is not that interesting.
+
+- **Note**  -
+    - the time complexity for binary search O(log2 n) is a lot faster than linear search O(n), but it is important to remember that binary search requires a sorted array, and linear search does not.
+
+- if we were to draw how much time binary search needs to find a value in an array of n values, compared to linear search, we get a graph where binary search will start slower than linear search, but as the number of values increases, it'll almost be parallel to x-axis.
+
+- if we run a simulation of binary search, it'll require very few compares, even if the array is big and the value we are looking for is not found. - divide and conquer approach.
+
+
+
+## Euclidean Algorithm
