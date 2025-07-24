@@ -7064,9 +7064,34 @@ Comparing 9 and 8, result: [1,2,3,4,6,7,8]
 
 ### Manual Run Through
 
-- 
+- to understand how the Euclidean algorithm works, and to write the code for it, lets first run it manually to find the greatest common divisor of 120 and 25.
+
+- to do this, we use division with remainder.
+
+- Step 1: We start with dividing 120 with 25:
+    - 120 = 4.25 + 20
+
+- how many times can we fit 25 inside 120? It is 4 times, right? 4.25 is 100 (4 * 25 = 100). We get the remainder 20 by subtracting 100 from 120.
+
+- Step 2: we use the previous remainder 20 in the next step to divide 25:
+    - 25 = 1.20 + 5
+
+- we can fit 20 inside 25 one time. We get the remainder 5 by subtracting 20 from 25.
+
+- Step 3: in the next calculation, we divide 20 with the previous remainder 5:
+    - 20 = 4.5 + 0
+
+- we get 0 as the remainder, and that means that we are done with the calculations.
+- the greatest common divisor of 120 and 25 is 5.
+
+
+### Implementation of the Euclidean algorithm
+
+- to find the greatest common divisor using divison, we continue running the algorithm until the remainder calculated is 0.
+- this is the same as saying we continue to run the algorithm as long as b is not 0. That is why `b != 0` is the condition in the `while` loop below.
 
 - example, in code: here, we are finding the greatest common divisor of 120 and 25 using the Euclidean algorithm:
+
 `
 def gcd_divison(a, b):
     while b != 0:
@@ -7082,3 +7107,32 @@ b = 25
 print("The Euclidean algorithm using divison:\n")
 print(f"The GCD of {a} and {b} is: {gcd_divison(a, b)}")
 `
+
+### The Original Euclidean A
+
+- instead of using divison like we did above, the original Euclidean algorithm as described in the book "Elements" over 2000 years ago uses subtraction.
+
+
+**How does the Euclidean algorithm with subtraction works?**
+1. Start with the two initial numbers a and b.
+2. Find the difference a - b = c. The diference c shares the same greatest common divisor as a and b.
+3. Take the two lowest numbers of a, b, and c, and find the difference between them.
+4. Repeat steps 2 and 3 until the difference is 0.
+5. The second last difference calculated is the greatest common divisor.
+
+- Using subtraction instead of divison is not as fast, but both the divison method and the subtraction method uses the same mathematical principle:
+
+- the greatest common divisor of numbers a and b, is also the greatest common divisor of the differnce between a and b.
+
+- this can be shown in just a few lines of code.
+
+    - numbers a and b have the greatest common divisor x.
+        - a = k.x
+        - b = l.x
+
+    - after factorization, subtracting b from a gives us a very interesting result:
+        - a - b = k.x - l.x
+        - = (k-l).x
+
+    - we can see that the greatest common divisor (x) of a and b is also the greatest common divisor of the difference between a and b.
+    - this principle is why the Euclidean algorithm works, it is what makes it possible.
