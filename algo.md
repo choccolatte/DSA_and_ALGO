@@ -7108,7 +7108,7 @@ print("The Euclidean algorithm using divison:\n")
 print(f"The GCD of {a} and {b} is: {gcd_divison(a, b)}")
 `
 
-### The Original Euclidean A
+### The Original Euclidean Algo
 
 - instead of using divison like we did above, the original Euclidean algorithm as described in the book "Elements" over 2000 years ago uses subtraction.
 
@@ -7136,3 +7136,27 @@ print(f"The GCD of {a} and {b} is: {gcd_divison(a, b)}")
 
     - we can see that the greatest common divisor (x) of a and b is also the greatest common divisor of the difference between a and b.
     - this principle is why the Euclidean algorithm works, it is what makes it possible.
+
+
+### Finding the Greatest Common Divisor using Subtraction
+
+- using the principle described above, that the difference between a and b also shares the same greatest common divisor, we can use subtraction to find the greatest common divisor, like Euclid' original algorithm does.
+
+- lets find the greatest common divisor of 120 from 25 using subtraction.
+    - 120 - 25 = 95
+
+- according to the mathematical principle already described, the numbers 120, 25, and 95 all share the same greatest common divisor.
+- this means we can further reduce our problem by subtracting 25 from 95:
+    - 95 - 25 = 70
+
+- if we continue like this, always taking the two lowest numbers from the previous step and finding the difference between them, we get these calculations:
+    - 70 - 25 = 45
+    - 45 - 25 = 20
+    - 25 - 20 = 5
+    - 20 - 5 = 15
+    - 15 - 5 = 10
+    - 10 - 5 = 5s
+    - 5 - 5 = 0
+
+- here, the euclidean algorithm using subtraction is done when the difference is 0.
+- 
