@@ -7159,4 +7159,29 @@ print(f"The GCD of {a} and {b} is: {gcd_divison(a, b)}")
     - 5 - 5 = 0
 
 - here, the euclidean algorithm using subtraction is done when the difference is 0.
-- 
+- the greatest common divisor of 120 and 25 can be found in the previous step, it is 5.
+- now that we can calculate the greatest common divisor using subtraction by hand, it is easier to implement it in a programming language.
+
+
+### Implementation of the Euclidean Algorithm using Subtraction
+
+- to find the greatest common divisor using subtraction, we continue running the algorithm until the difference between a and b is 0, like we have just seen.
+- this is the same as saying we continue running the algorithm as long as a and b are different values. That is why `a != b` is the condition in the `while` loop below.
+
+- example code - finding the greatest common divisor of 120 and 25 using the Euclidean algorithm with subtraction - 
+`
+def gcd_subtraction(a, b):
+    while a != b:
+        if a > b:
+            print(f"{a} - {b} = {a-b}")
+            a = a - b
+        else:
+            print(f"{b} - {a} = {b-a}")
+            b = b - a
+    return a
+
+a = 120
+b = 25
+print("The Euclidean algorithm using subtraction:\n")
+print(f"The GCD of {a} and {b} is: {gcd_subtraction(a, b)}")
+`
