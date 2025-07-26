@@ -7185,3 +7185,59 @@ b = 25
 print("The Euclidean algorithm using subtraction:\n")
 print(f"The GCD of {a} and {b} is: {gcd_subtraction(a, b)}")
 `
+
+
+### Comparing the Subtraction Method With the Divison Method
+
+- to see how good the divison method can be to find the greatest common divisor, and how the methods are similar, we will:
+    1. Use subtraction to find the greatest common divisor of 120 and 25.
+    2. Use divison with remainder to find the greatest common diviosr of 120 and 25.
+    3. Compare the subtraction and divison methods.
+
+
+#### 1. Using Subtraction
+
+- finding the greatest common divisor of 120 and 25 using subtraction:
+    - 120 - 25 = 95
+    - 95 - 25 = 70
+    - 70 - 25 = 45
+    - 45 - 25 = 20
+    - 25 - 20 = 5
+        - 20 - 5 = 15
+        - 20 - 5 = 10
+        - 10 - 5 = 5
+            - 5 - 5 = 0
+
+- here, we are using subtraction, the algorithm is finished when the difference is 0.
+- in the second last calculation, we see that the greatest divisor of 120 and 25 is 5.
+- notice how 25 and 5 must be subtracted many times, until we find the GCD.
+
+
+#### 2. Using Divison
+
+- finding the greatest common divisor of 120 and 25 using divison with remainder looks like this:
+    - 120 = 4.25 + 20
+    - 25 = 1.20 + 5
+    - 20 = 4.5 + 0
+
+- using divison, the Euclidean algorithm is finished when the remainder is 0.
+- the previous remainder 5 is the greatest common divisor of 120 and 25.
+
+
+#### 3. Comparison
+
+- take a look at the subtraction and divison methods above.
+- to easier see that the divison calculations are basically the same as the subtraction calculations, we can write the divison with remainder calculations like this - 
+    - 120 - 4.25 = 20
+    - 25 - 1.20 = 5
+    - 20 - 4.5 = 0
+
+- using subtraction, 25 is subtracted from 120 a total of 4 times, while the divison method does this in just one step.
+- similarly, the subtraction method subtracts 5 a total of 4 times, while the divison method does the same in just one calculation.
+- as you can see, the methods do the same thing, the divison method just does many subtractions in the same calculation, so that it finds the greatest common divisor faster.
+
+
+
+## Huffman Coding
+
+- 
