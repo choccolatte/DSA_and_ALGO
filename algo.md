@@ -7240,4 +7240,28 @@ print(f"The GCD of {a} and {b} is: {gcd_subtraction(a, b)}")
 
 ## Huffman Coding
 
-- 
+- huffman coding is an algorithm used for lossless data compression.
+- huffman coding is also used as a component in many different compression algorithms. It is used as a component in lossless compressions such as zip, gzip, and png, and even as part of lossy compression algorithms like mp3 and jpeg.
+
+- **how it works?**
+1. Count how often each piece of data occurs.
+2. Build a binary tree, starting with the nodes with the lowest count. The new parent node has the combined count of its child nodes.
+3. the edge from a parent gets '0' for the left child, and '1' for the edge of the rightr child.
+4. In the finished binary tree, follow the edges from the root node, adding '0' or '1' for each branch, to find the new huffman code for each piece of data.
+5. create the huffman code by converting the data, piece by piece into a binary code using the binary tree.
+
+- huffman coding uses a variable length of bits to represent each piece of data, with a shorter bit representation for the pieces of data that occurs more often.
+- furthermore, huffman coding ensures that no code is the prefit of another code, which makes the compressed data easy to decode.
+
+
+- **Data Compression**
+    - is when the original data is reduced, but the information is mostly, or fully kept. Sound or music files are for example usually stored in a compressed format, roughly just 10% of the original data size, but with most of the information kept.
+
+- **Lossless**
+    - means that even after the data is compressed, all the information is still there. This means that for example, a compressed text still has all the same letters and characters as the original.
+
+- **Lossy**
+    - is the other variant of data compression, where some of the original information is lost, or sacrificed, so that the data can be compressed even more. Music, images, and video is normally stored and streamed with lossy compression like mp3, jpeg, and mp4.
+
+
+### Creating a Huffman Code Manually
