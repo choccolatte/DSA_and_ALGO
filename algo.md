@@ -7265,3 +7265,77 @@ print(f"The GCD of {a} and {b} is: {gcd_subtraction(a, b)}")
 
 
 ### Creating a Huffman Code Manually
+
+- to get a better understanding of how Huffman Coding works, lets create a Huffman code manually, using the text - lossless.
+- a text is normally stored in the computer using UTF-8, which means that each letter is stored using 8 bits for normal latin letters, like we have in lossless. Other letters or symbols such as '$' or emojis are stored using more bits.
+- to compress the text 'lossless' using Huffman Coding, we start by counting each letter.
+    - l o s e
+    - 2 1 4 1
+
+- as you can see in the node above, 's' occurs 4 times, 'l' occurs 2 times, and 'o' and 'e' occurs just 1 time each.
+- we start building the tree with the latest occuring letters 'o' and 'e' and their parent node gets count '2', because the counts for letter 'o' and 'e' are summarized.
+    - l s
+    - 2 4
+    - 2 - 0 - o1
+    - 2 - 1 - e1
+
+- the next nodes that get a new parent node, are the nodes with the lowest count: 'l' and the parent node of 'o' and 'e'.
+    - s
+    - 4
+    - 4 - 0 - 1 2
+    - 4 - 1 - 2
+            - 2 - 0 - o 1
+            - 2 - 1 - e 1
+
+- now, the last node 's' must be aded to the binary tree. Letter node 's' and the parent node with count '4' get a new parent node with count '8'.
+    - 8 - 0 - s 4
+    - 8 - 1 - 4
+            - 4 - 0 - 1 2
+            - 4 - 1 - 2
+                    - 2 - 0 - o 1
+                    - 2 - 1 - e 1
+    
+- following the edges from the root node, we can now determine the Huffman Code for each letter in the word 'lossless'.
+    - 8 - 0 - s 4 (0)
+    - 8 - 1 - 4
+            - 4 - 0 - 1 2(10)
+            - 4 - 1 - 2
+                    - 2 - 0 - o 1(110)
+                    - 2 - 1 - e 1(111)
+    
+- the Huffman Code for each letter can now be found under each letter node in the image above. A good thing about Huffman Coding is that the most used data pieces get the shortest code, so just '0' is the code for the letter 's'.
+- as mentioned earlier, such normal latin letters are usually stored with UTF-8, which means they take up 8 bits each. So, for example, the letter 'o' is stored as '011011110 with UTF-8, but it is stored as '110' with our Huffman code for the word 'lossless'.
+
+- **Note:**
+- with UTF-8, a letter has always the same binary code, but with Huffman code, the binary code for each letter (piece of data) changes with text (data set) we are compressing.
+
+- to summarize, we have now compressed the word 'lossless' from its UTF-8 code - 
+    - `01101100 01101111 01110011 01110011 01101100 01100101 01110011 01110011`
+
+- to just - 
+    - `10 110 0 0 10 111 0 0`
+
+- using Huffman Coding, which is a huge improvement.
+
+- But, if data is stored with Huffman Coding as `10 110 0 0 10 111 0 0`, or the code is sent to us, how can it be decoded so that we see what information the Huffman code contains?
+
+- Furthermore, the binary code is really `10110001011100`, without the spaces, and with variable bit lengths for each piece of data, so how can the computer understand where the binary code for each piece of data starts and ends?
+
+
+### Decoding Huffman Code
+
+- just like with code stored as UTF-8, which our computers can already decode to the correct letters, the computer needs to know which bits represent which piece of data in the Huffman code.
+- so, along with the Huffman code, there must also be a conversion table with the information about what the Huffman binary code is for each piece of data, so that it can be decoded.
+- So, for this Huffman code:
+    - `10110001011100`
+
+- with this conversion table:
+    - letter | Huffman Code
+    - a      | `0`
+    - b      | `10`
+    - n      | `11`
+
+- **How it works?**
+
+- 
+
