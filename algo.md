@@ -7335,7 +7335,124 @@ print(f"The GCD of {a} and {b} is: {gcd_subtraction(a, b)}")
     - b      | `10`
     - n      | `11`
 
+
 - **How it works?**
 
-- 
+1. Start from the left in the Huffman code, and look up each bit sequence in the table.
+2. Match each code to the corresponding letter.
+3. Continue until the entire Huffman code is decoded.
 
+
+- We start with the first bit:
+    - `1 00110110`
+
+- There is no letter in the table with just `1` as the Huffman code, so we continue and include the next bit as well.
+    - `10 0110110`
+
+- we can see from the table that `10` is 'b', so now we have the first letter. We check the next bit:
+    - `10 0 110110`
+
+- we find that `0` is 'a', so now we have the two first letters 'ba' stored in the Huffman code.
+- we continue looking up Huffman code in the table:
+    - `100 11 0110`
+
+- code `11` is 'n'.
+    - `10011 0 110`
+
+- code `0` is 'a'.
+    - `100110 11 0`
+
+- code `11` is 'n'.
+    - `10011011 0`
+
+- code `0` is 'a'.
+
+- the Huffman code is now decoded, and the word is 'banana'!
+
+
+### Huffman Code Prefixes
+
+- an interesting and very useful part of the Huffman coding algorithm is that it ensures that there is no code that is the prefix of another code.
+
+    - just imagine if the conversion table we just used, looked like this:
+    - Letter | Huffman Code
+    - a      | 1
+    - b      | 10
+    - n      | 11
+
+    - if this was the case, we would get confused right from the start of the decoding, right?
+    - `100110110`
+
+    - because how would we know if the first bit `1` represents the letter 'a' or if it is the first bit for the letter 'b' or 'c'?
+
+- this property, that no code is the prefix of another code, makes it possible to decode. And it is important in Huffman coding because of the variable bit lengths.
+
+
+### Huffman Coding Implementation
+
+- the correct word for creating Huffman code based on data or text is 'encoding', and the opposite would be 'decoding', when the original data or text is recreated based on the code.
+- the code example below takes a word, or any text really, and compress it using Huffman coding:
+
+- example in python - Huffman coding
+`
+class Node:
+    def __init__(self, char = None, freq = 0):
+        self.char = char
+        self.freq = freq
+        self.left = None
+        self.right = None
+
+nodes = []
+
+def calculate_freq(word):
+    frequencies = {}
+    for char in word:
+        if char not in frequencies:
+            freq = word.count(char)
+            frequencies[char] = freq
+            nodes.append(Node(char, freq))
+
+def build_huffman_tree():
+    while len(nodes) > 1:
+        nodes.sort(key = lambda x : x.freq)
+        left = nodes.pop(0)
+        right = nodes.pop(0)
+
+        merged = Node(freq = left.freq + right.freq)
+        merged.left = left
+        merged.right = right
+
+        nodes.append(merged)
+
+    return nodes[0]
+
+def generate_huffman_codes(node, current_code, codes):
+    if node is None:
+        return
+
+    if node.char is not None:
+        codes[node.char] = current_code
+
+    generate_huffman_codes(node.left, current_code + '0', codes)
+    generate_huffman_codes(node.right, current_code + '1', codes)
+
+def huffman_encoding(word):
+    global nodes
+    nodes = []
+    calculate_freq(word)
+    root = build_huffman_tree()
+    codes = {}
+    generate_huffman_codes(root, '', codes)
+    return codes
+
+word = 'lossless'
+codes = huffman_encoding(word)
+encoded_word = ''.join(codes[char] for char in word)
+
+print('Word:', word)
+print('Huffman code:', encoded_word)
+print('Conversion table:', codes)
+`
+
+
+### Huffman Decoding Implementation
