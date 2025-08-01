@@ -48,10 +48,27 @@ def huffman_encoding(word):
     generate_huffman_codes(root, '', codes)
     return codes
 
+def huffman_decoding(encoded_word, codes):
+    current_code = ''
+    decoded_chars = []
+
+    # invert the codes dictionary to get the reverse mapping
+    code_to_char = {v : k for k, v in codes.items()}
+
+    for bit in encoded_word:
+        current_code += bit
+        if current_code in code_to_char:
+            decoded_chars.append(code_to_char[current_code])
+            current_code= ''
+
+    return ''.join(decoded_chars)
+
 word = 'lossless'
 codes = huffman_encoding(word)
 encoded_word = ''.join(codes[char] for char in word)
+decoded_word = huffman_decoding(encoded_word, codes)
 
 print('Word:', word)
 print('Huffman code:', encoded_word)
 print('Conversion table:', codes)
+print('Decoded word:', decoded_word)
