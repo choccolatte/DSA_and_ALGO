@@ -7539,3 +7539,90 @@ print('Huffman code:', encoded_word)
 print('Conversion table:', codes)
 print('Decoded word:', decoded_word)
 `
+
+- here, now you can see how a text can be compressed using Huffman coding, and how a Huffman code can be decoded to recreate the original text.
+
+- Note: Huffman coding can be used for lossless compression of any kind of data, not just text. Huffman coding is also used as a component in other compression algorithms like zip, and even in lossy compressions like jpeg, and mp3.
+
+
+
+## The Travelling Salesman Problem
+
+- the travelling salesman problem states that you are a salesperson and you must visit a number of cities or towms.
+
+- **Rules**
+    - Visit every city only once, then return back to the city you started in.
+
+- **Goal**
+    - Find the shortest possible route.
+
+- except for the held-karp algorithm (which is quite advanced and time consuming, (O(2*n, n*n)), and will not be described here), there is no other way to find the shortest route than to check all possible routes.
+
+- this means that the time complexity for solving this problem is - O(n!), which means 720 routes needs to be checked for 6 cities, 40,320 routes must be checked for 8 cities, and if you have 10 cities to visit, more than 3.6 million routes must be checked.
+
+- **Note**
+    - '!' or 'factorial', is a mathematical operation used in combinatorics to find out how many possible ways something can be done. If there are 4 cities, each city is connected to every other city, and we must visit every city exactly once, there are 4! = 4.3.2.1 = 24 different routes we can take to visit those cities.
+
+- the travelling salesman problem (TSP) is a problem that is interesting to study because it is very practical, but so time consuming to solve, that it becomes nearly impossible to find the shortest route, even in a graph with just 20-30 vertices.
+- if we had an effective algorithm for solving the travelling salesman problem, the consequences would be very big in many sectors, like for example, chip design, vehicle routing, telecommunications, and urban planning.
+
+
+### Checking All Routes to Solve the Traveling Salesman Problem
+
+- to find the optimal solution to the travelling salesman problem, we will check all possible routes, and every time we find a shorter route, we will store it, so that in the end, we will have the shortest route.
+
+- **Good**: finds the overall shortest route.
+- **bad**: requires an awful lot of calculation, especially for a large amount of cities, which means it is very time consuming.
+
+
+**How it works?**:
+    1. Check the length of every possible route, one route at a time.
+    2. Is the curent route shorter than the shortest route found so far? If so, store the new shortest route.
+    3. After checking all routes, the sorted route is the shortest one.
+
+- such a way of finding the solution to a problem is called a **brute force**.
+- brute force is not really an algorithm, it just means finding the solution by chekcing all possibilities, usually because of a lack of a better way to do it.
+- the reason why the brute force approach of finding the shortest route is so time consuming is that we are checking all routes, and the number of possible routes increases really fast when the number of cities increases.
+
+
+- example - finding the optimal solution to the travelling salesman problem by checking all possible routes (brute force):
+`
+from itertools import permutations
+
+def calc_distance(route, distances):
+    total_distance = 0
+    for i in range(len(route) - 1):
+        total_distance += distances[route[i]][route[i + 1]]
+    total_distance += distances[route[-1]][route[0]]
+    return total_distance
+
+def brute_force_tsp(distances):
+    n = len(distances)
+    cities = list(range(1, n))
+    shortest_route = None
+    min_distance = float('inf')
+
+    for perm in permutations(cities):
+        current_route = [0] + list(perm)
+        current_distance = calc_distance(current_route, distances)
+
+        if current_distance < min_distance:
+            min_distance = current_distance
+            shortest_route = current_route
+
+    shortest_route.append(0)
+    return shortest_route, min_distance
+
+distances = [
+    [0, 2, 2, 5, 9, 3],
+    [2, 0, 4, 6, 7, 8],
+    [2, 4, 0, 8, 6, 3],
+    [5, 6, 8, 0, 4, 9],
+    [9, 7, 6, 4, 0, 10],
+    [3, 8, 3, 9, 10, 0]
+]
+
+route, total_distance = brute_force_tsp(distances)
+print('Route:', route)
+print('Total Distance:', total_distance)
+`
