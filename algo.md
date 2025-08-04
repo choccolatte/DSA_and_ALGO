@@ -7626,3 +7626,24 @@ route, total_distance = brute_force_tsp(distances)
 print('Route:', route)
 print('Total Distance:', total_distance)
 `
+
+### Using a Greedy Algorithm to Solve the Traveling Salesman Problem
+
+- since checking every possible route to solve the Traveling Salesman Problem (like we did above)  is so incredibly time consuming, we can instead find a short route by just going to the nearest unvisited city in each step, which is much faster.
+
+- Good: finds a solution to the Traveling Salesman Problem much faster than by checking all routes.
+- Bad: does not find the overall shortest route, it just finds a route that is much shorter than an average random route.
+
+**How it works?**
+    1. Visit every city.
+    2. The next city to visit is always the nearest of the unvisited cities from the city you are curently in.
+    3. After visiting all cities, go back to the city you started in.
+
+- this way of finding an approximation to the shortest route in the Traveling Salesman Problem, by just going to the nearest unvisited city in each step, is called a greedy algorithm.
+
+- if we run a simulation for greedy solution for the Traveling Salesman Problem, we see that the routes that are found are not completely unreasonable. Except for a few times when the lines cross perhaps, especially towards the end of the algorithm, the resulting route is a lot shorter than we would get by choosing the next city at random.
+
+- example - finding a near-optimal solution to the Traveling Salesman Problem using the nearest-neighbor algorithm(greedy):
+`
+
+`
