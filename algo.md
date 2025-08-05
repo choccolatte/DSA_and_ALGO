@@ -7686,7 +7686,14 @@ print('Total Distance:', total_distance)
 
 ### Other Algorithms That Find Near-Optimal Solutions to the Traveling Salesman Problem
 
-- 2-Opt Heuristic
-- Genetic Algorithm
-- Simulated Annealing
-- Ant Colony Optimization
+- in addition to using a greedy algorithm to solve the Traveling Salesman Problem, there are also other algorithms that can find approximations to the shortest route.
+- these algorithms are popular because they are much more effective than to actually check all possible solutions, but as with the greedy algorithm above, they do not find the overall shortest route.
+- algorithms used to find a near-optimal solution to the Traveling Salesman Problem include -
+
+    - **2-Opt Heuristic** - an algorithm that improves the solution step by step, in each step removing two edges and reconnecting the two paths in a different way to reduce the total path length.
+    - **Genetic Algorithm** - this is a type of algorithm inspired by the process of natural selection and use techniques such as selection, mutation, and crossover to evolve solutions to problems, including the TSP.
+    - **Simulated Annealing** - this method is inspired by the process of annealing in metallurgy. It involves heating and then slowly cooling a material to decrease defects. In the context of TSP, its used to find a near-optimal solution by exploring the solution space in a way that allows for occassional moves to worse solutions, which helps to avoid getting stuck in local minima.
+    - **Ant Colony Optimization** - this algorithm is inspired by the behavior of ants in finding paths from the colony to food sources. Its a more complex probabilistic technique for solving computational problems which can be mapped to finding good paths through graphs.
+
+
+### Time Complexity for Solving The Traveling Salesman Problem
