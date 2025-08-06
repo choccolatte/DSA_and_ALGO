@@ -7697,3 +7697,13 @@ print('Total Distance:', total_distance)
 
 
 ### Time Complexity for Solving The Traveling Salesman Problem
+
+- to get a near-optimal solution fast, we can use a greedy algorithm that just goes to the nearest city in each step.
+- solving the Traveling Salesman Problem in a greedy way like that, means that at each step, the distances from the current city to all other unvisited cities are compared, and that gives us a time complexity of - O(n * n).
+- but finding the shortest route of them all requires a lot more operations, and the time complexity for that is - O(n!), like mentioned earlier, which means that for 4 cities, there are 4! possible routes, which is the asme as 4.3.2.1 = 24. ANd for just 12 cities for example, there are 12! = 12.11.10. ..... .2.1 = 479,001,600 possible routes!
+
+- so, when plotted on a graph, the O(n!) time comp graph performs better in the beginning, but goes straight up vertically. Alternatively, O(n * n) performs normal, and is a linear performing time comp.
+
+- but there are two things we can do to reduce the number of routes we need to check.
+- in the Traveling Salesman Problem, the route starts and ends in the same place, which makes a cycle. This means that the length of the shortest route will be the same no matter which city we start in. That is why we have chosen a fixed city to start in for the example above, and that reduces the number of possible routes from n! to (n - 1)!.
+- 
