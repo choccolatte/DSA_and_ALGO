@@ -7706,4 +7706,24 @@ print('Total Distance:', total_distance)
 
 - but there are two things we can do to reduce the number of routes we need to check.
 - in the Traveling Salesman Problem, the route starts and ends in the same place, which makes a cycle. This means that the length of the shortest route will be the same no matter which city we start in. That is why we have chosen a fixed city to start in for the example above, and that reduces the number of possible routes from n! to (n - 1)!.
-- 
+- also, because these routes go in cycles, a route has the same distance if we go in one direction or the other, so we actually just need to check the distance of half of the routes, because the other half will just be the same routes in the opposite direction, so the number of routes we need to check is actually (n - 1)!/2.
+- but even if we can reduce the number of routes, we need to check to - (n - 1)!/2, the time complexity is still - O(n)!, because for a very big n, reducing n by one and dividing by 2 does not make a significant change in how the time complexity grows when n is increased.
+
+
+### Actual Traveling Salesman Problem Are More Complex
+
+- the edge weight in a graph in this context of the Traveling Salesman Problem tells us how hard it is to go from one point to another, and it is the total edge weight of a route we want to minimize.
+- So far on this page, the edge weight has been the distance in a straight line between two points. And that makes it much easier to explain the Traveling Salesman Problem, and to display it.
+
+- buit in real world, there are many other things that affects the edge weight:
+    1. **Obstacles** - when moving from one place to another, we normally try to avoid obstacles like trees, rivers, houses for example. This means that it is longer and takes more time to go from A to B, and the edge weight value needs to be increased to factor that in, because it is not a straight line anymore.
+    2. **Transportation Networks** - we usually follow a road or use a public transport systems when travelling, and that also affects how hard it is to go (or send a package) from one place to another.
+    3. **Traffic Conditions** - travel congestion also affects the travel time, so that should also be reflected in the edge weight value.
+    4. **Legal and Political Boundaries** - crossing border for example, might make one route harder to choose than another, which means that the shortest straight line route might be slower, or more costly.
+    5. **Economic Factors** - using fuel, using the time of employees, maintaining vehicles, all these things cost money and should also be factored into the edge weights.
+
+- so now, as you can see, just using the straight line distances as the edge weights, might be too simple compared to the real problem. And solving the Traveling Salesman Problem for such a simplified problem model probably gives us a solution that is not optimal in a practical sense.
+- it is not easy to visualize a Traveling Salesman Problem when the edge length is not just the straight line distance between two points anymore, but the computer handles that very well.
+
+
+## The 0/1 Knapsack Problem
