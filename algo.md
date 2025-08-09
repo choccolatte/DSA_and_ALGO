@@ -7727,3 +7727,7 @@ print('Total Distance:', total_distance)
 
 
 ## The 0/1 Knapsack Problem
+
+- the 0/1 Knapsack Problem states that you have a backpack with a weight limit, and you are in a room full of treasure, each treasure with a value and a weight.
+- to solve the 0/1 Knapsack Problem you must figure out which treasures to pack to maximize the total value, and at the same time keeping below the backpack's weight limit.
+
