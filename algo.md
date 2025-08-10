@@ -7731,3 +7731,83 @@ print('Total Distance:', total_distance)
 - the 0/1 Knapsack Problem states that you have a backpack with a weight limit, and you are in a room full of treasure, each treasure with a value and a weight.
 - to solve the 0/1 Knapsack Problem you must figure out which treasures to pack to maximize the total value, and at the same time keeping below the backpack's weight limit.
 
+- solving the 0/1 Knapsack Problem helps businesses decide which projects to fund within a budget, maximizing profit without overspending. It is also used in logistics to optimize the loading of goods into trucks and planes, ensuring the most valuable, or highest prioritized items are included without exceeding weight limits.
+
+- **the 0/1 Knapsack Problem**
+- Rules:
+    - Every item has a weight and a value.
+    - Your knapsack/backpack has a weight limit.
+    - Choose which items you want to bring with you in the knapsack.
+    - You can either take an item or not, you can't take half of an item for example.
+
+- Goal:
+    - Maximize the total value of the items in the knapsack.
+
+
+### The Brute Force Approach
+
+- using brute force means to just check all possibilities, looking for the best result. This is usually the most straight forward way of soling a problem, but it also requires the most calculations.
+- To solve the 0/1 Knapsack Problem using brute force means to:
+    1. Calculate the value of every possible combination of items in the knapsack.
+    2. Discard the combinations that are heavier than the knapsack weight limit.
+    3. Choose the combination of items with the highest total value.
+
+
+- **How it works?**
+    1. Consider each item one at a time:
+        a. If there is capacity left for the current item, add it by adding its value and reducing the remaining capacity with its weight. Then, call the function on itself for the next item.
+        b. also, try not adding the current item before calling the function on itself for the next item.
+    2. Return the maximum value from the two scenarios above (adding the current item, or not adding it).
+
+- this brute force approach to the 0/1 Knapsack Problem can be implemented like this - 
+- Example - solving the 0/1 Knapsack Problem using recursion and brute force:
+`
+def knapsack_brute_force(capacity, n):
+    print(f'knapsack_brute_force({capacity}, {n})')
+    if n == 0 or capacity == 0:
+        return 0
+    
+    elif weights[n - 1] > capacity:
+        return knapsack_brute_force(capacity, n - 1)
+
+    else:
+        include_item = values[n - 1] + knapsack_brute_force(capacity - weights[n - 1], n - 1)
+        exclude_item = knapsack_brute_force(capacity, n - 1)
+        return max(include_item, exclude_item)
+
+values = [300, 200, 400, 500]
+weights = [2, 1, 5, 3]
+capacity = 10
+n = len(values)
+
+print('\nMaximum value in Knapsack =', knapsack_brute_force(capacity, n))
+
+`
+
+- here, running the code above means that the `knapsack_brute_force` function is called many times recursively. You can see that from all the printouts.
+- every time the function is called, it will either include the current item `n-1` or not.
+
+- in line - print(f"knapsack_brute_force({capacity},{n})")
+    - this print statement shows us each time the function is called.
+
+- in line - if n == 0 or capacity == 0:
+                return 0
+    - if we run out of items to check (`n == 0`), or we run out of capacity (`capacity == 0`), we do not do any more recursive calls because no more items can be added to the knapsack at this point.
+
+- in line - elif weights[n-1] > capacity:
+                return knapsack_brute_force(capacity, n-1)
+    - if the current item is heavier than the capacity (weights[n - 1] > capacity), forget the current item and go to the next item.
+
+- in line - include_item = values[n-1] + knapsack_brute_force(capacity-weights[n-1], n-1)
+            exclude_item = knapsack_brute_force(capacity, n-1)
+            return max(include_item, exclude_item)
+    - if the current item can be added to the knapsack, see what gives you the highest value: adding the current item, or not adding the current item.
+
+- from the recursion tree created from the code above, it is possible to see that for example taking the crown, the cup, adn the globe, means that there is no space left for the microscope (2 kg), and that gives us a total value of 200 + 400 + 500 = 1100.
+- we can also see that only taking the microscope gives us a total value of 300.
+- as you can see in the recursion tree from example, and running the code, the function is sometimes called with the same arguments, like `knapsack_brute_force(2, 0` is for example called two times. We avoid this by using memoization.
+
+
+### The Memoization Approach (top-down)
+
+- 
