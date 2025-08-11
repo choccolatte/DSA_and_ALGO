@@ -7810,4 +7810,46 @@ print('\nMaximum value in Knapsack =', knapsack_brute_force(capacity, n))
 
 ### The Memoization Approach (top-down)
 
-- 
+- the memoization technique stores the previous function call results in an array, so that previous resutls can be fetched from that array and does not have to be calcyulated again. 
+- Memoization is a 'top-down' approach because it starts solving the problem by working its way down to smaller and smaller subproblems.
+- In the brute force example above, the same function calls happen only a few times, so the effect of using memoizaiton is not so big. But in other examples with far more items to choose from, the memoization technique would be more helpfuil.
+
+- **How it works?**
+    1. In addition to the initial brute force code above, create an array `memo` to store previous results.
+    2. For every function call with arguments for capacity `c` and item number `i`, store the result in `memo[c, i]`.
+    3. To avoid doing the same calculation more than once, every time the function is called with arguments `c` and `i`, check first if the result is already stored in `memo[c, i]`.
+
+- after improving the brute force implementation with the use or memoization, the code now looks like this - 
+- example - improved solution to 0/1 Knapsack Problem using memoization - 
+`
+def knapsack_brute_force(capacity, n):
+    print(f'knapsack_brute_force({capacity}, {n})')
+
+    if memo[n][capacity] is not None:
+        print(f'Using memo for({n}, {capacity})')
+        return memo[n][capacity]
+
+    if n == 0 or capacity == 0:
+        return 0
+    
+    elif weights[n - 1] > capacity:
+        return knapsack_brute_force(capacity, n - 1)
+
+    else:
+        include_item = values[n - 1] + knapsack_brute_force(capacity - weights[n - 1], n - 1)
+        exclude_item = knapsack_brute_force(capacity, n - 1)
+        return max(include_item, exclude_item)
+
+    memo[n][capacity] = result
+    return result
+
+values = [300, 200, 400, 500]
+weights = [2, 1, 5, 3]
+capacity = 10
+n = len(values)
+
+memo = [[None] * (capacity + 1) for _ in range(n + 1)]
+
+print('\nMaximum value in Knapsack =', knapsack_brute_force(capacity, n))
+`
+
