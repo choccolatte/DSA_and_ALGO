@@ -7853,3 +7853,17 @@ memo = [[None] * (capacity + 1) for _ in range(n + 1)]
 print('\nMaximum value in Knapsack =', knapsack_brute_force(capacity, n))
 `
 
+- here, we use the memoization technique to improve the previous brute force implementation of 0/1 Knapsack Problem.
+
+- on line - memo = [[None]*(capacity + 1) for _ in range(n + 1)]
+    - we create an array `memo` where previous results are stored.
+- on line - if memo[n][capacity] is not None:
+                print(f"Using memo for ({n}, {capacity})")
+                return memo[n][capacity]
+    - at the start of the function, before doing any calculations or recursive calls, check if the result has already been found and stored in the `memo` array.
+- line - memo[n][capacity] = result
+    - stores the result for later.
+
+
+### The Tabulation Approach (bottom-up)
+
