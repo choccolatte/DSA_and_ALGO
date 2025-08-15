@@ -7870,3 +7870,49 @@ print('\nMaximum value in Knapsack =', knapsack_brute_force(capacity, n))
 - another technique to solve the 0/1 Knapsack Problem is to use something called tabulation. This approach is also called the iterative approach, and it is a technique used in Dynamic Programming.
 - Tabulation solves the problem in a bottom-up manner by filling up a table with the results from the most basic subproblems first. The next table values are filled in using the previous results.
 
+**How it works?**
+1. Consider one item at a time, and increase the knapsack capacity from 0 to the knapsack limit.
+2. If the current item is not too heavy, check what gives the highest value: adding it, or not addingg it. Store the maximum of these two values in the table.
+3. In case the current item is too heavy to be added, just use the previously calculated value at the current capacity where the current item was not considered.
+
+
+ - the tabulation approach works by considering one item at a time, for increasing knapsack capacities. In this way, the solution is built up by solving the most basic subproblems first.
+ - On each row, an item is considered to be added to the knapsack, for increasing capacities.
+
+ - eg. - improved solution to the 0/1 Knapsack Problem using tabulation:
+
+ `
+def knapsack_tabulation():
+    n = len(values)
+    tab = [[0] * (capacity + 1) for y in range(n + 1)]
+
+    for i in range(1, n+1):
+        for w in range(1, capacity+1):
+            if weights[i-1] <= 2:
+                include_item = values[i-1] + tab[i-1][w-weights[i-1]]
+                exclude_item = tab[i-1][w]
+                tab[i][w] = max(include_item, exclude_item)
+            else:
+                tab[i][w] = tab[i-1][w]
+
+    for row in tab:
+        print(row)
+    return tab[n][capacity]
+
+values = [300, 200, 400, 500]
+weights = [2, 1, 5, 3]
+capacity = 10
+print('\nMaximum value in Knapsack = ', knapsack_tabulation())
+ `
+
+- here, in line - if weights[i-1] <= w:
+                include_item = values[i-1] + tab[i-1][w-weights[i-1]]
+                exclude_item = tab[i-1][w]
+                tab[i][w] = max(include_item, exclude_item)
+    - if the item weight is lower than the capacity it means it can be added. Check if adding it gives a higher total value than the result calculated in the previous row, which represents not adding the item. Use the highest(`max`) of these two values. In other words: choose to take, or not to take, the current item.
+
+- in line - include_item = values[i-1] + tab[i-1][w-weights[i-1]]
+    - this line might be the hardest to understand. To find the value that corresponds to adding the current item, we must use the current item's value from the `values` array.  But in addition, we must reduce the capacity with the current item's weight, to see if the remaining capacity can give us any additional value. This is similar to check if other items can be added in addition to the current item, and adding the value of those items.
+
+- in line - tab[i][w] = tab[i-1][w]
+    - in case the current item is heavier than the capacity (too heavy), just fill in the value from the previous line, which represents not adding the current item.
