@@ -7867,3 +7867,6 @@ print('\nMaximum value in Knapsack =', knapsack_brute_force(capacity, n))
 
 ### The Tabulation Approach (bottom-up)
 
+- another technique to solve the 0/1 Knapsack Problem is to use something called tabulation. This approach is also called the iterative approach, and it is a technique used in Dynamic Programming.
+- Tabulation solves the problem in a bottom-up manner by filling up a table with the results from the most basic subproblems first. The next table values are filled in using the previous results.
+
