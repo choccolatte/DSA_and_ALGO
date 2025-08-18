@@ -7923,12 +7923,20 @@ print('\nMaximum value in Knapsack = ', knapsack_tabulation())
 - here is a list of explanations to how a few of the table values are calculated. You can click the corresponding table cell to get a better understanding as you read - 
 
 - Microscope, Capacity 1 kg: 
-    - for the first value alculated, it is checked whether the microscope can be put in the bag if the weight limit is 1kg. The microscope weighs 2kg, it is too heavy, and so the value 0 is just copied from the cell above.
+    - for the first value alculated, it is checked whether the microscope can be put in the bag if the weight limit is 1kg. The microscope weighs 2kg, it is too heavy, and so the value 0 is just copied from the cell above which corresponds to having no items in the knapsack. Only considering the microscope for a bag with weight limit 1 kg, means we can't briung any items and we must leave empty handed with a total value of $0.
 
 - Microscope, Capacity 2 kg:
+    - For the second value calculated, we are able to fit the microscope in the bag for a weight limit of 2 kg, so we can bring it, and the total value in the bag is $300 (the value of the microscope). And for the higher knapsack capacities, only considering the microscope, means we can bring it, and so all other values in that row is $300.
 
 - Globe, Capacity 1kg:
+    - Considering the globe at 1kg and a knapsack capacity at 1 kg means that we can bring the globe, so the value is $200. The code finds the maximum between bringing the globe which gives us $200, and the previously calculated value at 1 kg capacity, which is $0, from the cell above. In this case, it is obvious that we should bring the globe because that is the only item with such a low weight, but in other cases the previously calculated value at the same capacity might be higher.
 
 - Globe, Capacity 2 kg: 
+    - at capacity 2 kg, the code sees that the globe can fit, which gives us a value of $200, but then the microscope cannot fit. And adding the microscope for a capacity of 2 kg gives us a value of $300, which is higher, so taking the microscope (valuue from the cell above), is the choice to maximize knapsack value for this table cell.
 
 - Globe, Capacity 3 kg: 
+    - Considering the globe with a capacity of 3kg, means that we can take the globe, but with the remaining capacity of 2kg we can also take the microscope. In this cell, taking both the globe and the microscope (as calculated on the previous line), so both items are taken and the cell value is 500.
+
+
+### Which Items Gives Us the Highest Value?
+
