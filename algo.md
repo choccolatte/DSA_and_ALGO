@@ -7923,7 +7923,7 @@ print('\nMaximum value in Knapsack = ', knapsack_tabulation())
 - here is a list of explanations to how a few of the table values are calculated. You can click the corresponding table cell to get a better understanding as you read - 
 
 - Microscope, Capacity 1 kg: 
-    - for the first value alculated, it is checked whether the microscope can be put in the bag if the weight limit is 1kg. 
+    - for the first value alculated, it is checked whether the microscope can be put in the bag if the weight limit is 1kg. The microscope weighs 2kg, it is too heavy, and so the value 0 is just copied from the cell above.
 
 - Microscope, Capacity 2 kg:
 
