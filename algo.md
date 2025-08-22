@@ -7940,3 +7940,18 @@ print('\nMaximum value in Knapsack = ', knapsack_tabulation())
 
 ### Which Items Gives Us the Highest Value?
 
+- after filling out the table and finding the maximum value the knapsack can have, it is not obvious which items we need to pack with us to get that value.
+- to find the included items, we can use the table we have created, and we start with the bottom right cell with the highest value, in our case, the cell with the value 1200 in it.
+
+- **Steps to find the included items:**
+    1. Start with bottom right cell (the cell with the highest value).
+    2. If the cell above has the same value, it means that this row's item is not included, and we go to the cell above.
+    3. If the cell above has a different value, it means that the current row's item is included, and we move to the row above, and we move to the left as many times as the weight of the included item.
+    4. Continue to do steps 2 and 3 until a cell with value 0 is found.
+
+- this is how the included items are found:
+    1. the bottom right value is 1200, and the cell above is 900. The values are different, which means the crown is included.
+    2. The next cell we go to is on the row above, and we move left as many times as the crown is heavy, so 3 places left to the cell with value 700.
+    3. The cell we are in now has value 700, and the cell above has value 500. The values are different, which means the item on the current row is included: the cup.
+    4. the cup weighs 5 kg, so the next cell we go to is on the row above, and 5 places to the left, to the cell with value 300, on the row were the globe is considered.
+    5. 
