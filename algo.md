@@ -7964,5 +7964,57 @@ print('\nMaximum value in Knapsack = ', knapsack_tabulation())
 
 - example - extended solution to the 0/1 knapsack problem to find the included items:
 `
+def knapsack_tabulation():
+    n = len(values)
+    tab = [[0] * (capacity + 1) for y in range(n + 1)]
 
+    for i in range(1, n+1):
+        for w in range(1, capacity+1):
+            if weights[i-1] <= 2:
+                include_item = values[i-1] + tab[i-1][w-weights[i-1]]
+                exclude_item = tab[i-1][w]
+                tab[i][w] = max(include_item, exclude_item)
+            else:
+                tab[i][w] = tab[i-1][w]
+
+    for row in tab:
+        print(row)
+
+    items_included = []
+    w = capacity
+    for i in range(n, 0, -1):
+        if tab[i][w] != tab[i-1][w]:
+            items_included.append(i-1)
+            w -= weights[i-1]
+
+    print('\nItems included:', items_included)
+
+    return tab[n][capacity]
+
+values = [300, 200, 400, 500]
+weights = [2, 1, 5, 3]
+capacity = 10
+print('\nMaximum value in Knapsack = ', knapsack_tabulation())
 `
+
+
+### Time Complexity
+
+- the three approaches to solving the 0/1 knapsack problem run differently, and with different time complexities.
+
+- **Brute Force Approach**
+    - This is the slowesst of the three approaches. The possibilities are checked recursively, with the time complexity `[Math Processing Error]`, where `[Math Processing Error]` is the number of potential items we can pack. This means the number of computations double for each extra item that needs to be considered.
+
+- **Memoization Approach**
+    - Saves computations by remembering previous results, which results in a better time complexity `[Math Processing Error]`, where `[Math Processing Error]` is the number of items, and `[Math Processing Error]` is the knapsack capacity. This approach runs otherwise in the same recursive way as the brute force approach.
+
+- **Tabulation Approach**
+    - Has the same time complexity  as the memoization approach `[Math Processing Error]`, where `[Math Processing Error]` is the number of items, and `[Math Processing Error]` is the knapsack capacity, but memory usage and the way it runs is more predictable, which normally makes the tabulation approach the most favorable.
+
+Note: 
+Memoization and tabulation are used in something called dynamic programming, which is a powerful technique used in computer science to solve problems. To use dynamic programming to solve a problem, the problem must consist of overlapping subproblems, and that is why it can be used to solve the 0/1 knapsack problem, as you can see above in the memoization and tabulation approaches.
+
+
+
+## Memoization
+
