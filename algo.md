@@ -7954,4 +7954,15 @@ print('\nMaximum value in Knapsack = ', knapsack_tabulation())
     2. The next cell we go to is on the row above, and we move left as many times as the crown is heavy, so 3 places left to the cell with value 700.
     3. The cell we are in now has value 700, and the cell above has value 500. The values are different, which means the item on the current row is included: the cup.
     4. the cup weighs 5 kg, so the next cell we go to is on the row above, and 5 places to the left, to the cell with value 300, on the row were the globe is considered.
-    5. 
+    5. the cell above has the same value 300, which means the hglobe is not included, and the next cell we go to is the cell right above with the value 300 where the microscope is considered.
+    6. since the cell above is different than the current cell with the value 300, it means the microscope is included.
+    7. the next cell we go to is on the line above, and the two places to the left because the microscope is 2 kg.
+    8. we arrive at the upper leftmost cell. Since the value is 0, it means we are finished.
+
+- our 0/1 knapsack problem has maximum value when these items are included: the crown, the cup and the microscope.
+- the same steps are added to the code below, to find the items that make the solution to the 0/1 knapsack problem.
+
+- example - extended solution to the 0/1 knapsack problem to find the included items:
+`
+
+`
