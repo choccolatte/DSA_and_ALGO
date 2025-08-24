@@ -8024,3 +8024,18 @@ Memoization and tabulation are used in something called dynamic programming, whi
 
 
 ### Using Memoization to Find the nth Fibonacci
+
+- the nth Fibonacci number can be found using recursion.
+- The problem with this implementation is that the number of computations and recursive calls "explodes" when trying to find a higher Fibonacci number, because the same computations are done over and over again.
+
+- example - Find the 6th Fibonacci number with recursion:
+`
+def F(n):
+    print('Computing F('+str(n)+')')
+    if n <= 1:
+        return n
+    else:
+        return F(n - 1) + F(n - 2)
+    
+print('F(6) = ',F(6))
+`
