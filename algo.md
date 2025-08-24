@@ -8018,3 +8018,9 @@ Memoization and tabulation are used in something called dynamic programming, whi
 
 ## Memoization
 
+- Memoization is a technique where the results are stored to avoid doing the same computations many times.
+- when Memoization is used to improve recursive algorithms, it is called a 'top-down' approach because of how it starts with the main problem and breaks it down into smaller subproblems.
+-  Memoization is used in dynamic programming.
+
+
+### Using Memoization to Find the nth Fibonacci
