@@ -8039,3 +8039,71 @@ def F(n):
     
 print('F(6) = ',F(6))
 `
+
+- as you can see here from running the example above, there are 25 computations, with the same computatins done many times, even for just finding the 6th Fibonacci number.
+- But using Memoization can help finding the nth Fibonacci number using recursion much more effectively.
+- We use Memoization by creating an array `memo` to hold the Fibonacci numbers, so that the Fibonacci number `n` can be found as element `memo[n]`. And we only compute the Fibonacci number if it does not already exist in the `memo` array.
+
+- example - find the 6th Fibonacci number with recuiursion, but using MNemoization to avoid any unnecessary recursive calls:
+`
+def F(n):
+    if memo[n] != None: #alredy computed
+        return memo[n]
+    else: #computation needed
+        print('Computing F('+str(n)+')')
+        if n <= 1:
+            return n
+        else:
+            return F(n - 1) + F(n - 2)
+        return memo[n]
+    
+memo = [None] * 7
+print('F(6) = ',F(6))
+print('memo = ', memo)
+`
+
+- here, as you can see by running the example above, memoization is very helpful to reduce the number of computations.
+- the number of computations is reduced from 25 in the initial code, to just 7 in the last example using memoization, and the benefit of using memoization increases really fast by how high the Fibonacci number we want to find is.
+- FInding the 30th Fibonacci number requires 2,692,537 computations in the initial code, but it just requires 31 computations in the algorithm implemented using memoization.
+- you get this result by running the code below:
+
+- example - see the difference in calculations for finding the 30th Fibonacci number, with and without using memoization:
+`
+computation_count = 0
+def F(n):
+    global computation_count
+    computation_count += 1
+
+    if n <= 1:
+            return n
+        else:
+            return F(n - 1) + F(n - 2)
+
+computation_count_mem = 0
+def F_mem(n):
+    if memo[n] != None: #alredy computed
+        return memo[n]
+    else: #computation needed
+        global computation_count_mem
+        computation_count_mem += 1
+        print('Computing F('+str(n)+')')
+
+        if n <= 1:
+            return n
+        else:
+            return F(n - 1) + F(n - 2)
+        return memo[n]
+    
+print('F(30) = ', F(30))
+print(f'Number of computations: {computation_count})
+print('\nUsing memoization:')
+
+memo = [None] * 31
+
+print('F(30) = ',F_mem(30))
+print(f'Number of computations with memoization: {computation_count_mem}')
+`
+
+
+### Memoization in AVL Trees
+
