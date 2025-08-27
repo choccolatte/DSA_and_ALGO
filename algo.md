@@ -8107,3 +8107,27 @@ print(f'Number of computations with memoization: {computation_count_mem}')
 
 ### Memoization in AVL Trees
 
+- An AVL tree is a type of Binary Tree that is self-balancing.
+- Every time a node is inserted or deleted from an AVL tree, the balancing factor must be calculated for all ancestors, using the height of the left and right subtrees to find out if a rotation is needed to restore balance.
+- To avoid calculating the height of each node (going all the way down to the leaf nodes) to calculate the balancing factors, each node has its subtree height stored.
+
+- example - 
+`
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+        self.height = 1
+`
+
+- here, this means that to find the balance factor for a node, the already sorted left child's height is subtracted from the already sorted right child's height, no other calculations needed.
+- Storing height in AVL tree is a form of memoization, because the values are stored to avoid re-calculating them. In AVL trees, when the height is stored like this, it is called an augumented property.
+- An augumented property is a property of an element that does not have to be stored, but is stored to make operations more efficient.
+- The node heights must be calculated at some point of course, but that is only done when strictly needed, using retracing.
+
+
+
+## Tabulation
+
+- 
