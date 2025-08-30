@@ -8130,4 +8130,12 @@ class TreeNode:
 
 ## Tabulation
 
+- Tabulation is a technique used to solve problems.
+- Tabulation uses a table where the results to the most basic subproblems are stored first. The table then gets filled with more and more subproblem results until we find the result to the complete problem that we are looking for.
+- the Tabulation technique is said to solve problems 'bottom-up' because of how it solves the most basic subproblems first.
+- Tabulation is a technique used in Dynamic Programming, which means that to use tabulation we are trying to solve must consist of overlapping subproblems.
+
+
+### Using Tabulation to Find The nth Fibonacci Number
+
 - 
