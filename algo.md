@@ -8138,4 +8138,10 @@ class TreeNode:
 
 ### Using Tabulation to Find The nth Fibonacci Number
 
-- 
+- the Fibonacci numbers are great for demonstrating different programming techniques, also when demonstrating how tabulation works.
+- Tabulation uses a table that is filled with the lowest Fibonacci numbers F(0) = 0 and F(1) = 1 first (bottom-up). The next Fibonacci number to be stored in the table is F(2) = F(1) + F(0).
+- the next Fibonacci number is always the sum of the two previous numbers:
+    - F(n) = F(n - 1) + F(n - 2)
+
+- in this way, the table continues to get filled with next Fibonacci numbers until we find the nth Fibonacci number that we are looking for.
+
