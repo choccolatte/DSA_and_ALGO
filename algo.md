@@ -8145,3 +8145,56 @@ class TreeNode:
 
 - in this way, the table continues to get filled with next Fibonacci numbers until we find the nth Fibonacci number that we are looking for.
 
+- example - Finding the 10th Fibonacci number using tabulation:
+`
+def fib_tabulation(n):
+    if n == 0: return 0
+    elif n == 1: return 1
+
+    F = [0] * (n + 1)
+    F[0] = 0
+    F[1] = 1
+
+    for i in range(2, n + 1):
+        F[i] = F[i - 1] + F[i - 2]
+
+    print(F)
+    return F[n]
+
+n = 10
+result = fib_tabulation(n)
+print(f'\nThe {n}th Fibonacci number is {result}')
+`
+
+- other ways to find the nth Fibonacci number includes recursion, or the improved version of it using memoization.
+
+
+### Tabulation is a Bottom Up Approach
+
+- Tabulation is a bottom's up approach of solving a problem (coding), it is opposite of recursion, which follows the top-down approach and goes down solving the problem like a tree. 
+
+- the Tabulation approach starts building the table bottom up to find the 10th Fibonacci number, starting with F(0) and F(1).
+- the recursive approach starts by trying to find F(10), but to find that, it must call F(9) and F(8), and so, it goes all the way down to F(0) and F(1) before the function calls start returning values that can be put together to the final answer.
+
+
+### Other Problems That Are Solved with Tabulation
+
+- just like finding the nth FIbonacci number, Tabulation can also be used to find the solution to other problems:
+    - **The 0/1 Knapsack Problem** - is about having a set of items we can pack in a knapsack (a simple backpack), eahc item with a different value. To solve the problem, we need to find the items that will maximize the total value of items we pack, but we cannot bring all the items we want because the knapsack has a weight limit.
+
+    - **The Shortest Path Problem** - can be solved using the Bellman-Ford algorithm, which also uses Tabulation to find the shortest paths in a graph. MOre specifically, the Tabulation approach of the Bellman-FOrd algorithm is in how the values in the 'distances' array gets updated.
+
+    - **The Travelling Salesman Problem** - can be solved precisely using the Held-Karp algorithm, which also uses Tabulation. This algorithm is not described here as it is although better than brute force O(n!), still not very effective O(2^n n^2), and quite advanced.
+
+
+### Tabulation in Dynamic Programming
+
+- Tabulation, just like memoization, is a technique used in something called Dynamic Programming.
+- Dynamic Programming is a way of designing algorithms to solve problems.
+- For Dynamic Programming to work, the problem we want to solve must have two properties:
+    - The problem must be built up by smaller, overlapping subproblems. For example, the solution to Fibonacci number F(3) overlaps with the solutions to Fibonacci numebrs F(2) and F(1), because we get F(3) by combining F(2) and F(1).
+    - The problem must also have an optimal substructure, meaning that the solution to the problem can be constructed from the solutions to its subproblems. When finding the nth Fibonacci number, F(n) can be found by adding F(n - 1) and F(n - 2). So, knowing the two previous numbers is not enough to find F(n), we must also know the structure so that we know how to put them together.
+
+
+
+## Dynamic Programming
