@@ -8198,3 +8198,41 @@ print(f'\nThe {n}th Fibonacci number is {result}')
 
 
 ## Dynamic Programming
+
+- dynamic programming is a method for deesigning algorithms.
+- an algorithm designed with dynamic programming divides the problem into subproblems, finds the solutions to subproblems, and puts them together to form a complete solution to the problem we want to solve.
+
+- to design an algorithm for a problem using dynamic programming, the problem we want to solve must have these two properties:
+    - **Overlapping Subproblems** - means that the problem can be broken down into smaller subproblems, where the solutions to the subproblems are overlapping. Having subproblems that are overlapping means that the solution to one subproblem is part of the solution to another subproblem.
+    - **Optimal Substructure** - means that the complete solution to a problem can be constructed from the solutions of its smaller subproblems. So, not only must the problem have overlapping subproblems, the substructure must also be optimal so that there is a way to piece the solutions to the subproblems together to form the complete solution.
+
+- we have already seen dynamic programming here, in memoization and tabulation techniques, and for solving problems like the 0/1 knapsack problem, or to find the shortest path with the Bellman-Ford algorithm.
+
+- Note: Another way of designing an algorithm is using a greedy approach.
+
+
+### Using Dynamic Programming to Find the nth Fibonacci Number
+
+- lets say, we want an algorithm that finds the nth Fibonacci number. We dont know how to find the nth Fibonacci number yet, except that we want to use dynamic programming to design the algorithm.
+
+- the Fibonacci numbers is a sequence of numbers starting with 0 and 1, and the next numbers are created by adding the two previous numbers.
+- the 8 first Fibonacci numbers are: 0, 1, 1, 2, 3, 5, 8, 13
+- and counting from 0, the 4th Fibonacci number F(4) is 3.
+- in general, this is how a Fibonacci number is created based on the two previous:
+    - F(n) = F(n - 1) + F(n - 2)
+
+- so, how can we use dynamic programming to design an algorithm that finds the nth Fibonacci number?
+- there is no exact rule for how to design an algorithm using dynamic programming, but here is a suggestion that should work in most cases:
+    1. Check if the problem has 'overlapping subproblems' and an 'optimal substructure.'
+    2. Solve the most basic subproblems.
+    3. Find a way to put the subproblem solutions together to form solutions to new subproblems.
+    4. Write the algorithm (the step-by-step procedure).
+    5. Implement the algorithm (test if it works).
+
+
+#### Step 1: Check if the problem has 'overlapping subproblems' and an 'optimal substructure'
+
+#### Step 2: Solve the most basic subproblems
+#### Step 3: Find a way to put the subproblem solutions together to form solutions to new subproblems
+#### Step 4: Write the algorithm (the step-by-step procedure)
+#### Step 5: Implement the algorithm (test if it works)
