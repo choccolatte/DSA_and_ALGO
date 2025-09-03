@@ -8232,6 +8232,25 @@ print(f'\nThe {n}th Fibonacci number is {result}')
 
 #### Step 1: Check if the problem has 'overlapping subproblems' and an 'optimal substructure'
 
+- before trying to find an algorithm using dynamic programming, we must first check if the problem has the two properties 'overlapping subproblems' and 'optimal substructure'.
+
+- **Overlapping subproblems?**
+- Yes. The 6th Fibonacci number is a combination of the 5th and 4th Fibonacci number: 8 = 5 + 3. And, this rule holds for all other Fibonacci numbers as well. This shows that the problem of finding the nth Fibonacci number can be broken into subproblems.
+- Also, the subproblems overlap because F(5) is based on F(4) and F(3), adn F(6) is based on F(5) and F(4). 
+
+    - F(5) = F(4) + F(3)
+    - 5 = 3 + 2
+    and 
+    - F(6) = F(5) + F(4)
+    - 8 = 5 + 3
+
+- here, you see that both the solutions to subproblems F(5) and F(6) are created using the solution to F(4), and there are many cases like that, so the subproblems overlap as well.
+
+- **Optimal substructure?**
+- Yes. The Fibonacci number sequence has a very clear structure, because the two previous numbers are added to create the next Fibonacci number, and this holds for all Fibonacci numbers except for the two first. This means we know how to put together a solution by combining the solutions to the subproblems.
+- We can conclude that the problem of finding the nth Fibonacci number satisfies the two requirements, which means that we can use dynamic programming to find an algorithm that solves the problem.
+
+
 #### Step 2: Solve the most basic subproblems
 #### Step 3: Find a way to put the subproblem solutions together to form solutions to new subproblems
 #### Step 4: Write the algorithm (the step-by-step procedure)
