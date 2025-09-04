@@ -8252,6 +8252,30 @@ print(f'\nThe {n}th Fibonacci number is {result}')
 
 
 #### Step 2: Solve the most basic subproblems
+
+- we can now start trying to find an algorithm using dynamic programming.
+- solving the most basic subproblems first is a good place to start to get an idea of how the algorithm should run.
+- in our problem of finding the nth Fibonacci number, finding the most basic subproblems is not that hard, because we already know that -
+    - F(0) = 0
+    - F(1) = 1
+    - F(2) = 1
+    - F(3) = 2
+    - F(4) = 3
+    - F(5) = 5
+    - F(6) = 8
+    - ... 
+
+
 #### Step 3: Find a way to put the subproblem solutions together to form solutions to new subproblems
+
+- in this step, for our problem, how the subproblems are put together is quite straight forward, we just need to add the two previous Fibonacci numbers to find the next one.
+- So, for example, the 2nd Fibonacci number is created by adding the two previous numbers F(2) = F(1) + F(0), and that is the general rule as well, like mentioned earlier: F(n) = F(n - 1) + F(n - 2).
+
+- Note:
+- in other problems, combining solutions to subproblems to form nwe solutions usually involves making decisions like 'should we choose this way?', or 'should we include this item, or not?'
+
+
 #### Step 4: Write the algorithm (the step-by-step procedure)
+
+- 
 #### Step 5: Implement the algorithm (test if it works)
