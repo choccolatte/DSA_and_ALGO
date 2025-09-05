@@ -8277,5 +8277,51 @@ print(f'\nThe {n}th Fibonacci number is {result}')
 
 #### Step 4: Write the algorithm (the step-by-step procedure)
 
-- 
+- instead of writing the text for the algorithm straight away, it might be wise to try to write a procedure to solve a specific problem first, like funding the 6th Fibonacci number.
+- FOr reference, the 8 first Fibonacci numbers are - 0, 1, 1, 2, 3, 5, 8, 13.
+- Finding the 6th Fibonacci number, we could start with the two first numbers 0 and 1, which appear in place 0 and 1 in the sequence, and put them in an array, at index 0 and 1. Then, we could add the two first numbers in the array to generate the next number, and push that new number as a new element to the array. If we continue like this, until the array is 7 elements long, we would stop and return `F[6]`. That woudl work, right?
+- After solving the specific problem above, it is now easier to write the actual algorithm.
+- The algorithm for finding the nth Fibonacci number, using Dynamic Programming as a design method, can be described like this:
+
+- How it works?
+    1. Create an array `F`, with n + 1 elements.
+    2. Store the two first Fibonacci numbers F[0] = 0, and F[1] = 1.
+    3. Store the next element `F[2] = F[1] + F[0]`, and continue to create new Fibonacci numbers like that until the value in `F[n]` is created.
+    4. Return `F[n]`.
+
+
 #### Step 5: Implement the algorithm (test if it works)
+
+- to implement the algorithm above, we assume that the argument `n` to the function is a positive number (the nth Fibonacci numebr), and we use a `for` loop to creater the new Fibonacci numbers, and we return the base cases `F[0]` and `F[1]` straight away if the function is called with `0` and `1` as an argument.
+- implementing the algorithm also means that we can check if it works.
+
+- example - finding the 6th Fibonacci number with our new algorithm.
+`
+def nth_fibo(n):
+    if n == 0: return 0
+    if n == 1: return 1
+
+    F = [None] * (n + 1)
+    F[0] = 0
+    F[1] = 1
+
+    for i in range(2, n + 1):
+        F[i] = F[i - 1] + F[i - 2]
+
+    return F[n]
+
+n = 6
+result = nth_fibo(n)
+print(f'The {n}th Fibonacci number is {result}')
+`
+
+- there we have it.
+- we have used Dynamic Programming as a design method to create an algorithm that finds the nth Fibonacci number.
+- we have also implemented the algorithhm to demonstrate that it works, and in doing so, we have unintentionally used a well established technique within Dynamic Programming called tabulation, where the solution is found by solving subproblems bottom-up, using some kind of table.
+- Furthermore, we have avoided calculating the same overlapping subproblems many times, like `F[3]` for example, that we could potentially have ended up doing otherwise, with a brute force recursive approach for example.
+- another technique used in Dynamic Programming is called memoization. In this case, using memoization essentially solves the problem recursively with brute force, but stores the subproblem solutions for later as the algorith runs to avoid doing the same calculations more than once.
+
+
+### Techniques Used in Dynamic Programming
+
+- 
