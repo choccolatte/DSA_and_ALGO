@@ -8327,8 +8327,20 @@ print(f'The {n}th Fibonacci number is {result}')
 - it might be difficult to design an algorithm using Dynamic Programming, but the concept of Dynamic Programming is actually not that hard: Solve the problem, but since the subproblems are overlapping, do it in a smart way so that a specific subproblem only needs to be solved once.
 - To be able to use solutions to previously solved subproblems in Dynamic Programming, the previously found solutions must be stored somehow, and that can be done using memoization or tabulation.
 
-- Memoization is a technique used in Dynamic Programming, where the solution is found recursively. As the algorithm runs, solutions to subproblems are stored, and before trying to compute the solution to a subproblem, it checks first to see if that solution has already been computed, to avoid doing the same computation more than once.
+- **Memoization** is a technique used in Dynamic Programming, where the solution is found recursively. As the algorithm runs, solutions to subproblems are stored, and before trying to compute the solution to a subproblem, it checks first to see if that solution has already been computed, to avoid doing the same computation more than once.
 - The memoization technique is called 'top-down' because the initial funciton call is for the main problem, and it results in new function calls for solving smaller and smaller subproblems.
 
-- Tabulation is a technique used in Dynamic Programming, where solutions to the overlapping subproblems are stored in a table (array), starting with the most basic subproblems.
-- teh tabulation technique is not recursive
+- **Tabulation** is a technique used in Dynamic Programming, where solutions to the overlapping subproblems are stored in a table (array), starting with the most basic subproblems.
+- teh tabulation technique is not recursive, and it is called 'bottom-up' because of the way the final solution is built up by solving the most basic subproblems first. Sinice the most basic subproblem solutions are stored in the table first, when solving a subproblem later that relies on previous subproblems, the algorithm can just pick these solutions right from the table, no need to compute them again.
+- to get a better sense of how memoization works, and is considered 'top-down', and how tabulation works, and is 'bottom-up', read this example - 
+    - the bottom up tabulation approach to finding the 10th FIbonacci number works from bottom to top. We solve the last subproblem, then move to the other smaller subproblems.
+    - the tabulation approach starts at the bottom by solving the F(0) first.
+
+    - the top-down memoization approach to finding the 10th Fibonacci number works from top down, so we solve at each way, and go along storing  the solutions to subproblems we solve recursively.
+    - the memoization approach starts at the top with F(10) and breaking it into smaller and smaller subproblems from there we move down.
+
+
+
+## Greedy Algorithms
+
+- 
