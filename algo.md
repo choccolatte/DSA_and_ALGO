@@ -8349,3 +8349,29 @@ print(f'The {n}th Fibonacci number is {result}')
 - So, Dijkstra's algorithm is greedy because the choice of which vertex to visit next is only based on the currently available informaiton, without considering the overall problem or how this choice might affect future decisions or the shortest paths in the end.
 - choosing a greedy algorithm is a design choice, just like Dynamic Programming is another algorithm design choice.
 
+- two properties must be true for a problem for a greedy algorithm to work:
+    - **Greedy Choice Property**: Means that the problem is so that the solution (the global optimum) can be reached by making greedy choices in each step (locally optimal choices.)
+
+    - **Optimal Substructure**: Means that the optimal solution to a problem, is a collection of optimal solutions to sub-problems. So, solving smaller parts of the problem locally (by making greedy choices) contributes to the overall solution.
+
+- most of the problems here, like sorting an array, or finding the shortest paths in a graph, have three proeprties, and those problems can therefore be solved by greedy algorithms like Selection Sort, or Dijkstra's algorithm.
+- But problems like The Travelling Salesman, or the 0/1 Knapsack Problem, do not have these problems, and so a greedy algorithm can not be used to solve them. These problems are discussed further down.
+- In addition, even if a problem can be solved by a greedy algorithm, it can also be solved by non-greedy algorithms.
+
+
+### Algorithms That Are Not Greedy
+
+- below are the algorithms that are not greedy, meaning they do not only rely on doing locally optimal choices in each step:
+
+    - **Merge Sort**: Splits the array in halves over and over again, and then merges the array parts together again in a way that results in a sorted array. These operations are not a series of locally optimal choices like greedy algorithms are.
+
+    - **Quicksort**: The choice of pivot element, the arranging of elements around the pivot element, and the hrecursive calls to do the same with the left and the right side of the pivot element - those actions do not rely on making greedy choices.
+
+     **BFS and DFS Traversal**: These algorithms traverse a graph without making a choice locally in each step on how to continue with the traversal, and so they are not greedy algorithms.
+
+    - **Finding the nth Fibonacci Number using Memoization**: This algorithm belongs to a way of solving problems called Dynamic Programming, which colves overlapping sub-problems, and then pieces them back. Memoization is used in each step to optimize the overall algorithm, which means that at each step, this algorithm does not only consider what is the locally optimal solution, but it also takes into account that a result computed in this step, might be used in later steps.
+
+
+### The 0/1 Knapsack Problem
+
+- the 0/1 Knapsack Problem cannot be solved by a greedy algorithm because it does not fulfill the greedy choice property, and the optimal substructure property, as mentioned earlier.
