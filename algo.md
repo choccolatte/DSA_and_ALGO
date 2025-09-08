@@ -8343,4 +8343,9 @@ print(f'The {n}th Fibonacci number is {result}')
 
 ## Greedy Algorithms
 
-- 
+- a greedy algorithm decides what to do in each step, only based on the current situation, without a thought of how the total problem looks like.
+- in other words, a greedy algorithm makes the locally optimal choice in each step, hoping to find the global optimum solution in the end.
+- In Dijkstra's algorithm for example, the next vertex to be visited is always the next unvisited vertex with the currently shortest distance from the source, as seen from the current group of visited vertices.
+- So, Dijkstra's algorithm is greedy because the choice of which vertex to visit next is only based on the currently available informaiton, without considering the overall problem or how this choice might affect future decisions or the shortest paths in the end.
+- choosing a greedy algorithm is a design choice, just like Dynamic Programming is another algorithm design choice.
+
