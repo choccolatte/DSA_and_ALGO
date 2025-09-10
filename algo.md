@@ -8375,3 +8375,23 @@ print(f'The {n}th Fibonacci number is {result}')
 ### The 0/1 Knapsack Problem
 
 - the 0/1 Knapsack Problem cannot be solved by a greedy algorithm because it does not fulfill the greedy choice property, and the optimal substructure property, as mentioned earlier.
+
+- **the 0/1 Knapsack Problem**
+    - Rules:
+    - every item has a weight and a value.
+    - Your knapsack has a weight limit.
+    - Choose which items you want to bring with you in the knapsack.
+    - You can either take an item or not, you cannot take half of an item for example.
+
+    - Goal:
+    - Maximize the total value of the items in the knapsack.
+
+- this problem cannot be solved by a greedy algorithm, because choosing the item with the highest value, the lowest weight, or the highest value to weight ratio, in each step (local optimal solution, greedy), does not guarntee the optimal solution (global optimum).
+- lets say your backpack's limit is 10 kg, and you have three treasures in front of you:
+    
+    - Treasure Weight Value
+    - An old shield - 5kg - $300
+    - A nicely painted clay pot - 4kg - $500
+    - A metal horse figure - 7kg - $600
+
+- 
