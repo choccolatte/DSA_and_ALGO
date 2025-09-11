@@ -8394,4 +8394,30 @@ print(f'The {n}th Fibonacci number is {result}')
     - A nicely painted clay pot - 4kg - $500
     - A metal horse figure - 7kg - $600
 
-- 
+- making the greedy choice by taking the most valuable thing first, the horse figure with the value $600, means that you cannot bring any of the other things without breaking the weight limit.
+- So, by trying to solve this problem, in a greedy way you end up with a metal horse with the value $600.
+- But, the best solution in this case is taking the shield and the pot, maximizing the total value in the backpack to be $800, while still being under the weight limit.
+- What about always taking the treasure with the lowest weight? Or always taking the treasure with the highest value to weight ratio?
+- While following those principles would actually lead us to the best solution in this specific case, we could not guarntee that those principles would work if the values and weights in this example were changed.
+- This means that the 0/1 knapsack problem cannot be solved with a greedy algorithm.
+
+
+### The Traveling Salesman
+
+- the The Traveling Salesman problem is a famous problem that also cannot be solved by a greedy algorithm, because it does not fulfill the greedy choice property, and the optimal substructure property, as mentioned earlier.
+- The Traveling Salesman problem states that you are a salesperson with a number of cities or towns you must visit to sell your things.
+
+- **The Traveling Salesman Problem**
+    - Rules:
+    - Visit every city only once, then return back to the city you started in.
+
+    - Goal:
+    - Find the shortest possible route.
+
+- Using a greedy algorithm here, you would always go to the next unvisited city that is closest to the city you are currently in. But this would in most cases not lead you to the optimal solution with the shortest total path.
+- if we run a simulation for example, it might not always be obvious that the algorithm is flawed, but you might notice how smetimes the lines are crossing, creating a longer total distance, when that is clearly not necessary.
+- WHen running a greedy approach to The Traveling Salesman problem sometimes gives us a pretty good approximation to the shortest possible route, a greedy algorithm will not be able to solve The Traveling Salesman problem in general.
+- The Traveling Salesman problem does not fulfuill the properties needed so that it can be solved by a greedy algorithm.
+
+- **Note**: 
+- There is actually no algorithm that finds the shortest route in The Traveling Salesman problem efficiently. We just ahve to check all possible routes! THis gives us a time complexity - O(n!), which means the number of calculations explodes when the number of cities (n) is increased.
